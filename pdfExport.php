@@ -347,7 +347,7 @@ for($ind = 0; $ind < count($timeArray); $ind++) {
 
     $timeString = $time . " - " . $hour . ":" . $minute;
 
-    $pdf->MultiCell(30, $rowHeight / 2, $timeString, 0, 'C');
+    $pdf->MultiCell(30, $rowHeight, $timeString, 0, 'C');
 
     $pdf->SetXY($current_x + 30, $current_y);
 

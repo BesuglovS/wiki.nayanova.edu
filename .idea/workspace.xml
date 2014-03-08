@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4f6c273c-6cd0-4ae7-9964-b4dd6ac1b238" name="Default" comment="" />
+    <list default="true" id="4f6c273c-6cd0-4ae7-9964-b4dd6ac1b238" name="Default" comment="Adding Lesson ending TIme&#10;                                    Adding MultiLesson at a Time Support">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pdfExport.php" afterPath="$PROJECT_DIR$/pdfExport.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="wnu2.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,7 +15,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
+    <option name="PATCH_PATH" value="C:\Users\bs\Desktop" />
   </component>
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
@@ -27,14 +30,42 @@
     <favorites_list name="wnu2" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="pdfExport.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pdfExport.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="349" column="34" selection-start="10193" selection-end="10193" vertical-scroll-proportion="0.0" vertical-offset="5933" max-vertical-offset="8330">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="217" column="13" selection-start="7912" selection-end="7912" vertical-scroll-proportion="0.68063873" vertical-offset="3348" max-vertical-offset="4692">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="BesuglovS" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
     <option name="myDateState">
       <MyDateState />
     </option>
@@ -42,7 +73,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/_php/includes/planGroup.php" />
         <option value="$PROJECT_DIR$/_php/includes/planTeacher.php" />
         <option value="$PROJECT_DIR$/rvAPI/rvAPICore.php" />
         <option value="$PROJECT_DIR$/_php/includes/test.php" />
@@ -56,6 +86,7 @@
         <option value="$PROJECT_DIR$/_php/includes/Utilities.php" />
         <option value="$PROJECT_DIR$/index2.php" />
         <option value="$PROJECT_DIR$/upload/_js/main.js" />
+        <option value="$PROJECT_DIR$/_php/includes/Database.php" />
         <option value="$PROJECT_DIR$/pdfExport.php" />
         <option value="$PROJECT_DIR$/index.php" />
       </list>
@@ -153,6 +184,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -167,13 +199,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wnu2" />
+              <option name="myItemId" value="wiki.nayanova.edu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -193,7 +224,7 @@
     <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
   </component>
-  <component name="PublishConfig" serverName="wiki-nayanova-edu" serverId="df5f7211-8d04-4c55-b90e-6647f41aec9d">
+  <component name="PublishConfig" serverName="wiki-nayanova-edu" serverId="df5f7211-8d04-4c55-b90e-6647f41aec9d" uploadOnCheckin="df5f7211-8d04-4c55-b90e-6647f41aec9d">
     <servers>
       <server id="df5f7211-8d04-4c55-b90e-6647f41aec9d">
         <serverdata>
@@ -203,6 +234,7 @@
         </serverdata>
       </server>
     </servers>
+    <option name="myUploadOnCheckinName" value="wiki-nayanova-edu" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -287,6 +319,23 @@
       <created>1376583959244</created>
       <updated>1376583959244</updated>
     </task>
+    <task id="LOCAL-00001" summary="Remote connection">
+      <created>1394269457518</created>
+      <updated>1394269457518</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Adding Font for PDF Export">
+      <created>1394269881650</created>
+      <updated>1394269881650</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Adding Lesson ending TIme&#10;Adding MultiLesson at a Time Support">
+      <created>1394276995107</created>
+      <updated>1394276995107</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Time vertical alignment&#10;+ Sunday is a DAY OFF">
+      <created>1394277780926</created>
+      <updated>1394277780926</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -310,27 +359,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="301" y="695" width="804" height="176" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20115606" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32716763" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779098" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.7973301" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22042139" sideWeight="0.7988439" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23662885" sideWeight="0.6706161" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32716763" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="301" y="695" width="804" height="176" />
+      <window_info id="File Transfer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20023696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32779098" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.8016627" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -343,6 +393,12 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Right connection" />
+    <MESSAGE value="Remote connection" />
+    <MESSAGE value="Adding Font for PDF Export" />
+    <MESSAGE value="Adding Lesson ending TIme&#10;Adding MultiLesson at a Time Support" />
+    <MESSAGE value="Time vertical alignment&#10;+ Sunday is a DAY OFF" />
+    <option name="LAST_COMMIT_MESSAGE" value="Time vertical alignment&#10;+ Sunday is a DAY OFF" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -350,16 +406,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_php/includes/info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="2" selection-start="168" selection-end="168" vertical-scroll-proportion="0.18819188" vertical-offset="0" max-vertical-offset="813" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="22" selection-start="45" selection-end="298" vertical-scroll-proportion="0.2091021" vertical-offset="0" max-vertical-offset="813" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fpdf17/tutorial/tuto1.htm">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394" />
@@ -377,16 +423,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_php/includes/ConfigOptions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="839">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fpdf17/fpdf.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="21" selection-start="6047" selection-end="6057" vertical-scroll-proportion="0.21161291" vertical-offset="2352" max-vertical-offset="30668">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="839" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fpdf17/makefont/calibri.php">
@@ -396,9 +433,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_php/includes/import.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="336" column="12" selection-start="14400" selection-end="14400" vertical-scroll-proportion="0.8403756" vertical-offset="5175" max-vertical-offset="5933">
-          <folding />
-        </state>
+        <state line="336" column="12" selection-start="14400" selection-end="14400" vertical-scroll-proportion="0.8403756" vertical-offset="5175" max-vertical-offset="5933" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fpdf17/fpdf.css">
@@ -408,61 +443,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/upload/_js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="22" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.4456929" vertical-offset="561" max-vertical-offset="9877">
-          <folding>
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1394265788908" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
+        <state line="54" column="22" selection-start="2613" selection-end="2613" vertical-scroll-proportion="0.4456929" vertical-offset="561" max-vertical-offset="9877" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_php/includes/Utilities.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="27" selection-start="5443" selection-end="5443" vertical-scroll-proportion="0.7490775" vertical-offset="3080" max-vertical-offset="3944">
+        <state line="217" column="27" selection-start="5443" selection-end="5443" vertical-scroll-proportion="0.7490775" vertical-offset="3080" max-vertical-offset="3944" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_php/includes/FacultyDOWSchedule.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="201" column="64" selection-start="6850" selection-end="6862" vertical-scroll-proportion="4.202952" vertical-offset="0" max-vertical-offset="5474" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_php/includes/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="2" selection-start="1124" selection-end="1124" vertical-scroll-proportion="0.7941919" vertical-offset="0" max-vertical-offset="792">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fpdf17/font/calibri.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index-session.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5372" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fpdf17/fpdf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="21" selection-start="6047" selection-end="6057" vertical-scroll-proportion="2.3132222" vertical-offset="714" max-vertical-offset="30668" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfExport.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="349" column="34" selection-start="10193" selection-end="10193" vertical-scroll-proportion="0.0" vertical-offset="5933" max-vertical-offset="8330">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="257" column="73" selection-start="9571" selection-end="9571" vertical-scroll-proportion="1.27625" vertical-offset="3348" max-vertical-offset="4675">
-          <folding>
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#1;n#td#1;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#0;n#p#1;n#td#1;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#2;n#td#1;n#tr#0;n#table#0;n#section#3;n#section#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/FacultyDOWSchedule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="201" column="64" selection-start="6850" selection-end="6862" vertical-scroll-proportion="4.202952" vertical-offset="0" max-vertical-offset="5474">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pdfExport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="39" selection-start="608" selection-end="608" vertical-scroll-proportion="0.53661615" vertical-offset="0" max-vertical-offset="7429">
+        <state line="217" column="13" selection-start="7912" selection-end="7912" vertical-scroll-proportion="0.68063873" vertical-offset="3348" max-vertical-offset="4692">
           <folding />
         </state>
       </provider>
