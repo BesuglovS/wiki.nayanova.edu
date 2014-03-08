@@ -297,9 +297,14 @@ foreach ($groups as $groupKey => $groupData)
 }
 $pdf->Ln();
 
-$rowHeight = 160 / count($timeArray);
+$rowHeight = 158 / count($timeArray);
 
-foreach ($timeArray as $time) {
+//foreach ($timeArray as $time) {
+for($ind = 0; $ind < count($timeArray); $ind++) {
+
+    $values = array_values($timeArray);
+    $time = $values[$ind];
+
     $lesHour = mb_substr($time, 0, 2);
     $lesMin = mb_substr($time, 3, 2);
     $timeDiff = Utilities::DiffTimeWithNowInMinutes($lesHour, $lesMin);
@@ -326,7 +331,23 @@ foreach ($timeArray as $time) {
     $pdf->Rect($current_x,$current_y,30,$rowHeight);
 
     $pdf->SetFont('Calibri','',10);
-    $pdf->MultiCell(30, $rowHeight / 2, $time, 0, 'C');
+
+    $hour = intval(mb_substr($time,0,2));
+    $minute = intval(mb_substr($time,3,2));
+    $minute += 80;
+
+    while ($minute >= 60) {
+        $hour++;
+        $minute -= 60;
+    }
+    if ($minute < 10)
+    {
+        $minute = '0' . $minute;
+    }
+
+    $timeString = $time . " - " . $hour . ":" . $minute;
+
+    $pdf->MultiCell(30, $rowHeight / 2, $timeString, 0, 'C');
 
     $pdf->SetXY($current_x + 30, $current_y);
 
@@ -339,7 +360,9 @@ foreach ($timeArray as $time) {
             //echo " style=\"background:#FFFFAA\"";
         }
 
-        $cellValue = "";
+        $cellValues = array();
+        $cellValues[] = "";
+        $cellValueIndex = 0;
 
         $splitCounter = 0;
 
@@ -349,10 +372,10 @@ foreach ($timeArray as $time) {
         {
             if ($tfdData["lessons"][0]["groupName"] != $groupKey)
             {
-                $cellValue .= $tfdData["lessons"][0]["groupName"] . "\n";
+                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["groupName"] . "\n";
             }
-            $cellValue .= $tfdData["lessons"][0]["discName"] . "\n";
-            $cellValue .= $tfdData["lessons"][0]["teacherFIO"] . "\n";
+            $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["discName"] . "\n";
+            $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["teacherFIO"] . "\n";
 
             $commonWeeks = array();
             foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
@@ -361,22 +384,22 @@ foreach ($timeArray as $time) {
                     $commonWeeks[] = $weekNum;
                 }
             }
-            $cellValue .=  "(" . iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($commonWeeks)) . ")\n";
+            $cellValues[$cellValueIndex] .=  "(" . iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($commonWeeks)) . ")\n";
 
             // TODO сортировать недели аудиторий по порядку
             if (count($tfdData["weeksAndAuds"]) > 1)
             {
                 foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
                 {
-                    $cellValue .=  iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($currentWeekList)) . " - ";
-                    $cellValue .=  $audName . "\n";
+                    $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($currentWeekList)) . " - ";
+                    $cellValues[$cellValueIndex] .=  $audName . "\n";
                 }
             }
             else
             {
                 foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
                 {
-                    $cellValue .=  $audName . "\n";
+                    $cellValues[$cellValueIndex] .=  $audName . "\n";
                 }
             }
 
@@ -384,6 +407,8 @@ foreach ($timeArray as $time) {
             if (($cnt != 1) && ($splitCounter != $cnt-1))
             {
                 //echo "<hr />";
+                $cellValues[] = "";
+                $cellValueIndex++;
             }
 
             $splitCounter++;
@@ -394,8 +419,16 @@ foreach ($timeArray as $time) {
 
         $pdf->Rect($current_x,$current_y,$cellWidth,$rowHeight);
 
-        $lineCount = mb_substr_count($cellValue,"\n");
-        $lineHeight = 5;
+
+        $lineCount = 0;
+        $lineCounts = array();
+        for ($i = 0; $i < count($cellValues); $i++) {
+            $cnt = mb_substr_count($cellValues[$i],"\n");
+            $lineCounts[] = $cnt;
+            $lineCount += $cnt;
+        }
+
+        $lineHeight = 10;
         if ($lineCount != 0)
         {
             $lineHeight = $rowHeight / $lineCount;
@@ -407,25 +440,45 @@ foreach ($timeArray as $time) {
         $pdf->SetFont('Calibri','',10);
         switch ($lineHeight) {
             case 4:
-                $pdf->SetFont('Calibri','',6);
+                $pdf->SetFont('Calibri','',8);
                 break;
             case 3:
-                $pdf->SetFont('Calibri','',5);
+                $pdf->SetFont('Calibri','',6);
                 break;
             case 2:
-                $pdf->SetFont('Calibri','',3);
+                $pdf->SetFont('Calibri','',4);
                 break;
             case 1:
                 $pdf->SetFont('Calibri','',2);
                 break;
         }
 
-        $pdf->MultiCell($cellWidth, $lineHeight, $cellValue, 0);
+        $cellValueCount = count($cellValues);
+
+        for ($i = 0; $i <= $cellValueCount; $i++) {
+            $curHeight = 0;
+            for ($j = 0; $j < $i; $j++) {
+                $curHeight += $lineHeight*$lineCounts[$j];
+            }
+            $pdf->SetXY($current_x, $current_y + $curHeight);
+
+            $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0);
+
+            if ($i != $cellValueCount-1)
+            {
+                $pdf->Line(
+                    $current_x, $current_y + ($i+1)*$lineHeight*$lineCounts[$i],
+                    $current_x + $cellWidth, $current_y + ($i+1)*$lineHeight*$lineCounts[$i]);
+            }
+        }
 
         $pdf->SetXY($current_x + $cellWidth, $current_y);
     }
 
-    $pdf->Ln($rowHeight);
+    if ($ind != count($timeArray)-1)
+    {
+        $pdf->Ln($rowHeight);
+    }
 }
 
 $pdf->Output();
