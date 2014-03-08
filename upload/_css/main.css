@@ -1,0 +1,782 @@
+@charset "utf-8";
+/** * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/) * http://cssreset.com */html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	font: inherit;	vertical-align: baseline;}/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}body {	line-height: 1;}ol, ul {	list-style: none;}blockquote, q {	quotes: none;}blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}table {	border-collapse: collapse;	border-spacing: 0;}
+
+a img {
+    border: none;
+}
+a:link {
+    color: #42413C;
+    text-decoration: underline;
+}
+a:visited {
+    color: #6E6C64;
+    text-decoration: underline;
+}
+a:hover, a:active, a:focus {
+    text-decoration: none;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+body {
+    font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+    background-color: #eee;
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+#container {
+    width: 620px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+}
+
+header {
+    background-color: white;
+}
+
+header h1 {
+    font-size:2em;
+    padding-top: 0.5em;
+    padding-left: 1em;
+}
+
+#headerLogo {
+    float: right;
+}
+
+section#vk {
+    width: 300px;
+    float: right;
+    padding: 0.5em;
+}
+
+img#weekLeft {
+    border:1px solid #000;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+div#dateScheduleControls {
+    text-align: center;
+}
+
+div#dateScheduleControls p {
+    margin: 0.5em 0;
+}
+
+table#SessionScheduleTable tr, table#dateScheduleTable tr {
+    text-align: center;
+}
+
+.ui-datepicker {
+    font-size:0.8em;
+    margin-left: -3em;
+}
+
+.ui-menu-item {
+    width: 200px;
+}
+
+.ui-autocomplete, .ui-autocomplete-input{
+    font-size:0.8em;
+}
+
+#groupsScheduleHeader {
+    margin-top: 1em;
+}
+
+table#SessionScheduleTable, table#dateScheduleTable {
+    margin: 0 auto;
+}
+
+table#SessionScheduleTable td, table#dateScheduleTable td {
+    vertical-align: middle;
+}
+
+table#SessionScheduleTable button, table#dateScheduleTable button {
+    font-size: 0.7em;
+}
+
+
+section#groupsSchedule {
+    width: 300px;
+    float: left;
+}
+
+
+footer {
+    padding: 0.5em 2em;
+    background-color: #CCC49F;
+}
+
+
+
+/* Teacher FIO Combobox styles */
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+    margin-left:-2em;
+}
+
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+    /* support: IE7 */
+    *height: 1.7em;
+    *top: 0.1em;
+}
+
+.custom-combobox-input {
+    margin: 0;
+    padding: 0.3em;
+}
+
+/* Таблица расписания группы на 1 день */
+.DailySchedule {
+    margin:0;
+    padding:0;
+    width:100%;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid #000000;
+}
+.DailySchedule table{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+.DailySchedule td{
+    vertical-align:middle;
+    text-align:left;
+    padding:7px;
+    font-size:10px;
+    font-family:Arial;
+    font-weight:normal;
+}
+
+.DailySchedule tr td{
+    border:1px solid #000000;
+    text-align:center;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    background-color: white;
+}
+
+/* Таблица расписания группы на 1 день */
+
+#scheduleBox h1 {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+/* Таблица аудиторий корпуса на день */
+.redHeadWhiteBodyTable {
+    margin:0px;padding:0px;
+    width:100%;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid #000000;
+
+}
+.redHeadWhiteBodyTable table{
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.redHeadWhiteBodyTable td{
+    vertical-align:middle;
+
+    background-color:#ffffff;
+
+    border:1px solid #000000;
+    border-width:0px 1px 1px 0px;
+    text-align: center;
+    padding:7px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#000000;
+}
+.redHeadWhiteBodyTable tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+.redHeadWhiteBodyTable tr td:last-child{
+    border-width:0px 0px 1px 0px;
+}
+.redHeadWhiteBodyTable tr:last-child td:last-child{
+    border-width:0px 0px 0px 0px;
+}
+.redHeadWhiteBodyTable tr:first-child td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+    border:0px solid #000000;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+}
+.redHeadWhiteBodyTable tr:first-child:hover td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+}
+.redHeadWhiteBodyTable tr:first-child td:first-child{
+    border-width:0px 0px 1px 0px;
+}
+.redHeadWhiteBodyTable tr:first-child td:last-child{
+    border-width:0px 0px 1px 1px;
+}
+/* Таблица аудиторий корпуса на день */
+
+@media only screen and (max-width : 620px) and (min-width : 320px) {
+    #container {
+        width: 320px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    #headerLogo {
+        height: 100px;
+        width: 100px;
+        margin-top: 1.5em;
+        margin-right: 0.5em;
+    }
+}
+
+/* TeacherSchedule table
+   align first column to the left */
+#TeacherSchedule td
+{
+    text-align:left;
+}
+
+/* but not header*/
+#TeacherSchedule tr:first-child td {
+    text-align: center;
+}
+/* TeacherSchedule table */
+
+
+#studentListTable td {
+    text-align: left;
+}
+
+.ui-autocomplete {
+    max-height: 450px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+}
+
+#facultyDOWButtons {
+    margin-top: 0.5em;
+}
+
+#DOWButtonwrapper{
+    text-align:center;
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 2em;
+}
+
+#DOWButtonwrapper button {
+    margin-right: 0.25em;
+    margin-left: 0.25em;
+}
+
+#DOWButtonwrapper button:hover {
+    cursor: pointer;
+    font-size:150%;
+    margin-top: -1em;
+    vertical-align: middle;
+    margin-right: 0;
+    margin-left: 0;
+
+}
+
+
+
+
+#Math {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #fa0000 0%,
+        #ff0000);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#fa0000),
+        to(#ff0000));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #ffbf00;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#Phil {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #b5dde6 0%,
+        #b5dde6);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#b5dde6),
+        to(#b5dde6));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #40c8e6;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#Bio {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #83c141 0%,
+        #82bf41);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#83c141),
+        to(#82bf41));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #64c200;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#Econ {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #4f82bd 0%,
+        #5282bd);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#4f82bd),
+        to(#5282bd));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #0055bd;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+
+#Law {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #c71eb3 0%,
+        #c71eb3);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#c71eb3),
+        to(#c71eb3));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #c700b0;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#PR {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #ffff00 0%,
+        #ffff00);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#ffff00),
+        to(#ffff00));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #ffff00;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#Upr {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #b3a2c7 0%,
+        #b3a2c7);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#b3a2c7),
+        to(#b3a2c7));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #ac93c7;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+#Tur {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #ffbf00 0%,
+        #ffbf00);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#ffbf00),
+        to(#ffbf00));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 3px solid #ffd147;
+    -moz-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    -webkit-box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    box-shadow:
+        0px 3px 11px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(0,0,0,1);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.2),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+
+/* DOW Раписание */
+.DOWSchedule {
+    margin:0px;padding:0px;
+    width:100%;
+    box-shadow: 10px 10px 5px #888888;
+    border:1px solid #000000;
+
+}
+.DOWSchedule table{
+    width:100%;
+    height:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.DOWSchedule td{
+    vertical-align:middle;
+
+    background-color:#ffffff;
+
+    border:1px solid #000000;
+    border-width:0px 1px 1px 0px;
+    text-align: left;
+    padding:7px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#000000;
+}
+.DOWSchedule tr:last-child td{
+    border-width:0px 1px 0px 0px;
+}
+
+.DOWSchedule tr td:first-child{
+    text-align: center;
+}
+
+.DOWSchedule tr td:last-child{
+    border-width:0px 0px 1px 0px;
+}
+.DOWSchedule tr:last-child td:last-child{
+    border-width:0px 0px 0px 0px;
+}
+.DOWSchedule tr:first-child td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+    border:0px solid #000000;
+    text-align:center;
+    border-width:0px 0px 1px 1px;
+    font-size:14px;
+    font-family:Arial;
+    font-weight:bold;
+    color:#ffffff;
+}
+.DOWSchedule tr:first-child:hover td{
+    background:-o-linear-gradient(bottom, #ff7f00 5%, #bf5f00 100%);
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff7f00), color-stop(1, #bf5f00) );
+    background:-moz-linear-gradient( center top, #ff7f00 5%, #bf5f00 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff7f00", endColorstr="#bf5f00");	background: -o-linear-gradient(top,#ff7f00,bf5f00);
+
+    background-color:#ff7f00;
+}
+.DOWSchedule tr:first-child td:first-child{
+    border-width:0px 0px 1px 0px;
+}
+.DOWSchedule tr:first-child td:last-child{
+    border-width:0px 0px 1px 1px;
+}
+/* DOW Раписание */
+
+div#flipWraper {
+    text-align: center;
+}
+
+div#scheduleOrChangesDiv span.switch-button-label {
+    font-size: 0.9em;
+}
+
+div#scheduleOrChangesDiv{
+    margin-bottom: 0.5em;
+}
+
+div#DayOrWeekDiv span.switch-button-label {
+    font-size: 0.6em;
+}
+
+div#weekDiv{
+    float:right;
+    vertical-align:middle;
+    text-align:center;
+    font-size:1.6em;
+    margin-top:0.8em;
+    margin-right:1.5em;
+}
+
+div#weekNum {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    color: #ffffff;
+    padding: 10px 20px;
+    background: -moz-linear-gradient(
+        top,
+        #5182BD 0%,
+        #5182BD);
+    background: -webkit-gradient(
+        linear, left top, left bottom,
+        from(#5182BD),
+        to(#5182BD));
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    border: 1px solid #345577;
+    -moz-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.4),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+h2#sessionScheduleHeader {
+    text-align: center;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em; <!-- 1.5 -->
+}
+
+div#scheduleOrChangesSessionDiv {
+    margin-left: 1.8em;
+    margin-bottom: 0.4em; <!-- 1.6 -->
+}
+
+div#sessiusImageDiv img {
+    display:block;
+    margin:auto;
+}
+
+div#vkGroupLink{
+    text-align: center;
+    margin-bottom: 0.4em;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 3px;
+    background: #5182BD;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #345577;
+    -moz-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    -webkit-box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    box-shadow:
+        0px 1px 3px rgba(000,000,000,0.5),
+        inset 0px 0px 1px rgba(255,255,255,0.7);
+    text-shadow:
+        0px -1px 0px rgba(000,000,000,0.4),
+        0px 1px 0px rgba(255,255,255,0.3);
+}
+
+div#vkGroupLink p {
+    color: white;
+}
+
+span#vklinktext {
+    font-size: 0.7em;
+}
+
+p#sessionByDateP {
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+#graduatesDiv{
+    text-align:center;
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 2em;
+}
+
+#graduatesDiv button {
+    margin-right: 0.25em;
+    margin-left: 0.25em;
+}
