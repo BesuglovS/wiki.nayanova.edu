@@ -218,6 +218,7 @@ require_once("_php/includes/Database.php");
                         <option value="4">Четверг</option>
                         <option value="5">Пятница</option>
                         <option value="6">Суббота</option>
+                        <option value="7">Воскресенье</option>
                     </select>
                 </p>
                 <p style="text-align: center; margin-bottom: 0.5em">
