@@ -5,8 +5,7 @@ class Database {
     private $statement;
 
     public function __construct(){
-        //$this->connection = new mysqli("localhost", "mnu_wiki_ed", "e9Learn34Expo8", "mnu_wiki");
-        $this->connection = new mysqli("localhost", "root", "m,.l,n  n", "mnu_wiki");
+        $this->connection = new mysqli("localhost", "mnu_wiki_ed", "e9Learn34Expo8", "mnu_wiki");
         $this->connection->set_charset("utf8");
         if ($this->connection->connect_errno) {
             echo "Failed to connect to MySQL: (" . $this->connection->connect_errno . ") "
