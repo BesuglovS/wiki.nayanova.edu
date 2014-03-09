@@ -284,6 +284,8 @@ do
     $i = 1;
     foreach ($groups as $groupKey => $groupData)
     {
+        $groupKey = str_replace(' (+Í)', "", $groupKey);
+
         $pdf->Cell($cellWidth, 7, $groupKey, 1, 0, 'C');
         $i++;
     }
@@ -359,11 +361,23 @@ do
 
             foreach ($groupData["Schedule"][$time] as $tfdId => $tfdData)
             {
-                if ($tfdData["lessons"][0]["groupName"] != $groupKey)
+                if (($tfdData["lessons"][0]["groupName"] != str_replace(' (+Í)', "", $groupKey)) &&
+                    ($tfdData["lessons"][0]["groupName"] != (str_replace(' (+Í)', "", $groupKey) . "(Í)")) &&
+                    ($tfdData["lessons"][0]["groupName"] != (str_replace(' (+Í)', "", $groupKey) . " (+Í)")))
                 {
                     $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["groupName"] . "\n";
                 }
-                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["discName"] . "\n";
+
+                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["discName"];
+                if ($tfdData["lessons"][0]["groupName"] == (str_replace(' (+Í)', "", $groupKey) . "(Í)"))
+                {
+                    $cellValues[$cellValueIndex] .= " (Í)";
+                }
+                if ($tfdData["lessons"][0]["groupName"] == (str_replace(' (+Í)', "", $groupKey) . " (+Í)"))
+                {
+                    $cellValues[$cellValueIndex] .= " (+Í)";
+                }
+                $cellValues[$cellValueIndex] .= "\n";
                 $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["teacherFIO"] . "\n";
 
                 $commonWeeks = array();
