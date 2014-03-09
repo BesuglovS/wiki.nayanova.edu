@@ -207,58 +207,6 @@ foreach ($groups as $key => $value) {
 
 uasort($timeArray, "timeCompare");
 
-class PDF extends FPDF
-{
-    public $options;
-    public $facultyName;
-    public $dow;
-
-    // Page header
-    function __construct($opt, $fName, $dayOfWeek)
-    {
-        $this->options = $opt;
-        $this->facultyName = $fName;
-        $this->dow = $dayOfWeek;
-
-        parent::__construct('L');
-    }
-
-    function Header()
-    {
-        $this->AddFont('Calibri','','calibri.php');
-        $this->SetFont('Calibri','',10);
-
-        $this->Cell(289, 5, 'Ðàñïèñàíèå', 0, 0, 'C');
-
-        $this->Ln(); // Line break
-
-        $month = intval(mb_substr($this->options["Semester Starts"], 5, 2));
-        $year =  intval(mb_substr($this->options["Semester Starts"], 0, 4));
-
-        if ($month > 6)
-        {
-            $this->Cell(289, 5, 'ïåðâîãî ñåìåñòðà ' . $year . ' - ' . ($year+1) . ' ó÷åáíîãî ãîäà', 0, 0, 'C');
-        }
-        else
-        {
-            $this->Cell(289, 5, 'âòîðîãî ñåìåñòðà ' . ($year-1) . ' - ' . $year . ' ó÷åáíîãî ãîäà', 0, 0, 'C');
-        }
-
-        $this->Ln();
-
-        $this->Cell(289, 5, $this->facultyName, 0, 0, 'C');
-
-        $this->Ln();
-
-        $DOW = array(
-            "1" => "ÏÎÍÅÄÅËÜÍÈÊ", "2" => "ÂÒÎÐÍÈÊ", "3" => "ÑÐÅÄÀ",
-            "4" => "×ÅÒÂÅÐÃ", "5" => "ÏßÒÍÈÖÀ", "6" => "ÑÓÁÁÎÒÀ", "7" => "ÂÎÑÊÐÅÑÅÍÜÅ"
-        );
-
-        $this->Cell(289, 5, $DOW[$this->dow], 0, 0, 'C');
-    }
-}
-
 $facultyNameQuery  = "SELECT Name ";
 $facultyNameQuery .= "FROM faculties ";
 $facultyNameQuery .= "WHERE FacultyId = " . $faculty_id;
@@ -269,216 +217,245 @@ $facultyNameObject = $facultyNameQueryResult->fetch_assoc();
 
 $facultyName = iconv("UTF-8","cp1251",$facultyNameObject["Name"]);
 
+$ScheduleFontSize = 12;
+$lineHeight = 4;
 
-$pdf = new PDF($options, $facultyName, $scheduleDOW);
-$pdf->SetMargins(5, 2.5, 0.5);
-$pdf->AddPage();
+$bu = 0;
 
-if ($dayOff == 1)
+do
 {
-    $pdf->Ln(80);
-    $pdf->SetFont('Calibri','',50);
-    $pdf->Cell(0,0,'ÂÛÕÎÄÍÎÉ!', 0, 0, 'C');
+    $pdf = new FPDF('L');
 
-    $pdf->Output();
-    exit;
-}
+    $pdf->SetMargins(5, 2.5, 0.5);
+    $pdf->AddPage();
+    // ========================================================================================
+    $pdf->AddFont('Calibri','','calibri.php');
+    $pdf->SetFont('Calibri','',10);
 
-$pdf->Ln();
-$pdf->Cell(30,7,'Âðåìÿ',1,0,'C');
 
-$cellWidth = 256 / count($groups);
+    $pdf->Cell(289, 5, 'Ðàñïèñàíèå', 0, 0, 'C');
 
-$i = 1;
-foreach ($groups as $groupKey => $groupData)
-{
-    $pdf->Cell($cellWidth, 7, $groupKey, 1, 0, 'C');
-    $i++;
-}
-$pdf->Ln();
+    $pdf->Ln(); // Line break
 
-$rowHeight = 158 / count($timeArray);
 
-//foreach ($timeArray as $time) {
-for($ind = 0; $ind < count($timeArray); $ind++) {
+    $month = intval(mb_substr($options["Semester Starts"], 5, 2));
+    $year =  intval(mb_substr($options["Semester Starts"], 0, 4));
 
-    $values = array_values($timeArray);
-    $time = $values[$ind];
-
-    $lesHour = mb_substr($time, 0, 2);
-    $lesMin = mb_substr($time, 3, 2);
-    $timeDiff = Utilities::DiffTimeWithNowInMinutes($lesHour, $lesMin);
-
-    $todaysDOW = Utilities::$DOWEnToRu[date( "w", time())];
-    if (($timeDiff < 0) && ($timeDiff > -80) && ($todaysDOW == $scheduleDOW))
+    if ($month > 6)
     {
-        $onGoing = 1;
+        $pdf->Cell(289, 5, 'ïåðâîãî ñåìåñòðà ' . $year . ' - ' . ($year+1) . ' ó÷åáíîãî ãîäà', 0, 0, 'C');
     }
     else
     {
-        $onGoing = 0;
+        $pdf->Cell(289, 5, 'âòîðîãî ñåìåñòðà ' . ($year-1) . ' - ' . $year . ' ó÷åáíîãî ãîäà', 0, 0, 'C');
     }
 
+    $pdf->Ln();
 
-    if ($onGoing == 1)
+
+    $pdf->Cell(289, 5, $facultyName, 0, 0, 'C');
+
+    $pdf->Ln();
+
+    $pdf->SetFont('Calibri','',14);
+    $DOW = array(
+        "1" => "ÏÎÍÅÄÅËÜÍÈÊ", "2" => "ÂÒÎÐÍÈÊ", "3" => "ÑÐÅÄÀ",
+        "4" => "×ÅÒÂÅÐÃ", "5" => "ÏßÒÍÈÖÀ", "6" => "ÑÓÁÁÎÒÀ", "7" => "ÂÎÑÊÐÅÑÅÍÜÅ"
+    );
+
+    $pdf->Cell(289, 5, $DOW[$scheduleDOW], 0, 0, 'C');
+    // ========================================================================================
+
+    if ($dayOff == 1)
     {
-        //echo " style=\"background:#FFFFAA\"";
+        $pdf->Ln(80);
+        $pdf->SetFont('Calibri','',50);
+        $pdf->Cell(0,0,'ÂÛÕÎÄÍÎÉ!', 0, 0, 'C');
+
+        $pdf->Output();
+        exit;
     }
 
-    $current_x = $pdf->GetX();
-    $current_y = $pdf->GetY();
+    $pdf->Ln();
+    $pdf->Cell(30,7,'Âðåìÿ',1,0,'C');
 
-    $pdf->Rect($current_x,$current_y,30,$rowHeight);
+    $cellWidth = 256 / count($groups);
 
-    $pdf->SetFont('Calibri','',10);
-
-    $hour = intval(mb_substr($time,0,2));
-    $minute = intval(mb_substr($time,3,2));
-    $minute += 80;
-
-    while ($minute >= 60) {
-        $hour++;
-        $minute -= 60;
-    }
-    if ($minute < 10)
+    $i = 1;
+    foreach ($groups as $groupKey => $groupData)
     {
-        $minute = '0' . $minute;
+        $pdf->Cell($cellWidth, 7, $groupKey, 1, 0, 'C');
+        $i++;
     }
+    $pdf->Ln();
 
-    $timeString = $time . " - " . $hour . ":" . $minute;
+    //foreach ($timeArray as $time) {
+    for($ind = 0; $ind < count($timeArray); $ind++) {
 
-    $pdf->MultiCell(30, $rowHeight, $timeString, 0, 'C');
+        $RowMaxHeight = 0;
 
-    $pdf->SetXY($current_x + 30, $current_y);
+        $values = array_values($timeArray);
+        $time = $values[$ind];
 
+        $lesHour = mb_substr($time, 0, 2);
+        $lesMin = mb_substr($time, 3, 2);
+        $timeDiff = Utilities::DiffTimeWithNowInMinutes($lesHour, $lesMin);
 
-    foreach ($groups as $groupKey => $groupData) {
-        //$groupData["Schedule"][$time]
+        $todaysDOW = Utilities::$DOWEnToRu[date( "w", time())];
+        if (($timeDiff < 0) && ($timeDiff > -80) && ($todaysDOW == $scheduleDOW))
+        {
+            $onGoing = 1;
+        }
+        else
+        {
+            $onGoing = 0;
+        }
+
 
         if ($onGoing == 1)
         {
             //echo " style=\"background:#FFFFAA\"";
         }
 
-        $cellValues = array();
-        $cellValues[] = "";
-        $cellValueIndex = 0;
+        $row_x = $pdf->GetX();
+        $row_y = $pdf->GetY();
 
-        $splitCounter = 0;
-
-        usort($groupData["Schedule"][$time], "tfdSort");
-
-        foreach ($groupData["Schedule"][$time] as $tfdId => $tfdData)
-        {
-            if ($tfdData["lessons"][0]["groupName"] != $groupKey)
-            {
-                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["groupName"] . "\n";
-            }
-            $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["discName"] . "\n";
-            $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["teacherFIO"] . "\n";
-
-            $commonWeeks = array();
-            foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
-            {
-                foreach ($weekArray as $weekNum) {
-                    $commonWeeks[] = $weekNum;
-                }
-            }
-            $cellValues[$cellValueIndex] .=  "(" . iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($commonWeeks)) . ")\n";
-
-            // TODO ñîðòèðîâàòü íåäåëè àóäèòîðèé ïî ïîðÿäêó
-            if (count($tfdData["weeksAndAuds"]) > 1)
-            {
-                foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
-                {
-                    $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($currentWeekList)) . " - ";
-                    $cellValues[$cellValueIndex] .=  $audName . "\n";
-                }
-            }
-            else
-            {
-                foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
-                {
-                    $cellValues[$cellValueIndex] .=  $audName . "\n";
-                }
-            }
-
-            $cnt = count($groupData["Schedule"][$time]);
-            if (($cnt != 1) && ($splitCounter != $cnt-1))
-            {
-                //echo "<hr />";
-                $cellValues[] = "";
-                $cellValueIndex++;
-            }
-
-            $splitCounter++;
-        }
-
-        $current_y = $pdf->GetY();
         $current_x = $pdf->GetX();
+        $current_y = $pdf->GetY();
 
-        $pdf->Rect($current_x,$current_y,$cellWidth,$rowHeight);
+        $hour = intval(mb_substr($time,0,2));
+        $minute = intval(mb_substr($time,3,2));
+        $minute += 80;
 
-
-        $lineCount = 0;
-        $lineCounts = array();
-        for ($i = 0; $i < count($cellValues); $i++) {
-            $cnt = mb_substr_count($cellValues[$i],"\n");
-            $lineCounts[] = $cnt;
-            $lineCount += $cnt;
+        while ($minute >= 60) {
+            $hour++;
+            $minute -= 60;
         }
-
-        $lineHeight = 10;
-        if ($lineCount != 0)
+        if ($minute < 10)
         {
-            $lineHeight = $rowHeight / $lineCount;
-        }
-        if ($lineHeight > 5)
-        {
-            $lineHeight = 5;
-        }
-        $pdf->SetFont('Calibri','',10);
-        switch ($lineHeight) {
-            case 4:
-                $pdf->SetFont('Calibri','',8);
-                break;
-            case 3:
-                $pdf->SetFont('Calibri','',6);
-                break;
-            case 2:
-                $pdf->SetFont('Calibri','',4);
-                break;
-            case 1:
-                $pdf->SetFont('Calibri','',2);
-                break;
+            $minute = '0' . $minute;
         }
 
-        $cellValueCount = count($cellValues);
+        $timeString = $time . " - " . $hour . ":" . $minute;
 
-        for ($i = 0; $i <= $cellValueCount; $i++) {
-            $curHeight = 0;
-            for ($j = 0; $j < $i; $j++) {
-                $curHeight += $lineHeight*$lineCounts[$j];
-            }
-            $pdf->SetXY($current_x, $current_y + $curHeight);
+        $pdf->SetXY($current_x + 30, $current_y);
 
-            $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0);
 
-            if ($i != $cellValueCount-1)
+        foreach ($groups as $groupKey => $groupData) {
+            //$groupData["Schedule"][$time]
+
+            if ($onGoing == 1)
             {
-                $pdf->Line(
-                    $current_x, $current_y + ($i+1)*$lineHeight*$lineCounts[$i],
-                    $current_x + $cellWidth, $current_y + ($i+1)*$lineHeight*$lineCounts[$i]);
+                //echo " style=\"background:#FFFFAA\"";
             }
+
+            $cellValues = array();
+            $cellValues[] = "";
+            $cellValueIndex = 0;
+
+            $splitCounter = 0;
+
+            usort($groupData["Schedule"][$time], "tfdSort");
+
+            foreach ($groupData["Schedule"][$time] as $tfdId => $tfdData)
+            {
+                if ($tfdData["lessons"][0]["groupName"] != $groupKey)
+                {
+                    $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["groupName"] . "\n";
+                }
+                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["discName"] . "\n";
+                $cellValues[$cellValueIndex] .= $tfdData["lessons"][0]["teacherFIO"] . "\n";
+
+                $commonWeeks = array();
+                foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
+                {
+                    foreach ($weekArray as $weekNum) {
+                        $commonWeeks[] = $weekNum;
+                    }
+                }
+                $cellValues[$cellValueIndex] .=  "(" . iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($commonWeeks)) . ")\n";
+
+                // TODO ñîðòèðîâàòü íåäåëè àóäèòîðèé ïî ïîðÿäêó
+                if (count($tfdData["weeksAndAuds"]) > 1)
+                {
+                    foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
+                    {
+                        $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($currentWeekList)) . " - ";
+                        $cellValues[$cellValueIndex] .=  $audName . "\n";
+                    }
+                }
+                else
+                {
+                    foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
+                    {
+                        $cellValues[$cellValueIndex] .=  $audName . "\n";
+                    }
+                }
+
+                $cnt = count($groupData["Schedule"][$time]);
+                if (($cnt != 1) && ($splitCounter != $cnt-1))
+                {
+                    //echo "<hr />";
+                    $cellValues[] = "";
+                    $cellValueIndex++;
+                }
+
+                $splitCounter++;
+            }
+
+            $current_y = $pdf->GetY();
+            $current_x = $pdf->GetX();
+
+            $lineCount = 0;
+            $lineCounts = array();
+            for ($i = 0; $i < count($cellValues); $i++) {
+                $cnt = mb_substr_count($cellValues[$i],"\n");
+                $lineCounts[] = $cnt;
+                $lineCount += $cnt;
+            }
+
+            //$lineHeight = 2;
+            $pdf->SetFont('Calibri','',$ScheduleFontSize);
+
+            $cellValueCount = count($cellValues);
+
+            $MultiHeight = $current_y;
+            for ($i = 0; $i < $cellValueCount; $i++) {
+                $pdf->SetXY($current_x, $MultiHeight);
+
+                $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0);
+
+                $MultiHeight = $pdf->GetY();
+
+                if ($i != $cellValueCount-1)
+                {
+                    $pdf->Line($current_x, $MultiHeight, $current_x + $cellWidth, $MultiHeight);
+                }
+            }
+
+            if (($MultiHeight - $row_y) > $RowMaxHeight)
+            {
+                $RowMaxHeight = $MultiHeight - $row_y;
+            }
+
+            $pdf->SetXY($current_x + $cellWidth, $current_y);
         }
 
-        $pdf->SetXY($current_x + $cellWidth, $current_y);
+        $pdf->Rect($row_x,$row_y,30,$RowMaxHeight);
+        $pdf->SetFont('Calibri','',12);
+        $pdf->SetXY($row_x, $row_y);
+        $pdf->MultiCell(30, $RowMaxHeight, $timeString, 0, 'C');
+
+        for($ii = 0; $ii < count($groups); $ii++) {
+            $pdf->Rect($row_x + 30 + $ii*$cellWidth, $row_y, $cellWidth, $RowMaxHeight);
+        }
     }
 
-    if ($ind != count($timeArray)-1)
-    {
-        $pdf->Ln($rowHeight);
-    }
-}
+    $pn = $pdf->PageNo();
+
+    $ScheduleFontSize--;
+    $lineHeight -= 1/3;
+
+}while($pn > 1);
 
 $pdf->Output();
