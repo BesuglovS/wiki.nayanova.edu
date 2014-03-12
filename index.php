@@ -43,30 +43,6 @@ require_once("_php/includes/Database.php");
     <h1>Диспетчерская учебного отдела СГОАН</h1>
 </header>
 <section id="content" class="cf">
-<section id="facultyDOWButtons">
-    <div id="DOWButtonwrapper">
-        <button id="Math">А</button>
-        <button id="Phil">Б</button>
-        <button id="Bio">В</button>
-        <button id="Econ">Г</button>
-        <button id="Law">Д</button>
-        <button id="PR">Е</button>
-        <button id="Upr">У</button>
-        <button id="Tur">Т</button>
-    </div>
-</section>
-<section id="graduates">
-    <div id="graduatesDiv">
-        Развлечения для выпускников:<br />
-        <button id="MathG">16 А</button>
-        <button id="PhilG">15 Б</button>
-        <button id="BioG">15 В</button>
-        <button id="EconG">14 Г(Н) + 15 Г</button>
-        <button id="LawG">14 Д(Н) + 15 Д</button>
-        <button id="PRG">15 Е</button>
-        <button id="UprG">16 У</button>
-    </div>
-</section>
 <section id="groupsSchedule">
     <div id="dateScheduleControls">
         <h2>Расписание преподавателя</h2>
@@ -201,16 +177,17 @@ require_once("_php/includes/Database.php");
     </table>
 </section>
 <section id="vk">
-    <table>
+    <table style="width: 267px; margin:0 auto; margin-bottom: 0.5em">
         <tr>
             <td>
-                <p style="text-align: center">
-                    <img src="upload/images/beta.jpg" height="150" width="147" />
+                <p>
+                    День недели
                 </p>
             </td>
-            <td style="vertical-align: middle">
-                <p style="text-align: center; margin-bottom: 0.5em">
-                    День недели
+            <td style="width: 10px">
+            </td>
+            <td>
+                <p>
                     <select id="dowPDFSelect">
                         <option value="1">Понедельник</option>
                         <option value="2">Вторник</option>
@@ -221,8 +198,20 @@ require_once("_php/includes/Database.php");
                         <option value="7">Воскресенье</option>
                     </select>
                 </p>
-                <p style="text-align: center; margin-bottom: 0.5em">
+            </td>
+        </tr>
+        <tr style="height: 10px">
+        </tr>
+        <tr>
+            <td style="vertical-align: middle">
+                <p>
                     Факультет
+                </p>
+            </td>
+            <td style="width: 10px">
+            </td>
+            <td>
+                <p>
                     <?php
                     global $database;
                     $facultiesList = $database->query("SELECT * FROM `faculties`");
@@ -232,7 +221,7 @@ require_once("_php/includes/Database.php");
                         $fList[$faculty["FacultyId"]] = $faculty["Name"];
                     }
                     ?>
-                    <select id="facultiesList" style="width:100%">
+                    <select id="facultiesList" style="width:150px">
                         <?php
                         foreach ($fList as $id => $Name)
                         {
@@ -245,12 +234,16 @@ require_once("_php/includes/Database.php");
                         ?>
                     </select>
                 </p>
-                <p style="text-align: center; margin-bottom: 0.5em">
-                    <button id="PDFExport">Расписание в PDF</button>
-                </p>
             </td>
         </tr>
     </table>
+
+
+    <p style="text-align: center; margin-bottom: 0.5em">
+        <button id="DOWSchedule">Показать</button>
+
+        <button id="PDFExport">Расписание в PDF</button>
+    </p>
 
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
     <!-- VK Widget -->

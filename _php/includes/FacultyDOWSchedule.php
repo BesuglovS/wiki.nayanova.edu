@@ -72,20 +72,41 @@ function timeCompare($a, $b)
     }
 }
 
+if (!function_exists('mb_str_replace')) {
+    function mb_str_replace($search, $replace, $subject, &$count = 0) {
+        if (!is_array($subject)) {
+            // Normalize $search and $replace so they are both arrays of the same length
+            $searches = is_array($search) ? array_values($search) : array($search);
+            $replacements = is_array($replace) ? array_values($replace) : array($replace);
+            $replacements = array_pad($replacements, count($searches), '');
+
+            foreach ($searches as $key => $search) {
+                $parts = mb_split(preg_quote($search), $subject);
+                $count += count($parts) - 1;
+                $subject = implode($replacements[$key], $parts);
+            }
+        } else {
+            // Call mb_str_replace for each subject in array, recursively
+            foreach ($subject as $key => $value) {
+                $subject[$key] = mb_str_replace($search, $replace, $value, $count);
+            }
+        }
+
+        return $subject;
+    }
+}
+
 $semesterStarts = $options["Semester Starts"];
 $faculty_id = $_GET["facultyId"];
-$dateString = $_GET["date"];
-
-$scheduleDate = DateTime::createFromFormat('Y-m-d', $dateString);
-$scheduleDOW = Utilities::$DOWEnToRu[date( "w", $scheduleDate->getTimestamp())];
+$scheduleDOW = $_GET["dow"];
 
 $facultyGroupsArray = array(
     "1" => array("12 А", "13 А"),
-    "2" => array("12 Б", "13 Б", "14 Б", "15 Б"),
-    "3" => array("12 В0", "12 В", "13 В", "14 В", "15 В"),
-    "4" => array("12 Г", "12 Г(Н)", "13 Г", "13 Г(Н)", "14 Г", "14 Г(Н)"),
-    "5" => array("12 Д", "12 Д(Н)", "13 Д", "13 Д(Н)", "14 Д", "14 Д(Н)", "15 Д"),
-    "6" => array("12 Е", "12 Е(Н)", "13 Е", "14 Е", "15 Е"),
+    "2" => array("12 Б", "13 Б", "14 Б"),
+    "3" => array("12 В0", "12 В", "13 В", "14 В"),
+    "4" => array("12 Г (+Н)", "13 Г (+Н)", "14 Г"),
+    "5" => array("12 Д (+Н)", "13 Д (+Н)", "14 Д"),
+    "6" => array("12 Е (+Н)", "13 Е", "14 Е"),
     "7" => array("12 У", "13 У", "14 У", "15 У"),
     "8" => array("12 Т", "13 Т", "14 Т")
 );
@@ -218,7 +239,8 @@ echo "<table id=\"FacultyDOWSchedule\" class=\"DOWSchedule\">";
 echo "<tr>";
 echo "  <td>Время</td>";
 foreach ($groups as $groupKey => $groupData) {
-    echo "  <td>" . $groupKey . "</td>";
+    $gName = mb_ereg_replace(" (+Н)", "", $groupKey);
+    echo "  <td>" . mb_str_replace(" (+Н)", "", $groupKey) . "</td>";
 }
 echo "</tr>";
 
