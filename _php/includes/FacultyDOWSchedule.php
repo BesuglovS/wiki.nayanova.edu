@@ -100,31 +100,19 @@ $semesterStarts = $options["Semester Starts"];
 $faculty_id = $_GET["facultyId"];
 $scheduleDOW = $_GET["dow"];
 
-$facultyGroupsArray = array(
-    "1" => array("12 А", "13 А"),
-    "2" => array("12 Б", "13 Б", "14 Б"),
-    "3" => array("12 В0", "12 В", "13 В", "14 В"),
-    "4" => array("12 Г (+Н)", "13 Г (+Н)", "14 Г"),
-    "5" => array("12 Д (+Н)", "13 Д (+Н)", "14 Д"),
-    "6" => array("12 Е (+Н)", "13 Е", "14 Е"),
-    "7" => array("12 У", "13 У", "14 У", "15 У"),
-    "8" => array("12 Т", "13 Т", "14 Т")
-);
-$facultyGroups = $facultyGroupsArray[$faculty_id];
+$facultyGroupsQuery  = "SELECT GroupsInFaculties.StudentGroupId, Name ";
+$facultyGroupsQuery .= "FROM `GroupsInFaculties` ";
+$facultyGroupsQuery .= "JOIN studentGroups ";
+$facultyGroupsQuery .= "ON GroupsInFaculties.StudentGroupId = studentGroups.StudentGroupId ";
+$facultyGroupsQuery .= "WHERE FacultyId = " . $faculty_id;
+
+$facultyGroupsResult = $database->query($facultyGroupsQuery);
 
 $groups = array();
-foreach ($facultyGroups as $groupName) {
-    $idQuery  = "SELECT studentGroups.StudentGroupId ";
-    $idQuery .= "FROM studentGroups ";
-    $idQuery .= "WHERE studentGroups.Name = \"" . $groupName . "\"";
-
-    $qResult = $database->query($idQuery);
-    $result = $qResult->fetch_assoc();
-    $groupId = $result["StudentGroupId"];
-
-
-    $groups[$groupName] = array (
-        "group_id" => $groupId
+while ($group = $facultyGroupsResult->fetch_assoc())
+{
+    $groups[$group["Name"]] = array (
+        "group_id" => $group["StudentGroupId"]
     );
 }
 
