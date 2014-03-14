@@ -200,6 +200,16 @@ class Utilities {
             return "#ff4"; // Жёлтый
         }
 
+        if ($guess == ($target + 1))
+        {
+            return "#c8ff00"; // Особо-зелёный
+        }
+
+        if ($guess > $target)
+        {
+            return "#f0f"; // Фиолетовый
+        }
+
         return "#afa"; // Зелёный
     }
 
