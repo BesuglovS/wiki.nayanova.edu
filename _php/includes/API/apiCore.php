@@ -31,7 +31,6 @@ class api {
                 $bundle = array();
                 $bundle["auditoriums"] = $this->GetAuditoriumsList();
                 $bundle["calendars"] = $this->GetCalendarsList();
-                $bundle["configOptions"] = $this->GetConfigOptionsList();
                 $bundle["disciplines"] = $this->GetDisciplinesList(null);
                 $bundle["lessons"] = $this->GetLessonsList($POST);
                 $bundle["rings"] = $this->GetRingsList();
@@ -40,6 +39,8 @@ class api {
                 $bundle["studentsInGroups"] = $this->GetStudentInGroupsList();
                 $bundle["teachers"] = $this->GetTechersList();
                 $bundle["teacherForDisciplines"] = $this->GetTFDList();
+
+                $bundle["configOptions"] = $this->GetConfigOptionsList();
                 $bundle["lessonLogEvents"] = $this->GetLogEvents(null);
 
                 $result = json_encode($bundle);

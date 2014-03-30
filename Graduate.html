@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Диплом</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $( "#generate").click(function() {
+                var entered = $('#Who').val();
+                var lines = entered.split(/\n/);
+                var Who = lines.join(';');
+
+                var Whom = $('#Whom').val();
+                var Qualification = $('#Qualification').val();
+
+                var path = "Graduates.php?Who=" + Who + "&Whom=" + Whom + "&Qualification=" + Qualification;
+
+                $('#dimplomaImage').html('<img src="' + path + '" />');
+            });
+        });
+    </script>
+</head>
+<body>
+    <table style="width: 100%">
+    <tr>
+        <td>
+            <div id="dimplomaImage" style="width: 520px"></div>
+        </td>
+        <td style="width: 99%">
+            <table style="width: 100%" border="1">
+                <tr>
+                    <td>
+                        Наименование учреждения<br />
+                        (не&nbsp;более&nbsp;6&nbsp;строчек)
+                    </td>
+                    <td>
+                        <textarea rows="6" cols="50" id="Who"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Кому
+                    </td>
+                    <td>
+                        <input type="text" id="Whom">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Квалификация
+                    </td>
+                    <td>
+                        <input type="text" id="Qualification">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <button id="generate" style="width: 100%">Поехали</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

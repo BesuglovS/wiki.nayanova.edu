@@ -101,6 +101,12 @@ $dayOff = 1;
 
 foreach ($groups as $key => $value) {
 
+    $Gname = iconv("UTF-8","cp1251",$key);
+    if (strpos($Gname, ' (+Í)') !== FALSE)
+    {
+
+    }
+
     $groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
     $groupsQuery .= "FROM studentsInGroups ";
     $groupsQuery .= "WHERE StudentId ";
