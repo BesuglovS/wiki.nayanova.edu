@@ -36,7 +36,7 @@ function DrawLine($FontSize, $Font, $Text, $ImageWidth, $Image, $FontColor, $Y)
         $SecondTextWidthArray = imagettfbbox($FontSize, 0, $Font, $Text);
         $SecondTextWidth = $SecondTextWidthArray[4] - $SecondTextWidthArray[6];
         $FontSize -= 0.5;
-    } while ($SecondTextWidth > $ImageWidth - 110);
+    } while ($SecondTextWidth > $ImageWidth - 110 && $FontSize > 1);
     $FontSize += 0.5;
     $SecondX = CalculateTextX($ImageWidth, $Font, $FontSize, $Text);
     imagettftext($Image, $FontSize, 0, $SecondX, $Y, $FontColor, $Font, $Text);

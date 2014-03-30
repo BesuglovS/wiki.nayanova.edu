@@ -18,6 +18,8 @@
 
                 $('#dimplomaImage').html('<img src="' + path + '" />');
             });
+
+            $('#generate').trigger("click");
         });
     </script>
 </head>
@@ -35,7 +37,9 @@
                         (не&nbsp;более&nbsp;6&nbsp;строчек)
                     </td>
                     <td>
-                        <textarea rows="6" cols="50" id="Who"></textarea>
+                        <textarea rows="6" cols="50" id="Who">Его императорского величества
+университетъ
+всъего и обо всем</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +47,7 @@
                         Кому
                     </td>
                     <td>
-                        <input type="text" id="Whom">
+                        <input type="text" id="Whom" value="Иванову Ивану Ивановичу">
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +55,7 @@
                         Квалификация
                     </td>
                     <td>
-                        <input type="text" id="Qualification">
+                        <input type="text" id="Qualification" value="Магистр прикладных ко лбу наук">
                     </td>
                 </tr>
             </table>
