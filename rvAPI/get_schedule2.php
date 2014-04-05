@@ -13,7 +13,9 @@ if(isset($_GET['group_id']))
 {
     $group_id = $_GET['group_id'];
 }
-echo $NewAPI->get_schedule22($group_id);
 
+echo "<pre>";
+echo print_r($NewAPI->get_schedule_raw($group_id));
+echo "</pre>";
 
 ?>
