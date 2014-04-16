@@ -506,6 +506,5 @@ $(function() {
             $('#scheduleBox').dialog( {width: dialogWidth, title: "16 У", minHeight : "50px", position: ['center',20] } );
         });
     });
-
 });
 

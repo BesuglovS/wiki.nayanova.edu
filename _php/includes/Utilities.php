@@ -43,7 +43,7 @@ class Utilities {
 
     public static function DiffTimeWithNowInMinutes($hour, $min){
         $diffTime = strtotime($hour . ":" . $min . ":00");
-        $now = strtotime("now") + 60*60;
+        $now = strtotime("now");
         $diff = ($diffTime - $now) / 60;
         return $diff;
     }

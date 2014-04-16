@@ -78,7 +78,7 @@ default:
                 var Whom = $('#Whom').val();
                 var Qualification = $('#Qualification').val();
 
-                var path = "Graduates.php?Who=" + Who + "&Whom=" + Whom + "&Qualification=" + Qualification;
+                var path = "http://wiki.nayanova.edu/Graduates.php?Who=" + Who + "&Whom=" + Whom + "&Qualification=" + Qualification;
 
                 $('#dimplomaImage').html('<img src="' + path + '" />');
             });

@@ -128,6 +128,12 @@ footer {
     background-color: #CCC49F;
 }
 
+#loginHeader {
+    padding: 0.5em 2em;
+    background-color: #CCC49F;
+    text-align: right;
+}
+
 
 
 /* Teacher FIO Combobox styles */
@@ -500,4 +506,12 @@ p#sessionByDateP {
 #graduatesDiv button {
     margin-right: 0.25em;
     margin-left: 0.25em;
+}
+
+#loginButtonDiv {
+    text-align: center;
+}
+
+#submittable {
+    margin: 1em auto;
 }

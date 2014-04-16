@@ -46,7 +46,7 @@ class RVAPI {
     }
 
     public function get_groups($faculty_id) {
-
+        /*
         $gifQuery  = "SELECT Name, studentGroups.studentGroupId ";
         $gifQuery .= "FROM GroupsInFaculties ";
         $gifQuery .= "JOIN studentGroups ";
@@ -61,6 +61,34 @@ class RVAPI {
             $groups["groups"][] = array (
                 "group_name" => $studentGroup["Name"],
                 "group_id" => $studentGroup["studentGroupId"]
+            );
+        }*/
+
+        $FacultyGroupsList = array(
+            "1" => array("12 А", "13 А"),
+            "2" => array("12 Б", "13 Б", "14 Б"),
+            "3" => array("12 В0", "12 В", "13 В", "14 В"),
+            "4" => array("12 Г", "12 Г(Н)", "13 Г", "13 Г(Н)", "14 Г"),
+            "5" => array("12 Д", "12 Д(Н)", "13 Д", "13 Д(Н)", "14 Д"),
+            "6" => array("12 Е", "13 Е", "14 Е"),
+            "7" => array("12 У", "13 У", "14 У", "15 У"),
+            "8" => array("12 Т", "13 Т", "14 Т")
+        );
+        $FacultyGroups = $FacultyGroupsList[$faculty_id];
+
+        $groups["groups"] = array();
+        foreach ($FacultyGroups as $GroupName) {
+            $idQuery  = "SELECT studentGroups.StudentGroupId ";
+            $idQuery .= "FROM studentGroups ";
+            $idQuery .= "WHERE studentGroups.Name = \"" . $GroupName . "\"";
+
+            $qResult = $this->database->query($idQuery);
+            $result = $qResult->fetch_assoc();
+            $groupId = $result["StudentGroupId"];
+
+            $groups["groups"][] = array (
+                "group_name" => $GroupName,
+                "group_id" => $groupId
             );
         }
 

@@ -1,9 +1,21 @@
 <?php
+session_start();
 header("Content-type: text/html; charset=utf-8");
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
+
+function ReformatDateToMySQL($date)
+{
+    // 0123456789
+    // 25.10.1995 => 1995-10-25
+    $semesterStartsCorrectFormat =
+        mb_substr($date, 6, 4) . "-" .
+        mb_substr($date, 3, 2) . "-" .
+        mb_substr($date, 0, 2);
+    return $semesterStartsCorrectFormat;
+}
 
 $groupId = $_GET["groupId"];
 $dateString = $_GET["date"];
@@ -12,18 +24,49 @@ $groupNameQuery = "SELECT studentGroups.Name FROM studentGroups WHERE StudentGro
 $sGroup = $database->query($groupNameQuery);
 $groupNameArr = $sGroup->fetch_assoc();
 $groupName = $database->real_escape_string($groupNameArr["Name"]);
-//$groupName = $groupNameArr["Name"];
+
+$studentId = 0;
+if (isset($_SESSION['NUlogin']))
+{
+    $FIO = explode(' ',trim($_SESSION['NUlogin']));
+    $F = $FIO[0];
+
+    $MySQLDate = ReformatDateToMySQL($_SESSION['NUpassword']);
+    $studentIdQuery  = "SELECT StudentId ";
+    $studentIdQuery .= "FROM students ";
+    $studentIdQuery .= "WHERE F = '" . $F . "' ";
+    $studentIdQuery .= "AND BirthDate = '" . $MySQLDate . "' ";
+    $studentResult = $database->query($studentIdQuery);
+    $studentIdArray = $studentResult->fetch_assoc();
+    $studentId = $studentIdArray["StudentId"];
+}
 
 $todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
 $today = gmdate("y.m.d H:i:s", $todayStamp);
-$statisticQuery  = "INSERT INTO DailyScheduleStats( groupId, date, statDate ) ";
+$statisticQuery  = "INSERT INTO DailyScheduleStats( groupId, date, statDate";
+if ($studentId !== 0)
+{
+    $statisticQuery .= ", StudentId ";
+}
+$statisticQuery .= ") ";
 $statisticQuery .= "VALUES ( \"";
 $statisticQuery .= $groupName;
 $statisticQuery .= "\", ";
 $statisticQuery .= $dateString;
 $statisticQuery .= ", \"";
-$statisticQuery .= $today;
-$statisticQuery .= "\")";
+$statisticQuery .= $today . "\"";
+if ($studentId !== 0)
+{
+    $statisticQuery .= ", ";
+    $statisticQuery .= $studentId;
+}
+$statisticQuery .= ")";
+
+if (isset($_SESSION['NUlogin']))
+{
+    echo $studentId . "<br />";
+    echo $statisticQuery . "<br />";
+}
 
 $database->query($statisticQuery);
 
