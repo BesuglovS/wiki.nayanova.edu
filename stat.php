@@ -32,7 +32,7 @@
     </section>
     <footer>
     	<p>
-        	&copy; Диспетчерская учебного отдела СГОАН, 2013
+        	&copy; Диспетчерская учебного отдела СГОАН, , <?php echo date("Y"); ?>
         </p>
     </footer>   
   </div><!-- end .container -->

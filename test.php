@@ -111,22 +111,22 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "</td>";
     echo "</tr>";
     echo "<tr>";
-    echo "<td colspan='3'> <input type=\"submit\" value=\"Войти\" style='width: 100%' />";
+    echo "<td colspan='2'> <input type=\"submit\" value=\"Войти\" style='width: 100%' />";
     echo "</td>";
     echo "</tr>";
     echo "</table> ";
     echo "<div style='font-size:xx-small; text-align:justify; margin-left: 1em; margin-right: 1em'>";
-    echo "В формате: Фамилия, пробел, Заглавная первая буква имени, Заглавная первая буква отчества";
+    echo "Имя пользователя в формате: Фамилия, пробел, Заглавная первая буква имени, Заглавная первая буква отчества";
     echo "<br /> Например: Иванов ИИ";
     echo "<br />";
-    echo "Дата рожения в формате: День (2 цифры), точка, месяц (2 цифры), точка, год (4 цифры)";
+    echo "В поле пароля введите дату рожения в формате: День (2 цифры), точка, месяц (2 цифры), точка, год (4 цифры)";
     echo "<br /> Например: 04.04.1985</div>";
     echo "</form> ";
     echo "</div>";
     echo "</section> ";
     echo "<footer> ";
         echo "<p> ";
-            echo "&copy; Диспетчерская учебного отдела СГОАН, 2013 ";
+            echo "&copy; Диспетчерская учебного отдела СГОАН, " . date("Y");
         echo "</p> ";
     echo "</footer> ";
     echo "</div><!-- end .container --> ";
@@ -134,6 +134,42 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "</html> ";
     exit;
 }
+
+function ReformatDateToMySQL($date)
+{
+    // 0123456789
+    // 25.10.1995 => 1995-10-25
+    $semesterStartsCorrectFormat =
+        mb_substr($date, 6, 4) . "-" .
+        mb_substr($date, 3, 2) . "-" .
+        mb_substr($date, 0, 2);
+    return $semesterStartsCorrectFormat;
+}
+
+$todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
+$today = gmdate("y.m.d H:i:s", $todayStamp);
+
+$FIO = explode(' ',trim($_SESSION['NUlogin']));
+$F = $FIO[0];
+$MySQLDate = ReformatDateToMySQL($_SESSION['NUpassword']);
+$studentIdQuery  = "SELECT StudentId ";
+$studentIdQuery .= "FROM students ";
+$studentIdQuery .= "WHERE F = '" . $F . "' ";
+$studentIdQuery .= "AND BirthDate = '" . $MySQLDate . "' ";
+
+$studentResult = $database->query($studentIdQuery);
+$studentIdArray = $studentResult->fetch_assoc();
+$studentId = $studentIdArray["StudentId"];
+
+
+
+
+$statQuery  = "INSERT INTO LoginLog ";
+$statQuery .= "(StudentId, DateTime) ";
+$statQuery .= "VALUES (" . $studentId . ", \"" . $today . "\")";
+
+$database->query($statQuery);
+
 ?>
 <!doctype html>
 <html>
@@ -160,7 +196,7 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
 <div id="container">
 <header id="loginHeader">
     <p>
-        <?php echo $_SESSION['NUlogin'] . " | <a id=\"logoutLink\" href=\"#\">Выйти</a>"; ?>
+        <?php echo $_SESSION['NUlogin'] . " | <a id=\"logoutLink\" href=\"\">Выйти</a>"; ?>
     </p>
 </header>
 <header class="cf">
@@ -394,7 +430,7 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
 </section>
 <footer>
     <p>
-        &copy; Диспетчерская учебного отдела СГОАН, 2013
+        &copy; Диспетчерская учебного отдела СГОАН, <?php echo date("Y"); ?>
     </p>
 </footer>
 </div><!-- end .container -->
