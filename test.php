@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if($_GET['logout']==1)
+if($_POST['logout'] == "1")
 {
     session_destroy();
     session_start();
@@ -98,24 +98,29 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "<table id=\"submittable\"> ";
 
     echo "<tr>";
-    echo "<td style='text-align: left'> Пользователь";
+    echo "<td style='text-align: left; vertical-align: middle'> Пользователь";
     echo "</td>";
-    echo "<td> <input type='text' value='$NUlogin' id='NUlogin' name='NUlogin'/>";
-    echo "</td>";
-    echo "</tr>";
-
-    echo "<tr>";
-    echo "<td style='text-align: left'> Пароль";
-    echo "</td>";
-    echo "<td> <input type='password' value='$NUpassword' id='NUpassword' name='NUpassword'/>";
+    echo "<td style='vertical-align: middle'> <input type='text' value='$NUlogin' id='NUlogin' name='NUlogin'/>";
     echo "</td>";
     echo "</tr>";
 
     echo "<tr>";
-    echo "<td colspan='2'> <input type=\"submit\" value=\"Войти\" style='width: 100%' />";
+    echo "<td style='text-align: left; vertical-align: middle'> Пароль";
+    echo "</td>";
+    echo "<td style='vertical-align: middle'> <input type='password' value='$NUpassword' id='NUpassword' name='NUpassword'/>";
+    echo "</td>";
+    echo "</tr>";
+    echo "<tr>";
+    echo "<td colspan='3'> <input type=\"submit\" value=\"Войти\" style='width: 100%' />";
     echo "</td>";
     echo "</tr>";
     echo "</table> ";
+    echo "<div style='font-size:xx-small; text-align:justify; margin-left: 1em; margin-right: 1em'>";
+    echo "В формате: Фамилия, пробел, Заглавная первая буква имени, Заглавная первая буква отчества";
+    echo "<br /> Например: Иванов ИИ";
+    echo "<br />";
+    echo "Дата рожения в формате: День (2 цифры), точка, месяц (2 цифры), точка, год (4 цифры)";
+    echo "<br /> Например: 04.04.1985</div>";
     echo "</form> ";
     echo "</div>";
     echo "</section> ";
@@ -155,7 +160,7 @@ if(((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
 <div id="container">
 <header id="loginHeader">
     <p>
-        <?php echo $_SESSION['NUlogin'] . " | <a href=\"?logout=1\">Выйти</a>"; ?>
+        <?php echo $_SESSION['NUlogin'] . " | <a id=\"logoutLink\" href=\"#\">Выйти</a>"; ?>
     </p>
 </header>
 <header class="cf">

@@ -506,5 +506,13 @@ $(function() {
             $('#scheduleBox').dialog( {width: dialogWidth, title: "16 У", minHeight : "50px", position: ['center',20] } );
         });
     });
+
+    $('a#logoutLink').click(function(e) {
+        var $this = $(this);
+        e.preventDefault();
+        $.post('', {'logout': '1'}, function() {
+            window.location.reload(false);
+        });
+    });
 });
 
