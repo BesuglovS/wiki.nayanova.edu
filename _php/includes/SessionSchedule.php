@@ -1,17 +1,18 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$groupId = $_GET["groupId"];
+$schedulePrefix = "old_";
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$groupId = $_GET["groupId"];
-
-$schedulePrefix = "old_";
-
 $todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
 $today = gmdate("y.m.d H:i:s", $todayStamp);
-$statisticQuery  = "INSERT INTO sessionStats( DateTime, GroupId ) ";
+$statisticQuery  = "INSERT INTO " . $dbPrefix . "sessionStats( DateTime, GroupId ) ";
 $statisticQuery .= "VALUES ( \"";
 $statisticQuery .= $today;
 $statisticQuery .= "\", \"";
@@ -20,18 +21,18 @@ $statisticQuery .= "\")";
 
 $database->query($statisticQuery);
 
-$groupsQuery  = "SELECT DISTINCT " . $schedulePrefix . "studentsInGroups.StudentGroupId ";
-$groupsQuery .= "FROM " . $schedulePrefix . "studentsInGroups ";
+$groupsQuery  = "SELECT DISTINCT " . $schedulePrefix . $dbPrefix . "studentsInGroups.StudentGroupId ";
+$groupsQuery .= "FROM " . $schedulePrefix . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
 $groupsQuery .= "IN ( ";
-$groupsQuery .= "SELECT " . $schedulePrefix . "studentsInGroups.StudentId ";
-$groupsQuery .= "FROM " . $schedulePrefix . "studentsInGroups ";
-$groupsQuery .= "JOIN " . $schedulePrefix . "studentGroups ";
-$groupsQuery .= "ON " . $schedulePrefix . "studentsInGroups.StudentGroupId = " . $schedulePrefix . "studentGroups.StudentGroupId ";
-$groupsQuery .= "JOIN " . $schedulePrefix . "students ";
-$groupsQuery .= "ON " . $schedulePrefix . "studentsInGroups.StudentId = " . $schedulePrefix . "students.StudentId ";
-$groupsQuery .= "WHERE " . $schedulePrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
-$groupsQuery .= "AND " . $schedulePrefix . "students.Expelled = 0 ";
+$groupsQuery .= "SELECT " . $schedulePrefix . $dbPrefix . "studentsInGroups.StudentId ";
+$groupsQuery .= "FROM " . $schedulePrefix . $dbPrefix . "studentsInGroups ";
+$groupsQuery .= "JOIN " . $schedulePrefix . $dbPrefix . "studentGroups ";
+$groupsQuery .= "ON " . $schedulePrefix . $dbPrefix . "studentsInGroups.StudentGroupId = " . $schedulePrefix . $dbPrefix . "studentGroups.StudentGroupId ";
+$groupsQuery .= "JOIN " . $schedulePrefix . $dbPrefix . "students ";
+$groupsQuery .= "ON " . $schedulePrefix . $dbPrefix . "studentsInGroups.StudentId = " . $schedulePrefix . $dbPrefix . "students.StudentId ";
+$groupsQuery .= "WHERE " . $schedulePrefix . $dbPrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
+$groupsQuery .= "AND " . $schedulePrefix . $dbPrefix . "students.Expelled = 0 ";
 $groupsQuery .= ")";
 $groupIdsResult = $database->query($groupsQuery);
 
@@ -40,14 +41,14 @@ while ($id = $groupIdsResult->fetch_assoc())
 {
     $groupIdsArray[] = $id["StudentGroupId"];
 }
-$groupCondition = $schedulePrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
+$groupCondition = $schedulePrefix . $dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
 
-$disciplinesQuery  = "SELECT " . $schedulePrefix . "disciplines.DisciplineId, Name, FIO ";
-$disciplinesQuery .= "FROM " . $schedulePrefix . "disciplines ";
-$disciplinesQuery .= "JOIN " . $schedulePrefix . "teacherForDisciplines ";
-$disciplinesQuery .= "ON " . $schedulePrefix . "disciplines.DisciplineId = " . $schedulePrefix . "teacherForDisciplines.DisciplineId ";
-$disciplinesQuery .= "JOIN " . $schedulePrefix . "teachers ";
-$disciplinesQuery .= "ON " . $schedulePrefix . "teacherForDisciplines.TeacherId = " . $schedulePrefix . "teachers.TeacherId ";
+$disciplinesQuery  = "SELECT " . $schedulePrefix . $dbPrefix . "disciplines.DisciplineId, Name, FIO ";
+$disciplinesQuery .= "FROM " . $schedulePrefix . $dbPrefix . "disciplines ";
+$disciplinesQuery .= "JOIN " . $schedulePrefix . $dbPrefix . "teacherForDisciplines ";
+$disciplinesQuery .= "ON " . $schedulePrefix . $dbPrefix . "disciplines.DisciplineId = " . $schedulePrefix . $dbPrefix . "teacherForDisciplines.DisciplineId ";
+$disciplinesQuery .= "JOIN " . $schedulePrefix . $dbPrefix . "teachers ";
+$disciplinesQuery .= "ON " . $schedulePrefix . $dbPrefix . "teacherForDisciplines.TeacherId = " . $schedulePrefix . $dbPrefix . "teachers.TeacherId ";
 $disciplinesQuery .= "WHERE " . $groupCondition . " ";
 $disciplinesQuery .= "AND ((Attestation = 2) OR (Attestation = 3)) ";
 
@@ -71,7 +72,7 @@ if (count($discIdsArray) == 0)
 $discCondition = " DisciplineId IN ( " . implode(" , ", $discIdsArray) . " )";
 
 $auditoriumQuery  = "SELECT AuditoriumId, Name ";
-$auditoriumQuery .= "FROM " . $schedulePrefix . "auditoriums";
+$auditoriumQuery .= "FROM " . $schedulePrefix . $dbPrefix . "auditoriums";
 $auditoriumsResult = $database->query($auditoriumQuery);
 
 $auditoriums = array();
@@ -82,7 +83,7 @@ while ($auditorium = $auditoriumsResult->fetch_assoc())
 
 
 $examsQuery  = "SELECT DisciplineId, ConsultationDateTime, ConsultationAuditoriumId, ExamDateTime, ExamAuditoriumId ";
-$examsQuery .= "FROM exams ";
+$examsQuery .= "FROM " . $dbPrefix . "exams ";
 $examsQuery .= "WHERE " . $discCondition . " ";
 $examsQuery .= "AND IsActive = 1 ";
 

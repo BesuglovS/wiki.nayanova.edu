@@ -5,15 +5,16 @@ global $database;
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
+$dbPrefix = $_POST["dbPrefix"];
 $tableSelector = $_POST["tableSelector"];
 $data = json_decode($_POST["data"], true);
 
 switch ($tableSelector) {
     case "exams":
-        $query = "DROP TABLE IF EXISTS `exams`";
+        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "exams";
         $database->query($query);
 
-        $query  = "CREATE TABLE IF NOT EXISTS `exams` ( ";
+        $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "exams ( ";
         $query .= "`ExamId` int(11) NOT NULL, ";
         $query .= "`DisciplineId` int(11) NOT NULL, ";
         $query .= "`IsActive` int(4) NOT NULL, ";
@@ -26,7 +27,7 @@ switch ($tableSelector) {
 
         $database->query($query);
 
-        $query  = "INSERT INTO exams(ExamId, DisciplineId, IsActive, ";
+        $query  = "INSERT INTO " . $dbPrefix . "exams(ExamId, DisciplineId, IsActive, ";
         $query .= "ConsultationDateTime, ConsultationAuditoriumId, ExamDateTime, ExamAuditoriumId) ";
         $query .= " VALUES ( ? , ? , ? , ? , ? , ? , ? )";
         $database->prepare($query);
@@ -45,10 +46,10 @@ switch ($tableSelector) {
         break;
     case "examsLogEvents":
 
-        $query = "DROP TABLE IF EXISTS `examsLogEvents`";
+        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "examsLogEvents";
         $database->query($query);
 
-        $query  = "CREATE TABLE IF NOT EXISTS `examsLogEvents` ( ";
+        $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "examsLogEvents ( ";
         $query .= "`LogEventId` int(11) NOT NULL, ";
         $query .= "`OldExamId` int(11) NOT NULL, ";
         $query .= "`NewExamId` int(11) NOT NULL, ";
@@ -58,7 +59,7 @@ switch ($tableSelector) {
 
         $database->query($query);
 
-        $query  = "INSERT INTO examsLogEvents(LogEventId, OldExamId, NewExamId, DateTime) ";
+        $query  = "INSERT INTO " . $dbPrefix . "examsLogEvents(LogEventId, OldExamId, NewExamId, DateTime) ";
         $query .= " VALUES ( ? , ? , ? , ? )";
         $database->prepare($query);
 

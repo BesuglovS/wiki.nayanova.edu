@@ -1,5 +1,8 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+
 require_once("Database.php");
 
 global $database;
@@ -8,7 +11,7 @@ $today  = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
 $todayString =  gmdate("d.m.y", $today);
 
 $query  = "SELECT * ";
-$query .= "FROM exams ";
+$query .= "FROM " . $dbPrefix . "exams ";
 $query .= "WHERE IsActive = 1";
 
 $examList = $database->query($query);

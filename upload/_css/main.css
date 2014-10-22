@@ -516,3 +516,8 @@ p#sessionByDateP {
 #submittable {
     margin: 1em auto;
 }
+
+div#mySchedule {
+    border: 2px solid;
+    border-radius: 15px;
+}

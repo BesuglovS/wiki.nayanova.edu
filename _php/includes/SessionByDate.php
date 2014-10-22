@@ -1,15 +1,16 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$date = $_GET["date"];
+$schedulePrefix = "old_";
+
 require_once("Database.php");
 
 global $database;
 
-$schedulePrefix = "old_";
-
-$date = $_GET["date"];
-
 $auditoriumQuery  = "SELECT AuditoriumId, Name ";
-$auditoriumQuery .= "FROM " . $schedulePrefix . "auditoriums";
+$auditoriumQuery .= "FROM " . $schedulePrefix . $dbPrefix . "auditoriums";
 $auditoriumsResult = $database->query($auditoriumQuery);
 
 $auditoriums = array();
@@ -19,17 +20,17 @@ while ($auditorium = $auditoriumsResult->fetch_assoc())
 }
 
 $query  = "SELECT ConsultationDateTime, ConsultationAuditoriumId, ExamDateTime, ExamAuditoriumId, ";
-$query .= $schedulePrefix . "disciplines.Name as DisciplineName, ";
-$query .= $schedulePrefix . "teachers.FIO, " . $schedulePrefix . "studentGroups.Name as GroupName ";
-$query .= "FROM exams ";
-$query .= "JOIN " . $schedulePrefix . "disciplines ";
-$query .= "ON exams.DisciplineId = " . $schedulePrefix . "disciplines.DisciplineId ";
-$query .= "JOIN " . $schedulePrefix . "studentGroups ";
-$query .= "ON " . $schedulePrefix . "disciplines.StudentGroupId = " . $schedulePrefix . "studentGroups.StudentGroupId ";
-$query .= "JOIN " . $schedulePrefix . "teacherForDisciplines  ";
-$query .= "ON " . $schedulePrefix . "disciplines.DisciplineId = " . $schedulePrefix . "teacherForDisciplines.DisciplineId ";
-$query .= "JOIN " . $schedulePrefix . "teachers  ";
-$query .= "ON " . $schedulePrefix . "teacherForDisciplines.TeacherId = " . $schedulePrefix . "teachers.TeacherId ";
+$query .= $schedulePrefix . $dbPrefix . "disciplines.Name as DisciplineName, ";
+$query .= $schedulePrefix . $dbPrefix . "teachers.FIO, " . $schedulePrefix . $dbPrefix . "studentGroups.Name as GroupName ";
+$query .= "FROM " . $dbPrefix . "exams ";
+$query .= "JOIN " . $schedulePrefix . $dbPrefix . "disciplines ";
+$query .= "ON " . $dbPrefix . "exams.DisciplineId = " . $schedulePrefix . $dbPrefix . "disciplines.DisciplineId ";
+$query .= "JOIN " . $schedulePrefix . $dbPrefix . "studentGroups ";
+$query .= "ON " . $schedulePrefix . $dbPrefix . "disciplines.StudentGroupId = " . $schedulePrefix . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "JOIN " . $schedulePrefix . $dbPrefix . "teacherForDisciplines  ";
+$query .= "ON " . $schedulePrefix . $dbPrefix . "disciplines.DisciplineId = " . $schedulePrefix . $dbPrefix . "teacherForDisciplines.DisciplineId ";
+$query .= "JOIN " . $schedulePrefix . $dbPrefix . "teachers  ";
+$query .= "ON " . $schedulePrefix . $dbPrefix . "teacherForDisciplines.TeacherId = " . $schedulePrefix . $dbPrefix . "teachers.TeacherId ";
 $query .= "WHERE IsActive = 1";
 
 $examList = $database->query($query);

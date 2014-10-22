@@ -17,7 +17,7 @@ class SessionStats {
         $output = "";
 
         $query  = "SELECT DateTime, GroupId ";
-        $query .= "FROM sessionStats ";
+        $query .= "FROM " . $dbPrefix . "sessionStats ";
         $query .= "ORDER BY DateTime DESC ";
 
         $queryResult = $this->database->query($query);

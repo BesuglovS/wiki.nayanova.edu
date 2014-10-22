@@ -1,11 +1,46 @@
-var groupNames = ["12 А", "13 А", "12 Б", "13 Б", "14 Б", "15 Б", "12 В0", "12 В", "13 В", "14 В", "15 В",
-    "12 Г", "13 Г", "14 Г", "12 Г(Н)", "13 Г(Н)", "14 Г(Н)", "12 Д", "13 Д", "14 Д", "15 Д",
-    "12 Д(Н)", "13 Д(Н)", "14 Д(Н)", "12 Е", "12 Е(Н)", "13 Е", "14 Е", "15 Е", "12 У", "13 У", "14 У", "15 У",
-    "12 Т", "13 Т", "14 Т", "С"];
-var groupIds = ["1", "2", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "44", "124", "50", "17", "18", "19", "20", "125",
-    "126", "59", "21", "128", "22", "23", "24", "25", "26", "27", "28",
-    "30", "31", "32", "127"];
+var groupNames = [
+    "12 А", "13 А", "14 А",
+    "12 Б", "13 Б", "14 Б", "15 Б", "16 Б",
+    "12 В", "13 В", "14 В", "15 В", "16 В",
+    "12 Г", "12 Г(Н)", "13 Г", "13 Г(Н)", "14 Г", "14 Г(Н)", "15 Г", "16 Г",
+    "12 Д", "13 Д", "13 Д(Н)", "14 Д", "15 Д",  "16 Д",
+    "12 Е", "12 Е(Н)", "13 Е", "14 Е", "15 Е",
+    "12 У", "13 У", "14 У", "15 У",
+    "12 Т", "13 Т", "14 Т", "15 Т",
+    "1 АГ", "1 АД",
+    "2 АА", "2 АБ", "2 АВ", "2 АГ", "2 АД",
+    "3 АА", "3 АД"];
+var groupIds = [
+    "26", "1", "2",
+    "27", "3", "4", "5", "144",
+    "28", "6", "7", "8", "9",
+    "29", "34", "10", "35", "11", "36", "12", "145",
+    "30", "13", "38", "14", "15", "146",
+    "31", "137", "16", "17", "18",
+    "32", "19", "20", "21",
+    "33", "23", "24", "25",
+    "154", "155",
+    "157", "158", "159", "160", "161",
+    "162", "164"];
+
+var buttonSelectors = [
+    "#12Math", "#13Math", "#14Math",
+    "#12Phil", "#13Phil", "#14Phil", "#15Phil", "#16Phil",
+    "#12Eco", "#13Eco", "#14Eco", "#15Eco", "#16Eco",
+    "#12Econ", "#12EconN", "#13Econ", "#13EconN", "#14Econ", "#14EconN", "#15Econ", "#16Econ",
+    "#12Law", "#13Law", "#13LawN", "#14Law", "#15Law", "#16Law",
+    "#12PR", "#12PRN", "#13PR", "#14PR", "#15PR",
+    "#12Upr", "#13Upr", "#14Upr", "#15Upr",
+    "#12Tur", "#13Tur", "#14Tur", "#15Tur",
+    "#1AEcon", "#1ALaw",
+    "#2AMath", "#2APhil", "#2AEco", "#2AEcon", "#2ALaw",
+    "#3AMath", "#3ALaw"];
+
+var buildingsIndexes = new Array();
+buildingsIndexes["Mol"] = 2;
+buildingsIndexes["Jar"] = 3;
+buildingsIndexes["Other"] = 4;
+buildingsIndexes["SSU"] = 5;
 
 var dowRU = new Array("","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье");
 
@@ -41,8 +76,8 @@ $(function() {
         dateFormat: 'dd mm yy', firstDay: 1,
         initStatus: '', isRTL: false};
 
-    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2014, 2 - 1, 3));
-    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2014, 6 - 1, 8));
+    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2014, 9 - 1, 1));
+    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2014, 12 - 1, 31));
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     /* Datepicker #scheduleDate */
@@ -51,6 +86,37 @@ $(function() {
     $( "button#today" ).click(function() { $("#scheduleDate").datepicker("setDate", "today"); });
     $( "button#tomorrow" ).click(function() { $("#scheduleDate").datepicker("setDate", "1"); });
     /* Today / tomorrow buttons */
+
+    /* Today / tomorrow MY schedule buttons */
+    $( "button#todaySchedule" ).click(function() {
+        $("#scheduleDate").datepicker("setDate", "today");
+        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
+        dateString = IfDatePickerIsEmptySetToday(dateString);
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+        $('#scheduleBox').dialog( {width: 600, title: dateString , minHeight : "50px" , position: ['center',20]} );
+        var path = '_php/includes/DailyMySchedule.php?date="' + dateString + '"';
+        $('#scheduleBox').load(path);
+    });
+
+    $( "button#tomorrowSchedule" ).click(function() {
+        $("#scheduleDate").datepicker("setDate", "1");
+        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
+        dateString = IfDatePickerIsEmptySetToday(dateString);
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+        $('#scheduleBox').dialog( {width: 600, title: dateString , minHeight : "50px" , position: ['center',20]} );
+        var path = '_php/includes/DailyMySchedule.php?date="' + dateString + '"';
+        $('#scheduleBox').load(path);
+    });
+
+    $( "button#MyMyMySchedule" ).click(function() {
+        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
+        dateString = IfDatePickerIsEmptySetToday(dateString);
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+        $('#scheduleBox').dialog( {width: 600, title: dateString , minHeight : "50px" , position: ['center',20]} );
+        var path = '_php/includes/DailyMySchedule.php?date="' + dateString + '"';
+        $('#scheduleBox').load(path);
+    });
+    /* Today / tomorrow MY schedule buttons */
 
     $( "#PDFExport" ).click(function() {
         var faculty = $('#facultiesList').val();
@@ -203,12 +269,6 @@ $(function() {
 /* TeacherList Combobox Autocomplete */
 
 $(function() {
-    var buttonSelectors = ["#12Math", "#13Math", "#12Phil", "#13Phil", "#14Phil", "#15Phil",
-        "#12Eco0", "#12Eco", "#13Eco", "#14Eco", "#15Eco", "#12Econ", "#13Econ", "#14Econ",
-        "#12EconN", "#13EconN", "#14EconN", "#12Law", "#13Law", "#14Law", "#15Law", "#12LawN", "#13LawN", "#14LawN",
-        "#12PR", "#12PRN", "#13PR", "#14PR", "#15PR", "#12Upr", "#13Upr", "#14Upr", "#15Upr", "#12Tur", "#13Tur", "#14Tur", "#C"];
-
-
     /* Кнопки расписания для групп */
     for (var i = 0; i < buttonSelectors.length; i++) {
         $( buttonSelectors[i] ).click(function() {
@@ -297,7 +357,7 @@ $(function() {
     $( "#Mol" ).click(function() {
         var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
         dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Mol&date="' + dateString + '"';
+        var path = '_php/includes/Auditoriums.php?building=' + buildingsIndexes["Mol"] + '&date="' + dateString + '"';
         $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
         var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
         $('#scheduleBox').dialog( {width: dialogWidth, title: "Корпус № 2 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
@@ -306,22 +366,45 @@ $(function() {
     $( "#Jar" ).click(function() {
         var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
         dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Jar&date="' + dateString + '"';
+        var path = '_php/includes/Auditoriums.php?building=' + buildingsIndexes["Jar"] + '&date="' + dateString + '"';
         $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
         var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
         $('#scheduleBox').dialog( {width: dialogWidth, title: "Корпус № 3 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
         $('#scheduleBox').load(path);
     });
+    $( "#SSU" ).click(function() {
+        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
+        dateString = IfDatePickerIsEmptySetToday(dateString);
+        var path = '_php/includes/Auditoriums.php?building=' + buildingsIndexes["SSU"] + '&date="' + dateString + '"';
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
+        $('#scheduleBox').dialog( {width: dialogWidth, title: "Самарский государственный университет (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
+        $('#scheduleBox').load(path);
+    });
     $( "#Other" ).click(function() {
         var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
         dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Other&date="' + dateString + '"';
+        var path = '_php/includes/Auditoriums.php?building=' + buildingsIndexes["Other"] + '&date="' + dateString + '"';
         $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
         var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
         $('#scheduleBox').dialog( {width: dialogWidth, title: "Прочие (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
         $('#scheduleBox').load(path);
     });
+
+    $( "#MolPlus" ).click(function() {
+        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
+        dateString = IfDatePickerIsEmptySetToday(dateString);
+        var path = '_php/includes/Auditoriums.php?building=Mol&date="' + dateString + '"';
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
+        $('#scheduleBox').dialog( {width: dialogWidth, title: "Корпус № 2 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
+        $('#scheduleBox').load(path, function() {
+            var path2 = '_php/includes/Auditoriums.php?building=Mol&date="' + dateString + '"' + '&dbPrefix=s_';
+            $('#schoolAuds').load(path2);
+        });
+    });
     /* Кнопки для таблиц аудиторий по корпусам */
+
 
     $("input#scheduleOrChanges").switchButton({
         checked : false,

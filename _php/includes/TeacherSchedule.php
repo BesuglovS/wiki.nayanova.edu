@@ -1,33 +1,35 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$teacherId = $_GET["teacherId"];
+
 require_once("Database.php");
 require_once("ConfigOptions.php");
 require_once("Utilities.php");
 
 global $database;
 
-$teacherId = $_GET["teacherId"];
-
-$query  = "SELECT calendars.Date, rings.Time, studentGroups.Name as groupName, ";
-$query .= "disciplines.Name as disciplineName, auditoriums.Name as auditoriumName, ";
-$query .= "teacherForDisciplines.TeacherForDisciplineId ";
-$query .= "FROM lessons ";
-$query .= "JOIN teacherForDisciplines ";
-$query .= "ON lessons.TeacherForDisciplineId = teacherForDisciplines.TeacherForDisciplineId ";
-$query .= "JOIN teachers ";
-$query .= "ON teacherForDisciplines.TeacherId = teachers.TeacherId ";
-$query .= "JOIN calendars ";
-$query .= "ON lessons.CalendarId = calendars.CalendarId ";
-$query .= "JOIN rings ";
-$query .= "ON lessons.RingId = rings.RingId ";
-$query .= "JOIN disciplines ";
-$query .= "ON teacherForDisciplines.DisciplineId = disciplines.DisciplineId ";
-$query .= "JOIN studentGroups ";
-$query .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-$query .= "JOIN auditoriums ";
-$query .= "ON lessons.AuditoriumId = auditoriums.AuditoriumId ";
-$query .= "WHERE teachers.TeacherId=" . $teacherId . " ";
-$query .= "AND lessons.isActive = 1 ";
+$query  = "SELECT " . $dbPrefix . "calendars.Date, " . $dbPrefix . "rings.Time, " . $dbPrefix . "studentGroups.Name as groupName, ";
+$query .= $dbPrefix . "disciplines.Name as disciplineName, " . $dbPrefix . "auditoriums.Name as auditoriumName, ";
+$query .= $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+$query .= "FROM " . $dbPrefix . "lessons ";
+$query .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+$query .= "ON " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+$query .= "JOIN " . $dbPrefix . "teachers ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+$query .= "JOIN " . $dbPrefix . "calendars ";
+$query .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+$query .= "JOIN " . $dbPrefix . "rings ";
+$query .= "ON " . $dbPrefix . "lessons.RingId = " . $dbPrefix . "rings.RingId ";
+$query .= "JOIN " . $dbPrefix . "disciplines ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+$query .= "JOIN " . $dbPrefix . "studentGroups ";
+$query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "JOIN " . $dbPrefix . "auditoriums ";
+$query .= "ON " . $dbPrefix . "lessons.AuditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+$query .= "WHERE " . $dbPrefix . "teachers.TeacherId=" . $teacherId . " ";
+$query .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
 $queryResult = $database->query($query);
 

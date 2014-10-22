@@ -1,10 +1,13 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+
 require_once("Database.php");
 
 global $database;
 
-$query = "SELECT StudentGroupId, `Name` FROM studentGroups";
+$query = "SELECT StudentGroupId, `Name` FROM " . $dbPrefix . "studentGroups";
 
 $groupList = $database->query($query);
 

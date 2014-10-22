@@ -1,6 +1,11 @@
 <?php
 session_start();
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$groupId = $_GET["groupId"];
+$dateString = $_GET["date"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
@@ -17,10 +22,9 @@ function ReformatDateToMySQL($date)
     return $semesterStartsCorrectFormat;
 }
 
-$groupId = $_GET["groupId"];
-$dateString = $_GET["date"];
+$groupNameQuery = "SELECT " . $dbPrefix . "studentGroups.Name FROM " . $dbPrefix . "studentGroups WHERE StudentGroupId = " . $groupId;
 
-$groupNameQuery = "SELECT studentGroups.Name FROM studentGroups WHERE StudentGroupId = " . $groupId;
+
 $sGroup = $database->query($groupNameQuery);
 $groupNameArr = $sGroup->fetch_assoc();
 $groupName = $database->real_escape_string($groupNameArr["Name"]);
@@ -33,7 +37,7 @@ if (isset($_SESSION['NUlogin']))
 
     $MySQLDate = ReformatDateToMySQL($_SESSION['NUpassword']);
     $studentIdQuery  = "SELECT StudentId ";
-    $studentIdQuery .= "FROM students ";
+    $studentIdQuery .= "FROM " . $dbPrefix . "students ";
     $studentIdQuery .= "WHERE F = '" . $F . "' ";
     $studentIdQuery .= "AND BirthDate = '" . $MySQLDate . "' ";
     $studentResult = $database->query($studentIdQuery);
@@ -43,7 +47,7 @@ if (isset($_SESSION['NUlogin']))
 
 $todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
 $today = gmdate("y.m.d H:i:s", $todayStamp);
-$statisticQuery  = "INSERT INTO DailyScheduleStats( groupId, date, statDate";
+$statisticQuery  = "INSERT INTO " . $dbPrefix . "DailyScheduleStats( groupId, date, statDate";
 if ($studentId !== 0)
 {
     $statisticQuery .= ", StudentId ";
@@ -62,27 +66,28 @@ if ($studentId !== 0)
 }
 $statisticQuery .= ")";
 
+/*
 if (isset($_SESSION['NUlogin']))
 {
     echo $studentId . "<br />";
     echo $statisticQuery . "<br />";
-}
+}*/
 
 $database->query($statisticQuery);
 
 
-$groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
-$groupsQuery .= "FROM studentsInGroups ";
+$groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
 $groupsQuery .= "IN ( ";
-$groupsQuery .= "SELECT studentsInGroups.StudentId ";
-$groupsQuery .= "FROM studentsInGroups ";
-$groupsQuery .= "JOIN studentGroups ";
-$groupsQuery .= "ON studentsInGroups.StudentGroupId = studentGroups.StudentGroupId ";
-$groupsQuery .= "JOIN students ";
-$groupsQuery .= "ON studentsInGroups.StudentId = students.StudentId ";
-$groupsQuery .= "WHERE studentGroups.StudentGroupId = ". $groupId ." ";
-$groupsQuery .= "AND students.Expelled = 0 ";
+$groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+$groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+$groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$groupsQuery .= "JOIN " . $dbPrefix . "students ";
+$groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentId = " . $dbPrefix . "students.StudentId ";
+$groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
+$groupsQuery .= "AND " . $dbPrefix . "students.Expelled = 0 ";
 $groupsQuery .= ")";
 $groupIdsResult = $database->query($groupsQuery);
 
@@ -91,38 +96,43 @@ while ($id = $groupIdsResult->fetch_assoc())
 {
     $groupIdsArray[] = $id["StudentGroupId"];
 }
-$groupCondition = "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
+$groupCondition = $dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
 
-$query  = "SELECT rings.Time, disciplines.Name, teachers.FIO, auditoriums.Name ";
-$query .= "FROM lessons ";
-$query .= "JOIN calendars ";
-$query .= "ON lessons.CalendarId = calendars.CalendarId ";
-$query .= "JOIN rings ";
-$query .= "ON lessons.RingId = rings.RingId ";
-$query .= "JOIN auditoriums ";
-$query .= "ON lessons.AuditoriumId = auditoriums.AuditoriumID ";
-$query .= "JOIN teacherForDisciplines ";
-$query .= "ON lessons.TeacherForDisciplineId = teacherForDisciplines.TeacherForDisciplineId ";
-$query .= "JOIN teachers ";
-$query .= "ON teacherForDisciplines.TeacherId = teachers.TeacherId ";
-$query .= "JOIN disciplines ";
-$query .= "ON teacherForDisciplines.DisciplineId = disciplines.DisciplineId ";
-$query .= "JOIN studentGroups ";
-$query .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-$query .= "WHERE lessons.IsActive=1 ";
+$query  = "SELECT " . $dbPrefix . "rings.Time, " . $dbPrefix . "disciplines.Name AS discName, ";
+$query .= $dbPrefix . "teachers.FIO, " . $dbPrefix . "auditoriums.Name AS audName, ";
+$query .= $dbPrefix . "studentGroups.Name AS groupName ";
+$query .= "FROM " . $dbPrefix . "lessons ";
+$query .= "JOIN " . $dbPrefix . "calendars ";
+$query .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+$query .= "JOIN " . $dbPrefix . "rings ";
+$query .= "ON " . $dbPrefix . "lessons.RingId = " . $dbPrefix . "rings.RingId ";
+$query .= "JOIN " . $dbPrefix . "auditoriums ";
+$query .= "ON " . $dbPrefix . "lessons.AuditoriumId = " . $dbPrefix . "auditoriums.AuditoriumID ";
+$query .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+$query .= "ON " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+$query .= "JOIN " . $dbPrefix . "teachers ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+$query .= "JOIN " . $dbPrefix . "disciplines ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+$query .= "JOIN " . $dbPrefix . "studentGroups ";
+$query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "WHERE " . $dbPrefix . "lessons.IsActive=1 ";
 $query .= "AND (" . $groupCondition . ") ";
-$query .= "AND calendars.Date = " . $dateString . " ";
-$query .= "ORDER BY rings.Time ASC";
+$query .= "AND " . $dbPrefix . "calendars.Date = " . $dateString . " ";
+$query .= "ORDER BY " . $dbPrefix . "rings.Time ASC, groupName";
 
 $lessonsList = $database->query($query);
 
 if ($lessonsList->num_rows != 0)
 {
-    echo "<table class=\"DailySchedule\">";
-    while($lesson = $lessonsList->fetch_row())
+    $resultLessons = array();
+
+    while($lesson = $lessonsList->fetch_assoc())
     {
-        $lesHour = mb_substr($lesson[0], 0, 2);
-        $lesMin = mb_substr($lesson[0], 3, 2);
+        $resultLesson = array();
+
+        $lesHour = mb_substr($lesson["Time"], 0, 2);
+        $lesMin = mb_substr($lesson["Time"], 3, 2);
         $timeDiff = Utilities::DiffTimeWithNowInMinutes($lesHour, $lesMin);
 
         $today = date("Y-m-d");
@@ -130,45 +140,93 @@ if ($lessonsList->num_rows != 0)
 
         if (($timeDiff < 0) && ($timeDiff > -80) && ($today == $scheduleDate))
         {
-            $onGoing = 1;
+            $resultLesson["onGoing"] = 1;
         }
         else
         {
-            $onGoing = 0;
+            $resultLesson["onGoing"] = 0;
         }
 
+
+        $resultLesson["Time"] = substr($lesson["Time"], 0, strlen($lesson["Time"])-3);
+        $resultLesson["discName"] = $lesson["discName"];
+        $resultLesson["FIO"] = $lesson["FIO"];
+        $resultLesson["audName"] = $lesson["audName"];
+        $resultLesson["groupName"] = $lesson["groupName"];
+
+        $resultLessons[] = $resultLesson;
+    }
+
+    $startRow = -1;
+
+    for($i = 1; $i < count($resultLessons); $i++)
+    {
+        if ($resultLessons[$i]["Time"] == $resultLessons[$i-1]["Time"])
+        {
+            if ($startRow == -1)
+            {
+                $startRow = $i-1;
+                $resultLessons[$i]["omitTime"] = 1;
+                $resultLessons[$startRow]["rowspan"] = 2;
+            }
+            else
+            {
+                $resultLessons[$startRow]["rowspan"] = $i - $startRow + 1;
+            }
+        }
+        else
+        {
+            $startRow = -1;
+        }
+    }
+
+
+    echo "<table class=\"DailySchedule\">";
+    for($i = 0; $i < count($resultLessons); $i++)
+    {
         echo "<tr>";
+        if ($resultLessons[$i]["omitTime"] != 1)
+        {
+            echo "<td";
+            if (array_key_exists("rowspan",$resultLessons[$i]))
+            {
+                echo " rowspan=\"" . $resultLessons[$i]["rowspan"] . "\"";
+            }
+            if ($resultLessons[$i]["onGoing"] == 1)
+            {
+                echo " style=\"background:#FFFFAA\"";
+            }
+            echo ">";
+            echo $resultLessons[$i]["Time"];
+            echo "</td>";
+        }
         echo "<td";
-        if ($onGoing == 1)
+        if ($resultLessons[$i]["onGoing"] == 1)
         {
             echo " style=\"background:#FFFFAA\"";
         }
         echo ">";
-        echo substr($lesson[0], 0, strlen($lesson[0])-3);
+        echo $resultLessons[$i]["discName"];
+        if ($groupName != $resultLessons[$i]["groupName"])
+        {
+            echo " (" . $resultLessons[$i]["groupName"] . ")";
+        }
         echo "</td>";
         echo "<td";
-        if ($onGoing == 1)
+        if ($resultLessons[$i]["onGoing"] == 1)
         {
             echo " style=\"background:#FFFFAA\"";
         }
         echo ">";
-        echo $lesson[1];
+        echo $resultLessons[$i]["FIO"];
         echo "</td>";
         echo "<td";
-        if ($onGoing == 1)
+        if ($resultLessons[$i]["onGoing"] == 1)
         {
             echo " style=\"background:#FFFFAA\"";
         }
         echo ">";
-        echo $lesson[2];
-        echo "</td>";
-        echo "<td";
-        if ($onGoing == 1)
-        {
-            echo " style=\"background:#FFFFAA\"";
-        }
-        echo ">";
-        echo $lesson[3];
+        echo $resultLessons[$i]["audName"];
         echo "</td>";
         echo "</tr>";
     }

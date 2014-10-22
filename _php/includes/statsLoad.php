@@ -1,14 +1,16 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$startFrom = $_GET["startFrom"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$startFrom = $_GET["startFrom"];
-
 $query  = "SELECT statId, groupId, date, statDate, StudentId ";
-$query .= "FROM `DailyScheduleStats` ";
+$query .= "FROM " . $dbPrefix . "DailyScheduleStats ";
 $query .= "ORDER BY statDate DESC ";
 $query .= "LIMIT " . $startFrom . ", 100";
 
@@ -39,7 +41,7 @@ if ($events->num_rows != 0)
         if ($event["StudentId"] !== "0")
         {
             $FIOQuery  = "SELECT F, I, O ";
-            $FIOQuery .= "FROM students ";
+            $FIOQuery .= "FROM " . $dbPrefix . "students ";
             $FIOQuery .= "WHERE StudentId = " . $event["StudentId"];
             $FIOResult = $database->query($FIOQuery);
             $FIORArray = $FIOResult->fetch_assoc();

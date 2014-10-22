@@ -1,8 +1,11 @@
 <?php
 require_once("Database.php");
 global $database;
+global $dbPrefix;
 
-$query  = "SELECT configs.Key, configs.Value FROM `configs`";
+$configsTableName = $dbPrefix . "configs";
+
+$query  = "SELECT ". $configsTableName . ".Key, " . $configsTableName . ".Value FROM " . $configsTableName;
 
 $result = $database->query($query);
 

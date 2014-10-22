@@ -1,24 +1,26 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
-require_once("Database.php");
-require_once("Utilities.php");
 
-global $database;
-
+$dbPrefix = $_GET["dbPrefix"];
 $groupId = $_GET["groupId"];
 $startFrom = $_GET["startFrom"];
 $tomorrow = $_GET["tomorrow"];
 $dateString = $_GET["date"];
 
-$groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
-$groupsQuery .= "FROM studentsInGroups ";
+require_once("Database.php");
+require_once("Utilities.php");
+
+global $database;
+
+$groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
 $groupsQuery .= "IN ( ";
-$groupsQuery .= "SELECT studentsInGroups.StudentId ";
-$groupsQuery .= "FROM studentsInGroups ";
-$groupsQuery .= "JOIN studentGroups ";
-$groupsQuery .= "ON studentsInGroups.StudentGroupId = studentGroups.StudentGroupId ";
-$groupsQuery .= "WHERE studentGroups.StudentGroupId = '". $groupId ."' ";
+$groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+$groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+$groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = '". $groupId ."' ";
 $groupsQuery .= ")";
 
 $groupIdsResult = $database->query($groupsQuery);
@@ -32,46 +34,46 @@ $groupCondition = " IN ( " . implode(" , ", $groupIdsArray) . " )";
 
 $tomorrowDateString  = date("Y") . "-" . date("m") . "-" . (date("d")+1);
 
-$query  = "SELECT lessonLogEvents.DateTime, lessonLogEvents.PublicComment, ";
-$query .= "lessonLogEvents.NewLessonId, lessonLogEvents.OldLessonId, ";
+$query  = "SELECT " . $dbPrefix . "lessonLogEvents.DateTime, " . $dbPrefix . "lessonLogEvents.PublicComment, ";
+$query .= $dbPrefix . "lessonLogEvents.NewLessonId, " . $dbPrefix . "lessonLogEvents.OldLessonId, ";
 $query .= "newCalendar.Date AS newDate, newRing.Time AS newTime, newDics.Name AS newDicsName, ";
 $query .= "newTeachers.FIO AS newTeacherFIO, newAud.Name AS newAudName, ";
 $query .= "oldCalendar.Date AS oldDate, oldRing.Time AS oldTime, oldDics.Name AS oldDicsName, ";
 $query .= "oldTeachers.FIO AS oldTeacherFIO, oldAud.Name AS oldAudName ";
-$query .= "FROM lessonLogEvents ";
+$query .= "FROM " . $dbPrefix . "lessonLogEvents ";
 
-$query .= "LEFT JOIN lessons AS newLesson ";
-$query .= "ON lessonLogEvents.NewLessonId = newLesson.LessonId ";
-$query .= "LEFT JOIN calendars AS newCalendar ";
+$query .= "LEFT JOIN " . $dbPrefix . "lessons AS newLesson ";
+$query .= "ON " . $dbPrefix . "lessonLogEvents.NewLessonId = newLesson.LessonId ";
+$query .= "LEFT JOIN " . $dbPrefix . "calendars AS newCalendar ";
 $query .= "ON newLesson.CalendarId = newCalendar.CalendarId ";
-$query .= "LEFT JOIN rings AS newRing ";
+$query .= "LEFT JOIN " . $dbPrefix . "rings AS newRing ";
 $query .= "ON newLesson.RingId = newRing.RingId ";
-$query .= "LEFT JOIN auditoriums AS newAud ";
+$query .= "LEFT JOIN " . $dbPrefix . "auditoriums AS newAud ";
 $query .= "on newLesson.AuditoriumId = newAud.AuditoriumId ";
-$query .= "LEFT JOIN teacherForDisciplines AS newTFD ";
+$query .= "LEFT JOIN " . $dbPrefix . "teacherForDisciplines AS newTFD ";
 $query .= "ON newLesson.TeacherForDisciplineId = newTFD.TeacherForDisciplineId ";
-$query .= "LEFT JOIN teachers AS newTeachers ";
+$query .= "LEFT JOIN " . $dbPrefix . "teachers AS newTeachers ";
 $query .= "ON newTFD.TeacherId = newTeachers.TeacherId ";
-$query .= "LEFT JOIN disciplines AS newDics ";
+$query .= "LEFT JOIN " . $dbPrefix . "disciplines AS newDics ";
 $query .= "ON newTFD.DisciplineId = newDics.DisciplineId ";
-$query .= "LEFT JOIN studentGroups AS newGroup ";
+$query .= "LEFT JOIN " . $dbPrefix . "studentGroups AS newGroup ";
 $query .= "ON newDics.StudentGroupId = newGroup.StudentGroupId ";
 
-$query .= "LEFT JOIN lessons AS oldLesson ";
-$query .= "ON lessonLogEvents.OldLessonId = oldLesson.LessonId ";
-$query .= "LEFT JOIN calendars AS oldCalendar ";
+$query .= "LEFT JOIN " . $dbPrefix . "lessons AS oldLesson ";
+$query .= "ON " . $dbPrefix . "lessonLogEvents.OldLessonId = oldLesson.LessonId ";
+$query .= "LEFT JOIN " . $dbPrefix . "calendars AS oldCalendar ";
 $query .= "ON oldLesson.CalendarId = oldCalendar.CalendarId ";
-$query .= "LEFT JOIN rings AS oldRing ";
+$query .= "LEFT JOIN " . $dbPrefix . "rings AS oldRing ";
 $query .= "ON oldLesson.RingId = oldRing.RingId ";
-$query .= "LEFT JOIN auditoriums AS oldAud ";
+$query .= "LEFT JOIN " . $dbPrefix . "auditoriums AS oldAud ";
 $query .= "on oldLesson.AuditoriumId = oldAud.AuditoriumId ";
-$query .= "LEFT JOIN teacherForDisciplines AS oldTFD ";
+$query .= "LEFT JOIN " . $dbPrefix . "teacherForDisciplines AS oldTFD ";
 $query .= "ON oldLesson.TeacherForDisciplineId = oldTFD.TeacherForDisciplineId ";
-$query .= "LEFT JOIN teachers AS oldTeachers ";
+$query .= "LEFT JOIN " . $dbPrefix . "teachers AS oldTeachers ";
 $query .= "ON oldTFD.TeacherId = oldTeachers.TeacherId ";
-$query .= "LEFT JOIN disciplines AS oldDics ";
+$query .= "LEFT JOIN " . $dbPrefix . "disciplines AS oldDics ";
 $query .= "ON oldTFD.DisciplineId = oldDics.DisciplineId ";
-$query .= "LEFT JOIN studentGroups AS oldGroup ";
+$query .= "LEFT JOIN " . $dbPrefix . "studentGroups AS oldGroup ";
 $query .= "ON oldDics.StudentGroupId = oldGroup.StudentGroupId ";
 
 $query .= "WHERE ((oldDics.StudentGroupId " . $groupCondition . ") ";
@@ -86,7 +88,7 @@ if ($tomorrow == "true")
     $query .= " AND ( newCalendar.Date = \"" . $dateString . "\")";
 }
 $query .= ") ";
-$query .= "ORDER BY lessonLogEvents.DateTime DESC ";
+$query .= "ORDER BY " . $dbPrefix . "lessonLogEvents.DateTime DESC ";
 $query .= "LIMIT " . $startFrom  . ", 10 ";
 
 $events = $database->query($query);

@@ -1,17 +1,18 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$startFrom = $_GET["startFrom"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$startFrom = $_GET["startFrom"];
-
-
 $query  = "SELECT DateTime, F, I, O, RemoteAddr ";
-$query .= "FROM LoginLog ";
-$query .= "JOIN students ";
-$query .= "ON LoginLog.StudentId = students.StudentId ";
+$query .= "FROM " . $dbPrefix . "LoginLog ";
+$query .= "JOIN " . $dbPrefix . "students ";
+$query .= "ON " . $dbPrefix . "LoginLog.StudentId = " . $dbPrefix . "students.StudentId ";
 $query .= "ORDER BY DateTime DESC ";
 $query .= "LIMIT " . $startFrom . ", 100";
 

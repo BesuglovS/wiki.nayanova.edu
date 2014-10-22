@@ -15,6 +15,7 @@ class api {
         $action = $POST["action"];
 
         if (!(($action == "list") ||
+              ($action == "groupsBundle") ||
               ($action == "bundle") ||
               ($action == "update")))
         {
@@ -42,6 +43,16 @@ class api {
 
                 $bundle["configOptions"] = $this->GetConfigOptionsList();
                 $bundle["lessonLogEvents"] = $this->GetLogEvents(null);
+
+                $result = json_encode($bundle);
+
+                return ($result);
+                break;
+            case "groupsBundle":
+                $bundle = array();
+                $bundle["studentGroups"] = $this->GetStudentGroupsList();
+                $bundle["faculties"] = $this->GetFacultiesList();
+                $bundle["groupsInFaculties"] = $this->GetGroupsInFacultiesList();
 
                 $result = json_encode($bundle);
 
@@ -106,6 +117,10 @@ class api {
                     case "lessonLogEvents":
                         $lessonLogEvents = $this->GetLogEvents($POST);
                         return (json_encode($lessonLogEvents));
+                        break;
+                    case "faculties":
+                        $faculties = $this->GetFacultiesList();
+                        return (json_encode($faculties));
                         break;
                 }
                 break;
@@ -614,6 +629,38 @@ class api {
         $output .= "Документация находится  ";
         $output .= "<a href=\"developers\">здесь</a>.";
         return $output;
+    }
+
+    private function GetFacultiesList()
+    {
+        $faculties = array();
+
+        $query = "SELECT FacultyId, Name, Letter, SortingOrder ";
+        $query .= "FROM faculties ";
+
+        $facultyList = $this->database->query($query);
+
+        while ($faculty = $facultyList->fetch_assoc()) {
+
+            $faculties[] = $faculty;
+        }
+        return $faculties;
+    }
+
+    private function GetGroupsInFacultiesList()
+    {
+        $GroupsInFaculty = array();
+
+        $query = "SELECT GroupsInFacultyId, StudentGroupId, FacultyId ";
+        $query .= "FROM GroupsInFaculties ";
+
+        $gifList = $this->database->query($query);
+
+        while ($gif = $gifList->fetch_assoc()) {
+
+            $GroupsInFaculty[] = $gif;
+        }
+        return $GroupsInFaculty;
     }
 }
 

@@ -1,21 +1,23 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$groupId = $_GET["id"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$groupId = $_GET["id"];
-
-$groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
-$groupsQuery .= "FROM studentsInGroups ";
+$groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
 $groupsQuery .= "IN ( ";
-$groupsQuery .= "SELECT studentsInGroups.StudentId ";
-$groupsQuery .= "FROM studentsInGroups ";
-$groupsQuery .= "JOIN studentGroups ";
-$groupsQuery .= "ON studentsInGroups.StudentGroupId = studentGroups.StudentGroupId ";
-$groupsQuery .= "WHERE studentGroups.StudentGroupId = ". $groupId ." ";
+$groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+$groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+$groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
 $groupsQuery .= ")";
 $groupIdsResult = $database->query($groupsQuery);
 
@@ -24,26 +26,34 @@ while ($id = $groupIdsResult->fetch_assoc())
 {
     $groupIdsArray[] = $id["StudentGroupId"];
 }
-$groupCondition = "WHERE studentGroups.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
+$groupCondition = "WHERE " . $dbPrefix . "studentGroups.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
 
-$query  = "SELECT DISTINCT disciplines.Name, disciplines.Attestation, disciplines.AuditoriumHours, ";
-$query .= "studentGroups.Name  AS GroupName, teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
-$query .= "teachers.FIO ";
-$query .= "FROM disciplines ";
-$query .= "JOIN studentGroups ";
-$query .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-$query .= "JOIN teacherForDisciplines ";
-$query .= "ON disciplines.DisciplineId = teacherForDisciplines.DisciplineId ";
-$query .= "JOIN teachers ";
-$query .= "ON teacherForDisciplines.TeacherId =  teachers.TeacherId ";
+$query  = "SELECT DISTINCT " . $dbPrefix . "disciplines.Name, " . $dbPrefix . "disciplines.Attestation, " . $dbPrefix . "disciplines.AuditoriumHours, ";
+$query .= $dbPrefix . "studentGroups.Name  AS GroupName, " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
+$query .= $dbPrefix . "teachers.FIO ";
+$query .= "FROM " . $dbPrefix . "disciplines ";
+$query .= "LEFT JOIN " . $dbPrefix . "studentGroups ";
+$query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "LEFT JOIN " . $dbPrefix . "teacherForDisciplines ";
+$query .= "ON " . $dbPrefix . "disciplines.DisciplineId = " . $dbPrefix . "teacherForDisciplines.DisciplineId ";
+$query .= "LEFT JOIN " . $dbPrefix . "teachers ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId =  " . $dbPrefix . "teachers.TeacherId ";
 
 $query .= $groupCondition;
 
 $discList = $database->query($query);
 
+$FakeTFD = -2;
+
 $result = array();
 while($disc = $discList->fetch_assoc())
 {
+    if ($disc["TFDID"] == "")
+    {
+        $disc["TFDID"] = $FakeTFD;
+        $FakeTFD--;
+    }
+
     $result[$disc["TFDID"]] = array();
     $result[$disc["TFDID"]]["Name"] = $disc["Name"];
     $result[$disc["TFDID"]]["AuditoriumHours"] = $disc["AuditoriumHours"];
@@ -52,12 +62,16 @@ while($disc = $discList->fetch_assoc())
     $result[$disc["TFDID"]]["teacherFIO"] = $disc["FIO"];
 }
 
+//echo "<pre>";
+//echo print_r($result);
+//echo "</pre>";
+
 foreach ($result as $tfdId => $discData)
 {
     $hoursQuery  = "SELECT COUNT(*) AS lesCount ";
-    $hoursQuery .= "FROM lessons ";
-    $hoursQuery .= "WHERE lessons.TeacherForDisciplineId = " . $tfdId . " ";
-    $hoursQuery .= "AND lessons.isActive = 1 ";
+    $hoursQuery .= "FROM " . $dbPrefix . "lessons ";
+    $hoursQuery .= "WHERE " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $tfdId . " ";
+    $hoursQuery .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
     $queryData = $database->query($hoursQuery);
     $row = $queryData->fetch_assoc();

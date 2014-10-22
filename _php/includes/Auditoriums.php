@@ -1,74 +1,119 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$building = $_GET["building"];
+$dateString = $_GET["date"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$building = $_GET["building"];
-$dateString = $_GET["date"];
+function AuditoriumBuilding($database, $AuditoriumId)
+{
+    $query  = "SELECT buildings.BuildingId, buildings.Name ";
+    $query .= "from auditoriums ";
+    $query .= "JOIN buildings ";
+    $query .= "ON auditoriums.BuildingId = buildings.BuildingId ";
+    $query .= "where auditoriums.AuditoriumId = " . $AuditoriumId . " ";
+    $query .= "LIMIT 1 ";
+
+    $buildingQueryResult = $database->query($query);
+
+    $building = $buildingQueryResult->fetch_assoc();
+
+    return $building["BuildingId"];
+
+    /*$buildingName = $building["Name"];
+
+    if ($buildingName === "ул. Молодогвардейская, 196")
+    {
+        return "Mol";
+    }
+
+    if ($buildingName === "ул. Ярмарочная, 17")
+    {
+        return "Jar";
+    }
+
+    return "Other";
+    */
+}
+
+$query  = "SELECT " . $dbPrefix . "rings.Time, ";
+$query .= $dbPrefix . "auditoriums.Name AS AudName, ";
+$query .= $dbPrefix . "studentGroups.Name AS studentGroupName, ";
+$query .= $dbPrefix . "disciplines.Name AS discName, ";
+$query .= $dbPrefix . "teachers.FIO, ";
+$query .= $dbPrefix . "auditoriums.AuditoriumId ";
+$query .= "FROM " . $dbPrefix . "lessons ";
+$query .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+$query .= "ON " . $dbPrefix . "lessons.`TeacherForDisciplineId` = " . $dbPrefix . "teacherForDisciplines.`TeacherForDisciplineId` ";
+$query .= "JOIN " . $dbPrefix . "disciplines ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+$query .= "JOIN " . $dbPrefix . "studentGroups ";
+$query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "JOIN " . $dbPrefix . "teachers ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+$query .= "JOIN " . $dbPrefix . "rings ";
+$query .= "ON " . $dbPrefix . "lessons.RingId = " . $dbPrefix . "rings.RingId ";
+$query .= "JOIN " . $dbPrefix . "auditoriums ";
+$query .= "ON " . $dbPrefix . "lessons.AuditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+$query .= "JOIN " . $dbPrefix . "calendars ";
+$query .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+$query .= "WHERE " . $dbPrefix . "calendars.Date = " . $dateString . " ";
+$query .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
 
-$query  = "SELECT rings.Time, auditoriums.Name, studentGroups.Name, disciplines.Name, teachers.FIO ";
-$query .= "FROM lessons ";
-$query .= "JOIN teacherForDisciplines ";
-$query .= "ON lessons.`TeacherForDisciplineId` = teacherForDisciplines.`TeacherForDisciplineId` ";
-$query .= "JOIN disciplines ";
-$query .= "ON teacherForDisciplines.DisciplineId = disciplines.DisciplineId ";
-$query .= "JOIN studentGroups ";
-$query .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-$query .= "JOIN teachers ";
-$query .= "ON teacherForDisciplines.TeacherId = teachers.TeacherId ";
-$query .= "JOIN rings ";
-$query .= "ON lessons.RingId = rings.RingId ";
-$query .= "JOIN auditoriums ";
-$query .= "ON lessons.AuditoriumId = auditoriums.AuditoriumId ";
-$query .= "JOIN calendars ";
-$query .= "ON lessons.CalendarId = calendars.CalendarId ";
-$query .= "WHERE calendars.Date = " . $dateString . " ";
-$query .= "AND lessons.isActive = 1 ";
 
 $result = $database->query($query);
 $dailyLessons = array();
-while ($lesson = $result->fetch_row())
+while ($lesson = $result->fetch_assoc())
 {
     $dailyLessons[] = $lesson;
 }
 
-foreach ($dailyLessons as $index => $lesson)
+if ($dbPrefix != 's_')
 {
-    if (Utilities::AuditoriumBuilding($lesson[1]) != $building)
+    foreach ($dailyLessons as $index => $lesson)
     {
-        unset($dailyLessons[$index]);
+        if (AuditoriumBuilding($database, $lesson["AuditoriumId"]) != $building)
+        {
+            unset($dailyLessons[$index]);
+        }
     }
 }
 
 $result = array();
 foreach ($dailyLessons as $index => $lesson)
 {
-    if (!array_key_exists($lesson[0], $result))
+    if (!array_key_exists($lesson["Time"], $result))
     {
-        $result[$lesson[0]] = array();
+        $result[$lesson["Time"]] = array();
     }
 
-    $result[$lesson[0]][$lesson[1]] = array("text" => $lesson[2], "hint" => $lesson[3] . "@" . $lesson[4]);
+    $result[$lesson["Time"]][$lesson["AudName"]] =
+        array("text" => $lesson["studentGroupName"], "hint" => $lesson["discName"] . "@" . $lesson["FIO"]);
 }
 
-$eventsQuery  = "SELECT `AuditoriumEventId`, auditoriumEvents.Name as EventName, ";
-$eventsQuery .= "calendars.Date as eventDate, rings.Time as eventTime, auditoriums.Name as eventAuditorium ";
-$eventsQuery .= "FROM `auditoriumEvents` ";
-$eventsQuery .= "JOIN calendars ";
-$eventsQuery .= "ON auditoriumEvents.CalendarId = calendars.CalendarId ";
-$eventsQuery .= "JOIN rings ";
-$eventsQuery .= "ON auditoriumEvents.RingId = rings.RingId ";
-$eventsQuery .= "JOIN auditoriums ";
-$eventsQuery .= "ON auditoriumEvents.AuditoriumId = auditoriums.AuditoriumId ";
-$eventsQuery .= "WHERE calendars.Date = " . $dateString . " ";
+$eventsQuery  = "SELECT `AuditoriumEventId`, " . $dbPrefix . "auditoriumEvents.Name as EventName, ";
+$eventsQuery .= $dbPrefix . "calendars.Date as eventDate, " . $dbPrefix . "rings.Time as eventTime, ";
+$eventsQuery .= $dbPrefix . "auditoriums.Name as eventAuditorium, ";
+$eventsQuery .= $dbPrefix . "auditoriums.AuditoriumId as eventAuditoriumId ";
+$eventsQuery .= "FROM " . $dbPrefix . "auditoriumEvents ";
+$eventsQuery .= "JOIN " . $dbPrefix . "calendars ";
+$eventsQuery .= "ON " . $dbPrefix . "auditoriumEvents.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+$eventsQuery .= "JOIN " . $dbPrefix . "rings ";
+$eventsQuery .= "ON " . $dbPrefix . "auditoriumEvents.RingId = " . $dbPrefix . "rings.RingId ";
+$eventsQuery .= "JOIN " . $dbPrefix . "auditoriums ";
+$eventsQuery .= "ON " . $dbPrefix . "auditoriumEvents.AuditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+$eventsQuery .= "WHERE " . $dbPrefix . "calendars.Date = " . $dateString . " ";
 
 $evtsResult = $database->query($eventsQuery);
 while ($event = $evtsResult->fetch_assoc())
 {
-    if (Utilities::AuditoriumBuilding($event["eventAuditorium"]) == $building)
+    if (AuditoriumBuilding($database, $event["eventAuditoriumId"]) == $building)
     {
         $pos = mb_strpos($event["EventName"], "@");
         if ($pos != 0)
@@ -185,5 +230,7 @@ else
     }
 
     echo "</table>";
+
+    echo "<div id=\"schoolAuds\"></div>";
 }
 ?>

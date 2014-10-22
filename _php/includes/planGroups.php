@@ -1,10 +1,13 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+
 require_once("Database.php");
 
 global $database;
 
-$query = "SELECT StudentGroupId, `Name` FROM studentGroups ORDER BY `Name`";
+$query = "SELECT StudentGroupId, `Name` FROM " . $dbPrefix . "studentGroups ORDER BY `Name`";
 
 $groupList = $database->query($query);
 

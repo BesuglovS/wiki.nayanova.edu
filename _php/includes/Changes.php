@@ -1,24 +1,25 @@
 <?php
-
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$groupId = $_GET["groupId"];
+$tomorrow = $_GET["tomorrow"];
+$dateString = $_GET["date"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$groupId = $_GET["groupId"];
-$tomorrow = $_GET["tomorrow"];
-$dateString = $_GET["date"];
-
-$groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
-$groupsQuery .= "FROM studentsInGroups ";
+$groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
 $groupsQuery .= "IN ( ";
-$groupsQuery .= "SELECT studentsInGroups.StudentId ";
-$groupsQuery .= "FROM studentsInGroups ";
-$groupsQuery .= "JOIN studentGroups ";
-$groupsQuery .= "ON studentsInGroups.StudentGroupId = studentGroups.StudentGroupId ";
-$groupsQuery .= "WHERE studentGroups.StudentGroupId = '". $groupId ."' ";
+$groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+$groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+$groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+$groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = '". $groupId ."' ";
 $groupsQuery .= ")";
 
 $groupIdsResult = $database->query($groupsQuery);
@@ -32,29 +33,29 @@ $groupCondition = " IN ( " . implode(" , ", $groupIdsArray) . " )";
 
 $tomorrowDateString  = date("Y") . "-" . date("m") . "-" . (date("d")+1);
 
-$query  = "SELECT lessonLogEvents.DateTime ";
-$query .= "FROM lessonLogEvents ";
+$query  = "SELECT " . $dbPrefix . "lessonLogEvents.DateTime ";
+$query .= "FROM " . $dbPrefix . "lessonLogEvents ";
 
-$query .= "LEFT JOIN lessons AS newLesson ";
-$query .= "ON lessonLogEvents.NewLessonId = newLesson.LessonId ";
-$query .= "LEFT JOIN calendars AS newCalendar ";
+$query .= "LEFT JOIN " . $dbPrefix . "lessons AS newLesson ";
+$query .= "ON " . $dbPrefix . "lessonLogEvents.NewLessonId = newLesson.LessonId ";
+$query .= "LEFT JOIN " . $dbPrefix . "calendars AS newCalendar ";
 $query .= "ON newLesson.CalendarId = newCalendar.CalendarId ";
-$query .= "LEFT JOIN teacherForDisciplines AS newTFD ";
+$query .= "LEFT JOIN " . $dbPrefix . "teacherForDisciplines AS newTFD ";
 $query .= "ON newLesson.TeacherForDisciplineId = newTFD.TeacherForDisciplineId ";
-$query .= "LEFT JOIN disciplines AS newDics ";
+$query .= "LEFT JOIN " . $dbPrefix . "disciplines AS newDics ";
 $query .= "ON newTFD.DisciplineId = newDics.DisciplineId ";
-$query .= "LEFT JOIN studentGroups AS newGroup ";
+$query .= "LEFT JOIN " . $dbPrefix . "studentGroups AS newGroup ";
 $query .= "ON newDics.StudentGroupId = newGroup.StudentGroupId ";
 
-$query .= "LEFT JOIN lessons AS oldLesson ";
-$query .= "ON lessonLogEvents.OldLessonId = oldLesson.LessonId ";
-$query .= "LEFT JOIN calendars AS oldCalendar ";
+$query .= "LEFT JOIN " . $dbPrefix . "lessons AS oldLesson ";
+$query .= "ON " . $dbPrefix . "lessonLogEvents.OldLessonId = oldLesson.LessonId ";
+$query .= "LEFT JOIN " . $dbPrefix . "calendars AS oldCalendar ";
 $query .= "ON oldLesson.CalendarId = oldCalendar.CalendarId ";
-$query .= "LEFT JOIN teacherForDisciplines AS oldTFD ";
+$query .= "LEFT JOIN " . $dbPrefix . "teacherForDisciplines AS oldTFD ";
 $query .= "ON oldLesson.TeacherForDisciplineId = oldTFD.TeacherForDisciplineId ";
-$query .= "LEFT JOIN disciplines AS oldDics ";
+$query .= "LEFT JOIN " . $dbPrefix . "disciplines AS oldDics ";
 $query .= "ON oldTFD.DisciplineId = oldDics.DisciplineId ";
-$query .= "LEFT JOIN studentGroups AS oldGroup ";
+$query .= "LEFT JOIN " . $dbPrefix . "studentGroups AS oldGroup ";
 $query .= "ON oldDics.StudentGroupId = oldGroup.StudentGroupId ";
 
 $query .= "WHERE ((oldDics.StudentGroupId " . $groupCondition . ") ";
@@ -69,7 +70,7 @@ if ($tomorrow == "true")
     $query .= " AND ( newCalendar.Date = \"" . $dateString . "\")";
 }
 $query .= ") ";
-$query .= "ORDER BY lessonLogEvents.DateTime DESC ";
+$query .= "ORDER BY " . $dbPrefix . "lessonLogEvents.DateTime DESC ";
 $query .= ", oldCalendar.Date DESC";
 
 $events = $database->query($query);

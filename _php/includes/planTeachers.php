@@ -1,10 +1,13 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+
 require_once("Database.php");
 
 global $database;
 
-$query = "SELECT TeacherId, FIO FROM teachers";
+$query = "SELECT TeacherId, FIO FROM " . $dbPrefix . "teachers";
 
 $teachersList = $database->query($query);
 

@@ -46,6 +46,15 @@ while ($student = $students->fetch_assoc())
     $accounts[$student["F"] . " " . $I . $O] = ReformatDate($student["BirthDate"]);
 }
 
+$extraAccountsQuery  = "SELECT Login, Password ";
+$extraAccountsQuery .= "FROM `LoginAccounts` ";
+$extraAccounts = $database->query($extraAccountsQuery);
+
+while($extAccount = $extraAccounts->fetch_assoc())
+{
+    $accounts[$extAccount["Login"]] = $extAccount["Password"];
+}
+
 $FromNU = False;
 if (($_SERVER['REMOTE_ADDR'] == "95.167.125.206") || ($_SERVER['REMOTE_ADDR'] == "85.236.163.58"))
 {
@@ -54,7 +63,9 @@ if (($_SERVER['REMOTE_ADDR'] == "95.167.125.206") || ($_SERVER['REMOTE_ADDR'] ==
 
 if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
    (!(array_key_exists($_SESSION['NUlogin'], $accounts) &&
-    $accounts[$_SESSION['NUlogin']] === $_SESSION['NUpassword']))) && ($FromNU == False))
+    $accounts[$_SESSION['NUlogin']] === $_SESSION['NUpassword'])))
+  &&
+  ($FromNU == False))
 {
     echo "<!doctype html> ";
     echo "<html> ";
@@ -80,7 +91,7 @@ if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "<body> ";
     echo "<div id=\"container\"> ";
     echo "<header class=\"cf\"> ";
-        echo "<img src=\"upload/images/DVZ-beta.png\" id=\"headerLogo\" width=\"150\" height=\"150\"> ";
+        echo "<img src=\"upload/images/DVZ.png\" id=\"headerLogo\" width=\"150\" height=\"150\"> ";
         echo "<div id=\"weekDiv\"> ";
             echo "Неделя<br /> ";
             echo "<div id=\"weekNum\"> ";
@@ -90,7 +101,15 @@ if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
                 $today = DateTime::createFromFormat('Y-m-d', $now);
                 $semesterStarts = $options["Semester Starts"];
                 $start = DateTime::createFromFormat('Y-m-d', $semesterStarts);
-                $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
+                if ($today >= $start)
+                {
+                    $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
+                }
+                else
+                {
+                    $weekNum = (int)floor(($today->diff($start)->format('%a') - 1) / 7) + 1;
+                    echo "-";
+                }
                 echo $weekNum;
 
             echo "</div> ";
@@ -167,7 +186,10 @@ $studentResult = $database->query($studentIdQuery);
 $studentIdArray = $studentResult->fetch_assoc();
 $studentId = $studentIdArray["StudentId"];
 
-
+if ($studentId != "")
+{
+    $_SESSION['studentId'] = $studentId;
+}
 
 
 $statQuery  = "INSERT INTO LoginLog ";
@@ -211,7 +233,7 @@ $database->query($statQuery);
     </p>
 </header>
 <header class="cf">
-    <img src="upload/images/DVZ-beta.png" id="headerLogo" width="150" height="150">
+    <img src="upload/images/DVZ.png" id="headerLogo" width="150" height="150">
     <div id="weekDiv">
         Неделя<br />
         <div id="weekNum">
@@ -221,7 +243,15 @@ $database->query($statQuery);
             $today = DateTime::createFromFormat('Y-m-d', $now);
             $semesterStarts = $options["Semester Starts"];
             $start = DateTime::createFromFormat('Y-m-d', $semesterStarts);
-            $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
+            if ($today >= $start)
+            {
+                $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
+            }
+            else
+            {
+                $weekNum = (int)floor(($today->diff($start)->format('%a') - 1) / 7) + 1;
+                echo "-";
+            }
             echo $weekNum;
             ?>
         </div>
@@ -264,6 +294,19 @@ $database->query($statQuery);
         <p>
             <button id="planByTeacher">Дисциплины по преподавателям</button>
         </p>
+        <?
+            if (array_key_exists("studentId", $_SESSION))
+            {
+                echo "<p>";
+                echo "<div id=\"mySchedule\">";
+                echo "МОЁ РАСПИСАНИЕ НА<br />";
+                echo "<button id=\"todaySchedule\">Сегодня</button>";
+                echo "<button id=\"tomorrowSchedule\">Завтра</button>";
+                echo "<button id=\"MyMyMySchedule\">Дату</button>";
+                echo "</div>";
+                echo "</p>";
+            }
+        ?>
         <p>
             <button id="today">Сегодня</button>
             <button id="tomorrow">Завтра</button>
@@ -274,7 +317,11 @@ $database->query($statQuery);
         <p>
             <button id="Mol">Корп № 2</button>
             <button id="Jar">Корп № 3</button>
+            <button id="SSU">СГУ</button>
             <button id="Other">Прочие</button>
+        </p>
+        <p>
+            <button id="MolPlus">Корп № 2 + ШКОЛА</button>
         </p>
     </div>
     <div id="flipWraper">
@@ -290,74 +337,93 @@ $database->query($statQuery);
     <table id="dateScheduleTable">
         <tbody>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12Math">12 А</button></td>
             <td><button id="13Math">13 А</button></td>
-            <td>&nbsp;</td>
+            <td><button id="14Math">14 А</button></td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12Phil">12 Б</button></td>
             <td><button id="13Phil">13 Б</button></td>
             <td><button id="14Phil">14 Б</button></td>
-            <td>&nbsp;</td><!--<td><button id="15Phil">15 Б</button></td>-->
+            <td><button id="15Phil">15 Б</button></td>
+            <td><button id="16Phil">16 Б</button></td>
         </tr>
         <tr>
-            <td><button id="12Eco0">12 В0</button></td>
             <td><button id="12Eco">12 В</button></td>
             <td><button id="13Eco">13 В</button></td>
-            <td><button id="14Eco">14 В</button><!--<button id="C">С</button></td>-->
-            <td>&nbsp;</td><!--<td><button id="15Eco">15 В</button></td>-->
+            <td><button id="14Eco">14 В</button></td>
+            <td><button id="15Eco">15 В</button></td>
+            <td><button id="16Eco">16 В</button></td>
         </tr>
         <tr>
-            <td rowspan="2">&nbsp;</td>
             <td><button id="12Econ">12 Г</button></td>
             <td><button id="13Econ">13 Г</button></td>
-            <td rowspan="2"><button id="14Econ">14 Г</button></td>
-            <td rowspan="2">&nbsp;</td>
+            <td><button id="14Econ">14 Г</button></td>
+            <td rowspan="2"><button id="15Econ">15 Г</button></td>
+            <td rowspan="2"><button id="16Econ">16 Г</button></td>
         </tr>
         <tr>
             <td><button id="12EconN">12 Г(Н)</button></td>
             <td><button id="13EconN">13 Г(Н)</button></td>
-            <!--<td><button id="14EconN">14 Г(Н)</button></td>-->
+            <td><button id="14EconN">14 Г(Н)</button></td>
         </tr>
         <tr>
-            <td rowspan="2">&nbsp;</td>
-            <td><button id="12Law">12 Д</button></td>
+            <td rowspan="2"><button id="12Law">12 Д</button></td>
             <td><button id="13Law">13 Д</button></td>
             <td rowspan="2"><button id="14Law">14 Д</button></td>
-            <td rowspan="2">&nbsp;</td><!--<td rowspan="2"><button id="15Law">15 Д</button></td>-->
+            <td rowspan="2"><button id="15Law">15 Д</button></td>
+            <td rowspan="2"><button id="16Law">16 Д</button></td>
         </tr>
         <tr>
-            <td><button id="12LawN">12 Д(Н)</button></td>
-            <td><button id="13LawN"><img src="upload/images/p16.png" width="16" height="16" /></button></td>
-            <!--<td><button id="14LawN">14 Д(Н)</button></td>-->
+            <td><button id="13LawN">13 Д(Н)</button></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12PR">12 Е</button></td>
             <td rowspan="2"><button id="13PR">13 Е</button></td>
             <td rowspan="2"><button id="14PR">14 Е</button></td>
-            <td>&nbsp;</td><!--<td rowspan="2"><button id="15PR">15 Е</button></td>-->
+            <td rowspan="2"><button id="15PR">15 Е</button></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12PRN">12 Е(Н)</button></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12Upr">12 У</button></td>
             <td><button id="13Upr">13 У</button></td>
             <td><button id="14Upr">14 У</button></td>
             <td><button id="15Upr">15 У</button></td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
             <td><button id="12Tur">12 Т</button></td>
             <td><button id="13Tur">13 Т</button></td>
             <td><button id="14Tur">14 Т</button></td>
+            <td><button id="15Tur">15 Т</button></td>
             <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2AMath">2 АА</button></td>
+            <td><button id="3AMath">3 АА</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2APhil">2 АБ</button></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2AEco">2 АВ</button></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><button id="1AEcon">1 АГ</button></td>
+            <td><button id="2AEcon">2 АГ</button></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><button id="1ALaw">1 АД</button></td>
+            <td><button id="2ALaw">2 АД</button></td>
+            <td><button id="3ALaw">3 АД</button></td>
         </tr>
         </tbody>
     </table>

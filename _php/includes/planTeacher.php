@@ -1,22 +1,24 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$teacherId = $_GET["id"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$teacherId = $_GET["id"];
-
-$query  = "SELECT disciplines.Name, disciplines.Attestation, disciplines.AuditoriumHours, ";
-$query .= "studentGroups.Name  AS GroupName, teacherForDisciplines.TeacherForDisciplineId as TFDID ";
-$query .= "FROM teacherForDisciplines ";
-$query .= "JOIN disciplines ";
-$query .= "ON teacherForDisciplines.DisciplineId = disciplines.DisciplineId ";
-$query .= "JOIN studentGroups ";
-$query .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-$query .= "JOIN teachers ";
-$query .= "ON teacherForDisciplines.TeacherId = teachers.TeacherId ";
-$query .= "WHERE teachers.TeacherId = " . $teacherId;
+$query  = "SELECT " . $dbPrefix . "disciplines.Name, " . $dbPrefix . "disciplines.Attestation, " . $dbPrefix . "disciplines.AuditoriumHours, ";
+$query .= $dbPrefix . "studentGroups.Name  AS GroupName, " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID ";
+$query .= "FROM " . $dbPrefix . "teacherForDisciplines ";
+$query .= "JOIN " . $dbPrefix . "disciplines ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+$query .= "JOIN " . $dbPrefix . "studentGroups ";
+$query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+$query .= "JOIN " . $dbPrefix . "teachers ";
+$query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+$query .= "WHERE " . $dbPrefix . "teachers.TeacherId = " . $teacherId;
 
 $discList = $database->query($query);
 
@@ -34,12 +36,12 @@ $monthsArray = array();
 
 foreach ($result as $tfdId => $discData)
 {
-    $tfdLessonsDates  = "SELECT calendars.Date ";
-    $tfdLessonsDates .= "FROM lessons ";
-    $tfdLessonsDates .= "JOIN calendars ";
-    $tfdLessonsDates .= "ON lessons.CalendarId = calendars.CalendarId ";
-    $tfdLessonsDates .= "WHERE lessons.TeacherForDisciplineId = " . $tfdId . " ";
-    $tfdLessonsDates .= "AND lessons.isActive = 1 ";
+    $tfdLessonsDates  = "SELECT " . $dbPrefix . "calendars.Date ";
+    $tfdLessonsDates .= "FROM " . $dbPrefix . "lessons ";
+    $tfdLessonsDates .= "JOIN " . $dbPrefix . "calendars ";
+    $tfdLessonsDates .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+    $tfdLessonsDates .= "WHERE " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $tfdId . " ";
+    $tfdLessonsDates .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
     $tfdLessonsDatesResult = $database->query($tfdLessonsDates);
 

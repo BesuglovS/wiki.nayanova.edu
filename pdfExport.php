@@ -1,5 +1,9 @@
 <?php
 
+$dbPrefix = $_GET["dbPrefix"];
+$faculty_id = $_GET["facultyId"];
+$scheduleDOW = $_GET["dow"];
+
 require('fpdf17/fpdf.php');
 require_once("_php/includes/Database.php");
 require_once("_php/includes/ConfigOptions.php");
@@ -76,13 +80,11 @@ function timeCompare($a, $b)
 }
 
 $semesterStarts = $options["Semester Starts"];
-$faculty_id = $_GET["facultyId"];
-$scheduleDOW = $_GET["dow"];
 
-$facultyGroupsQuery  = "SELECT GroupsInFaculties.StudentGroupId, Name ";
-$facultyGroupsQuery .= "FROM `GroupsInFaculties` ";
-$facultyGroupsQuery .= "JOIN studentGroups ";
-$facultyGroupsQuery .= "ON GroupsInFaculties.StudentGroupId = studentGroups.StudentGroupId ";
+$facultyGroupsQuery  = "SELECT " . $dbPrefix . "GroupsInFaculties.StudentGroupId, Name ";
+$facultyGroupsQuery .= "FROM " . $dbPrefix . "GroupsInFaculties ";
+$facultyGroupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+$facultyGroupsQuery .= "ON " . $dbPrefix . "GroupsInFaculties.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
 $facultyGroupsQuery .= "WHERE FacultyId = " . $faculty_id;
 
 $facultyGroupsResult = $database->query($facultyGroupsQuery);
@@ -107,15 +109,15 @@ foreach ($groups as $key => $value) {
 
     }
 
-    $groupsQuery  = "SELECT DISTINCT studentsInGroups.StudentGroupId ";
-    $groupsQuery .= "FROM studentsInGroups ";
+    $groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+    $groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
     $groupsQuery .= "WHERE StudentId ";
     $groupsQuery .= "IN ( ";
-    $groupsQuery .= "SELECT studentsInGroups.StudentId ";
-    $groupsQuery .= "FROM studentsInGroups ";
-    $groupsQuery .= "JOIN studentGroups ";
-    $groupsQuery .= "ON studentsInGroups.StudentGroupId = studentGroups.StudentGroupId ";
-    $groupsQuery .= "WHERE studentGroups.StudentGroupId = ". $value["group_id"] ." ";
+    $groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+    $groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+    $groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+    $groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+    $groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = ". $value["group_id"] ." ";
     $groupsQuery .= ")";
 
 
@@ -133,28 +135,28 @@ foreach ($groups as $key => $value) {
     $groups[$key]["Schedule"] = array();
 
 
-    $groupCondition = "WHERE disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " ) ";
+    $groupCondition = "WHERE " . $dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " ) ";
 
-    $allLessonsQuery  = "SELECT disciplines.Name as discName, rings.Time as startTime, ";
-    $allLessonsQuery .= "calendars.Date as date, teachers.FIO as teacherFIO, auditoriums.Name as auditoriumName, ";
-    $allLessonsQuery .= "teacherForDisciplines.TeacherForDisciplineId as tfdId, studentGroups.Name as groupName ";
-    $allLessonsQuery .= "FROM lessons ";
-    $allLessonsQuery .= "JOIN teacherForDisciplines ";
-    $allLessonsQuery .= "ON lessons.TeacherForDisciplineId = teacherForDisciplines.TeacherForDisciplineId ";
-    $allLessonsQuery .= "JOIN teachers ";
-    $allLessonsQuery .= "ON teacherForDisciplines.TeacherId = teachers.TeacherId ";
-    $allLessonsQuery .= "JOIN disciplines ";
-    $allLessonsQuery .= "ON teacherForDisciplines.DisciplineId = disciplines.DisciplineId ";
-    $allLessonsQuery .= "JOIN studentGroups ";
-    $allLessonsQuery .= "ON disciplines.StudentGroupId = studentGroups.StudentGroupId ";
-    $allLessonsQuery .= "JOIN calendars ";
-    $allLessonsQuery .= "ON lessons.CalendarId = calendars.calendarId ";
-    $allLessonsQuery .= "JOIN auditoriums ";
-    $allLessonsQuery .= "ON lessons.auditoriumId = auditoriums.AuditoriumId ";
-    $allLessonsQuery .= "JOIN rings ";
-    $allLessonsQuery .= "ON lessons.ringId = rings.ringId ";
+    $allLessonsQuery  = "SELECT " . $dbPrefix . "disciplines.Name as discName, " . $dbPrefix . "rings.Time as startTime, ";
+    $allLessonsQuery .= $dbPrefix . "calendars.Date as date, " . $dbPrefix . "teachers.FIO as teacherFIO, " . $dbPrefix . "auditoriums.Name as auditoriumName, ";
+    $allLessonsQuery .= $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as tfdId, " . $dbPrefix . "studentGroups.Name as groupName ";
+    $allLessonsQuery .= "FROM " . $dbPrefix . "lessons ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "teachers ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "disciplines ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "calendars ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.calendarId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "auditoriums ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.auditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "rings ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.ringId = " . $dbPrefix . "rings.ringId ";
     $allLessonsQuery .= $groupCondition;
-    $allLessonsQuery .= "AND lessons.isActive = 1 ";
+    $allLessonsQuery .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
 
     $lessonsList = $database->query($allLessonsQuery);
@@ -214,7 +216,7 @@ foreach ($groups as $key => $value) {
 uasort($timeArray, "timeCompare");
 
 $facultyNameQuery  = "SELECT Name ";
-$facultyNameQuery .= "FROM faculties ";
+$facultyNameQuery .= "FROM " . $dbPrefix . "faculties ";
 $facultyNameQuery .= "WHERE FacultyId = " . $faculty_id;
 
 $facultyNameQueryResult = $database->query($facultyNameQuery);

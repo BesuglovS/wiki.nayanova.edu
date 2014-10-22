@@ -56,23 +56,16 @@ class Utilities {
         return "<" . $tagname . ">Нету дома никого!</" . $tagname . ">";
     }
 
-    public static function AuditoriumBuilding($AuditoriumName){
-        // Аудитории Ярмарочной начинаются на "Корп № 3"
-        if (mb_substr($AuditoriumName, 0, 8, 'UTF-8') === "Корп № 3")
-        {
-            return "Jar";
-        }
+    public static function AuditoriumBuilding($AuditoriumId){
 
-        // Аудитории Молодогвардейской имеют цифру в 6-й позиции = "Ауд. 301"
-        //                                                          012345
-        if (is_numeric(mb_substr($AuditoriumName, 5, 1, 'UTF-8')))
-        {
-            return "Mol";
-        }
 
-        // И все прочие
-        return "Other";
+
+
+
+
+
     }
+
 
     public static function WeekFromDate($date, $semesterStarts)
     {

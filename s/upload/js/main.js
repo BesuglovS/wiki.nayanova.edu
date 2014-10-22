@@ -1,11 +1,23 @@
-var groupNames = ["12 А", "13 А", "12 Б", "13 Б", "14 Б", "15 Б", "12 В0", "12 В", "13 В", "14 В", "15 В",
-    "12 Г", "13 Г", "14 Г", "12 Г(Н)", "13 Г(Н)", "14 Г(Н)", "12 Д", "13 Д", "14 Д", "15 Д",
-    "12 Д(Н)", "13 Д(Н)", "14 Д(Н)", "12 Е", "12 Е(Н)", "13 Е", "14 Е", "15 Е", "12 У", "13 У", "14 У", "15 У",
-    "12 Т", "13 Т", "14 Т", "С"];
-var groupIds = ["1", "2", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "44", "124", "50", "17", "18", "19", "20", "125",
-    "126", "59", "21", "128", "22", "23", "24", "25", "26", "27", "28",
-    "30", "31", "32", "127"];
+var dbPrefix = 's_';
+
+var groupNames = [
+    "8 А", "9 А1", "9 А2", "10 А", "11 А",
+    "8 Б", "9 Б", "10 Б", "11 Б",
+    "8 В", "9 В", "10 В", "11 В",
+    "8 Г", "9 Г", "10 Г", "11 Г"];
+var groupIds = [
+    "166", "170", "171", "175", "179",
+    "167", "172", "176", "180",
+    "168", "173", "177", "181",
+    "169", "174", "178", "182"];
+
+var buttonSelectors = [
+    "#8Math", "#9Math1", "#9Math2", "#10Math", "#11Math",
+    "#8Hum", "#9Hum", "#10Hum", "#11Hum",
+    "#8Eco", "#9Eco", "#10Eco", "#11Eco",
+    "#8Econ", "#9Econ", "#10Econ", "#11Econ"];
+
+var dowRU = new Array("","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье");
 
 function IfDatePickerIsEmptySetToday(dateString)
 {
@@ -39,8 +51,8 @@ $(function() {
         dateFormat: 'dd mm yy', firstDay: 1,
         initStatus: '', isRTL: false};
 
-    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2013,  9 - 1,  1));
-    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2013, 12 - 1, 31));
+    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2014, 9 - 1, 1));
+    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2014, 12 - 1, 31));
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     /* Datepicker #scheduleDate */
@@ -49,6 +61,22 @@ $(function() {
     $( "button#today" ).click(function() { $("#scheduleDate").datepicker("setDate", "today"); });
     $( "button#tomorrow" ).click(function() { $("#scheduleDate").datepicker("setDate", "1"); });
     /* Today / tomorrow buttons */
+
+    $( "#PDFExport" ).click(function() {
+        var faculty = $('#facultiesList').val();
+        var dow = $('#dowPDFSelect').val();
+        window.location = '../pdfExport.php?facultyId=' + faculty + '&dow=' + dow + '&dbPrefix=' + dbPrefix;
+    });
+
+    $( "#DOWSchedule" ).click(function() {
+        var faculty = $('#facultiesList').val();
+        var dow = $('#dowPDFSelect').val();
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
+        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
+        $('#scheduleBox').dialog( {"width": dialogWidth, title: dowRU[dow], minHeight : "50px" , position: ['center',20]} );
+        var path = '../_php/includes/FacultyDOWSchedule.php?facultyId=' + faculty + '&dow=' + dow + '&dbPrefix=' + dbPrefix;
+        $('#scheduleBox').load(path);
+    });
 
 });
 
@@ -76,7 +104,7 @@ $(function() {
                     minLength: 0,
                     source: $.proxy( this, "_source" ),
                     select: function( event, ui ) {
-                        var path = '_php/includes/TeacherSchedule.php?teacherId=' + ui.item.option.value;
+                        var path = '../_php/includes/TeacherSchedule.php?teacherId=' + ui.item.option.value + '&dbPrefix=' + dbPrefix;
                         $('#scheduleBox').load(path, function() {
                             $('#scheduleBox').dialog( {width: 600, title: ui.item.value, minHeight : "50px"} );
                         });
@@ -179,12 +207,6 @@ $(function() {
 /* TeacherList Combobox Autocomplete */
 
 $(function() {
-    var buttonSelectors = ["#12Math", "#13Math", "#12Phil", "#13Phil", "#14Phil", "#15Phil",
-        "#12Eco0", "#12Eco", "#13Eco", "#14Eco", "#15Eco", "#12Econ", "#13Econ", "#14Econ",
-        "#12EconN", "#13EconN", "#14EconN", "#12Law", "#13Law", "#14Law", "#15Law", "#12LawN", "#13LawN", "#14LawN",
-        "#12PR", "#12PRN", "#13PR", "#14PR", "#15PR", "#12Upr", "#13Upr", "#14Upr", "#15Upr", "#12Tur", "#13Tur", "#14Tur", "#C"];
-
-
     /* Кнопки расписания для групп */
     for (var i = 0; i < buttonSelectors.length; i++) {
         $( buttonSelectors[i] ).click(function() {
@@ -199,19 +221,19 @@ $(function() {
                     var groupId = groupIds[buttonSelectors.indexOf("#" + this.id)];
                     var groupName = groupNames[buttonSelectors.indexOf("#" + this.id)];
 
-                    $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+                    $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
                     var dialogWidth = ($(window).width()*0.95 > 1000)? 1000 : $(window).width()*0.95;
                     $('#scheduleBox').dialog( {width: dialogWidth, title: groupName, minHeight : "50px" , position: ['center',20]} );
-                    var path = '_php/includes/GroupWeekSchedule.php?groupId=' + groupId;
+                    var path = '../_php/includes/GroupWeekSchedule.php?groupId=' + groupId + '&dbPrefix=' + dbPrefix;
                     $('#scheduleBox').load(path);
                 }
                 else
                 {
                     var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
                     dateString = IfDatePickerIsEmptySetToday(dateString);
-                    $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+                    $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
                     $('#scheduleBox').dialog( {width: 600, title: groupName + " (" + dateString + ")", minHeight : "50px" , position: ['center',20]} );
-                    var path = '_php/includes/DailySchedule.php?groupId="' + groupId + '"&date="' + dateString + '"';
+                    var path = '../_php/includes/DailySchedule.php?groupId="' + groupId + '"&date="' + dateString + '"' + '&dbPrefix=' + dbPrefix;
                     $('#scheduleBox').load(path);
                 }
             }
@@ -220,17 +242,17 @@ $(function() {
                 var isSecondChecked = !$('div#DayOrWeekDiv span:first-of-type').hasClass('on');
                 var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
                 dateString = IfDatePickerIsEmptySetToday(dateString);
-                var path = '_php/includes/Changes.php?groupId=' + groupId + "&date=" + dateString + "&tomorrow=" + isSecondChecked;
-                $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+                var path = '../_php/includes/Changes.php?groupId=' + groupId + "&date=" + dateString + "&tomorrow=" + isSecondChecked + '&dbPrefix=' + dbPrefix;
+                $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
                 $('#scheduleBox').dialog( {width: 600, title: groupName, minHeight : "50px" , position: ['center',20]} );
                 $('#scheduleBox').load(path, function() {
                     $( "#eventsIndexList" ).change(function() {
-                        $('#progress').prepend('<img id="loading" height="16" width="16" src="upload/images/ajax-loader.gif" />')
+                        $('#progress').prepend('<img id="loading" height="16" width="16" src="../upload/images/ajax-loader.gif" />')
                         var pagingId = $("#eventsIndexList").val();
-                        groupChangesPath = "_php/includes/GroupChanges.php?groupId=" + groupId +
-                                           "&date=" + dateString + "&startFrom=" + pagingId  +
-                                           "&tomorrow=" + isSecondChecked;
-                        $('#eventList').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+                        groupChangesPath = "../_php/includes/GroupChanges.php?groupId=" + groupId +
+                            "&date=" + dateString + "&startFrom=" + pagingId  +
+                            "&tomorrow=" + isSecondChecked + '&dbPrefix=' + dbPrefix;
+                        $('#eventList').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
                         $('#eventList').load(groupChangesPath, function() {
                             $('#progress').empty();
                         });
@@ -242,31 +264,44 @@ $(function() {
     }
     /* Кнопки расписания для групп */
 
+    /* Кнопки для расписания сессии */
+    for (var i = 0; i < buttonSelectors.length; i++) {
+        $( buttonSelectors[i] + "2" ).click(function() {
+            var isChecked = $('div#scheduleOrChangesSessionDiv span:first-of-type').hasClass('on');
+            var groupName = groupNames[buttonSelectors.indexOf("#" + this.id.substring(0, this.id.length-1))];
+            var groupId = groupIds[buttonSelectors.indexOf("#" + this.id.substring(0, this.id.length-1))];
+
+            if (isChecked)
+            {
+                $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
+                var dialogWidth = 590;
+                $('#scheduleBox').dialog( {width: dialogWidth, title: groupName, minHeight : "50px" , position: ['center',20]} );
+                var path = '../_php/includes/SessionSchedule.php?groupId=' + groupId + '&dbPrefix=' + dbPrefix;
+                $('#scheduleBox').load(path);
+            }
+            else
+            {
+                $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
+                var dialogWidth = 590;
+                $('#scheduleBox').dialog( {width: dialogWidth, title: groupName, minHeight : "50px" , position: ['center',20]} );
+                var path = '../_php/includes/SessionScheduleChanges.php?groupId=' + groupId + '&dbPrefix=' + dbPrefix;
+                $('#scheduleBox').load(path);
+            }
+        });
+    }
+    /* Кнопки для расписания сессии */
+
     /* Кнопки для таблиц аудиторий по корпусам */
     $( "#Mol" ).click(function() {
         var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
         dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Mol&date="' + dateString + '"';
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        $('#scheduleBox').dialog( {width: 600, title: "Корпус № 2 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
+        var path = '../_php/includes/Auditoriums.php?building=Mol&date="' + dateString + '"' + '&dbPrefix=' + dbPrefix;
+        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="../upload/images/ajax-loader2.gif" /></div>');
+        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
+        $('#scheduleBox').dialog( {width: dialogWidth, title: "Корпус № 2 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
         $('#scheduleBox').load(path);
     });
-    $( "#Jar" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Jar&date="' + dateString + '"';
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        $('#scheduleBox').dialog( {width: 600, title: "Корпус № 3 (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
-        $('#scheduleBox').load(path);
-    });
-    $( "#Other" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var path = '_php/includes/Auditoriums.php?building=Other&date="' + dateString + '"';
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        $('#scheduleBox').dialog( {width: 600, title: "Прочие (" + dateString + ")", minHeight : "50px", position: ['center',20]} );
-        $('#scheduleBox').load(path);
-    });
+
     /* Кнопки для таблиц аудиторий по корпусам */
 
     $("input#scheduleOrChanges").switchButton({
@@ -311,17 +346,27 @@ $(function() {
         height: 15,
         clear: true
     });
+
+    $("input#scheduleOrChangesSession").switchButton({
+        checked : false,
+        on_label: "ИЗМЕНЕНИЯ",
+        off_label: "РАСПИСАНИЕ",
+        width: 50,
+        height: 15,
+        clear: true,
+        enabled: false
+    });
 });
 
 $(function() {
     $( "#studentGroups" ).click(function() {
-        var path = '_php/includes/StudentGroups.php';
+        var path = '../_php/includes/StudentGroups.php' + '?dbPrefix=' + dbPrefix;
         $('#scheduleBox').load(path, function() {
             $('#scheduleBox').dialog( {width: 600, title: "Группы студентов", minHeight : "50px", position: ['center',20] } );
             $( "#groupsList" ).change(function() {
-                $('#progress').prepend('<img id="loading" height="16" width="16" src="upload/images/ajax-loader.gif" />')
+                $('#progress').prepend('<img id="loading" height="16" width="16" src="../upload/images/ajax-loader.gif" />')
                 var groupId = $("#groupsList").val();
-                var path = '_php/includes/StudentGroup.php?id=' + groupId;
+                var path = '../_php/includes/StudentGroup.php?id=' + groupId + '&dbPrefix=' + dbPrefix;
                 $('#groupList').load(path, function() {
                     $('#progress').empty();
                 });
@@ -331,13 +376,13 @@ $(function() {
     });
 
     $( "#planGroups" ).click(function() {
-        var path = '_php/includes/planGroups.php';
+        var path = '../_php/includes/planGroups.php' + '?dbPrefix=' + dbPrefix;
         $('#scheduleBox').load(path, function() {
             $('#scheduleBox').dialog( {width: 600, title: "Дисциплины по группам", minHeight : "50px", position: ['center',20] } );
             $( "#groupsPlanList" ).change(function() {
-                $('#progress').prepend('<img id="loading" height="16" width="16" src="upload/images/ajax-loader.gif" />')
+                $('#progress').prepend('<img id="loading" height="16" width="16" src="../upload/images/ajax-loader.gif" />')
                 var groupId = $("#groupsPlanList").val();
-                var path = '_php/includes/planGroup.php?id=' + groupId;
+                var path = '../_php/includes/planGroup.php?id=' + groupId + '&dbPrefix=' + dbPrefix;
                 $('#planGroup').load(path, function() {
                     $('#progress').empty();
                 });
@@ -347,13 +392,13 @@ $(function() {
     });
 
     $( "#planByTeacher" ).click(function() {
-        var path = '_php/includes/planTeachers.php';
+        var path = '../_php/includes/planTeachers.php' + '?dbPrefix=' + dbPrefix;
         $('#scheduleBox').load(path, function() {
             $('#scheduleBox').dialog( {width: 900, title: "Дисциплины по преподавателям", minHeight : "50px", position: ['center',20] } );
             $("#teachersPlanList").change(function() {
                 $('#progress').prepend('<img id="loading" height="16" width="16" src="upload/images/ajax-loader.gif" />')
                 var groupId = $("#teachersPlanList").val();
-                var path = '_php/includes/planTeacher.php?id=' + groupId;
+                var path = '../_php/includes/planTeacher.php?id=' + groupId + '&dbPrefix=' + dbPrefix;
 
                 $('#planTeacher').load(path, function() {
                     $('#progress').empty();
@@ -363,86 +408,38 @@ $(function() {
         });
     });
 
-    var dowRU = new Array("Воскресенье","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота");
 
-    $( "#Math" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
+    $('div#vkGroupLink').click(function() {
+        window.location = "https://vk.com/nayanovadisp";
+    });
+
+    $('div#vkGroupLink').hover(function() {
+        $(this).css('cursor','pointer');
+    });
+
+    $( "#sessionByDate" ).click(function() {
+        var path = '../_php/includes/SessionDates.php' + '?dbPrefix=' + dbPrefix;
         var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Факультет математики и компьютерных наук - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=1&date=' + dateString;
-        $('#scheduleBox').load(path);
+        $('#scheduleBox').load(path, function() {
+            $('#scheduleBox').dialog( {width: dialogWidth, title: "Сессия по датам", minHeight : "50px", position: ['center',20] } );
+            $( "#sessionDate" ).change(function() {
+                $('#progress').prepend('<img id="loading" height="16" width="16" src="upload/images/ajax-loader.gif" />')
+                var date = $("#sessionDate").val();
+                var path = '../_php/includes/SessionByDate.php?date=' + date + '&dbPrefix=' + dbPrefix;
+                $('#SessionList').load(path, function() {
+                    $('#progress').empty();
+                });
+            });
+            $('#sessionDate').trigger('change');
+        });
     });
-    $( "#Phil" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Философский факультет - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=2&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#Bio" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Химико-биологический факультет - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=3&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#Econ" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 1000)? 1000 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Экономический факультет - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=4&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#Law" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 1000)? 1000 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Юридический факультет - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=5&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#PR" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Факультет международных отношений - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=6&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#Upr" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Факультет управления - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=7&date=' + dateString;
-        $('#scheduleBox').load(path);
-    });
-    $( "#Tur" ).click(function() {
-        var dateString = $.datepicker.formatDate("yy-mm-dd", $( "#scheduleDate" ).datepicker( "getDate" ));
-        dateString = IfDatePickerIsEmptySetToday(dateString);
-        var dow =  $( "#scheduleDate" ).datepicker( "getDate").getDay();
-        $('#scheduleBox').html('<div style="text-align: center"><img id="loading" height="100" width="100" src="upload/images/ajax-loader2.gif" /></div>');
-        var dialogWidth = ($(window).width()*0.95 > 900)? 900 : $(window).width()*0.95;
-        $('#scheduleBox').dialog( {"width": dialogWidth, title: "Факультет туризма - " + dowRU[dow], minHeight : "50px" , position: ['center',20]} );
-        var path = '_php/includes/FacultyDOWSchedule.php?facultyId=8&date=' + dateString;
-        $('#scheduleBox').load(path);
+
+    $('a#logoutLink').click(function(e) {
+        var $this = $(this);
+        e.preventDefault();
+        $.post('', {'logout': '1'}, function() {
+            window.location.reload(false);
+        });
     });
 });
+

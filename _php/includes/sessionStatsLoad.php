@@ -1,13 +1,15 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+
+$dbPrefix = $_GET["dbPrefix"];
+$startFrom = $_GET["startFrom"];
+
 require_once("Database.php");
 require_once("Utilities.php");
 
 global $database;
 
-$startFrom = $_GET["startFrom"];
-
-$groupsQuery = "SELECT StudentGroupId, Name FROM studentGroups";
+$groupsQuery = "SELECT StudentGroupId, Name FROM " . $dbPrefix . "studentGroups";
 $groupsResult = $database->query($groupsQuery);
 
 $groups = array();
@@ -18,7 +20,7 @@ while ($group = $groupsResult->fetch_assoc())
 
 
 $query  = "SELECT DateTime, GroupId ";
-$query .= "FROM sessionStats ";
+$query .= "FROM " . $dbPrefix . "sessionStats ";
 $query .= "ORDER BY DateTime DESC ";
 $query .= "LIMIT " . $startFrom . ", 100";
 
