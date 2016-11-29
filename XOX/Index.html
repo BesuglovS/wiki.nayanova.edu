@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>XOX</title>
+    <link href="xox.css" type="text/css" rel="stylesheet" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="xox.js"></script>
+</head>
+<body>
+    <div id="board" style="width:530px; margin:0 auto;">
+        <table>
+            <tr id="br1">
+                <td class="bigSquare">
+                    <table>
+                        <tr id="row111">
+                            <td class="square blue" id="s1111">X</td>
+                            <td class="square v green" id="s1112">O</td>
+                            <td class="square" id="s1113"></td>
+                        </tr>
+                        <tr id="row112">
+                            <td class="square h" id="s1121"></td>
+                            <td class="square v h" id="s1122"></td>
+                            <td class="square h" id="s1123"></td>
+                        </tr>
+                        <tr id="row113">
+                            <td class="square" id="s1131"></td>
+                            <td class="square v" id="s1132"></td>
+                            <td class="square" id="s1133"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="bigSquare v">
+                    <table>
+                        <tr id="row121">
+                            <td class="square" id="s1211"></td>
+                            <td class="square v" id="s1212"></td>
+                            <td class="square" id="s1213"></td>
+                        </tr>
+                        <tr id="row122">
+                            <td class="square h" id="s1221"></td>
+                            <td class="square v h" id="s1222"></td>
+                            <td class="square h" id="s1223"></td>
+                        </tr>
+                        <tr id="row123">
+                            <td class="square" id="s1231"></td>
+                            <td class="square v" id="s1232"></td>
+                            <td class="square" id="s1233"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="bigSquare">
+                    <table>
+                        <tr id="row131">
+                            <td class="square" id="s1311"></td>
+                            <td class="square v" id="s1312"></td>
+                            <td class="square"  id="s1313"></td>
+                        </tr>
+                        <tr id="row132">
+                            <td class="square h" id="s1321"></td>
+                            <td class="square v h" id="s1322"></td>
+                            <td class="square h" id="s1323"></td>
+                        </tr>
+                        <tr id="row133">
+                            <td class="square" id="s1331"></td>
+                            <td class="square v" id="s1332"></td>
+                            <td class="square" id="s1333"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="br2">
+                <td class="bigSquare h">
+                    <table>
+                        <tr id="row211">
+                            <td class="square" id="s2111"></td>
+                            <td class="square v" id="s2112"></td>
+                            <td class="square" id="s2113"></td>
+                        </tr>
+                        <tr id="row212">
+                            <td class="square h" id="s2121"></td>
+                            <td class="square v h" id="s2122"></td>
+                            <td class="square h" id="s2123"></td>
+                        </tr>
+                        <tr id="row213">
+                            <td class="square" id="s2131"></td>
+                            <td class="square v" id="s2132"></td>
+                            <td class="square" id="s2133"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="bigSquare v h">
+                    <table>
+                        <tr id="row221">
+                            <td class="square" id="s2211"></td>
+                            <td class="square v" id="s2212"></td>
+                            <td class="square" id="s2213"></td>
+                        </tr>
+                        <tr id="row222">
+                            <td class="square h" id="s2221"></td>
+                            <td class="square v h" id="s2222"></td>
+                            <td class="square h" id="s2223"></td>
+                        </tr>
+                        <tr id="row223">
+                            <td class="square" id="s2231"></td>
+                            <td class="square v" id="s2232"></td>
+                            <td class="square" id="s2233"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="bigSquare h">
+                    <table>
+                        <tr id="row231">
+                            <td class="square" id="s2311"></td>
+                            <td class="square v" id="s2312"></td>
+                            <td class="square" id="s2313"></td>
+                        </tr>
+                        <tr id="row232">
+                            <td class="square h" id="s2321"></td>
+                            <td class="square v h" id="s2322"></td>
+                            <td class="square h" id="s2323"></td>
+                        </tr>
+                        <tr id="row233">
+                            <td class="square" id="s2331"></td>
+                            <td class="square v" id="s2332"></td>
+                            <td class="square" id="s2333"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id="br3">
+                <td class="bigSquare">
+                    <table>
+                        <tr id="row311">
+                            <td class="square" id="s3111"></td>
+                            <td class="square v" id="s3112"></td>
+                            <td class="square" id="s3113"></td>
+                        </tr>
+                        <tr id="row312">
+                            <td class="square h" id="s3121"></td>
+                            <td class="square v h" id="s3122"></td>
+                            <td class="square h" id="s3123"></td>
+                        </tr>
+                        <tr id="row313">
+                            <td class="square" id="s3131"></td>
+                            <td class="square v" id="s3132"></td>
+                            <td class="square" id="s3133"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td  class="bigSquare v">
+                    <table>
+                        <tr id="row321">
+                            <td class="square" id="s3211"></td>
+                            <td class="square v" id="s3212"></td>
+                            <td class="square" id="s3213"></td>
+                        </tr>
+                        <tr id="row322">
+                            <td class="square h" id="s3221"></td>
+                            <td class="square v h" id="s3222"></td>
+                            <td class="square h" id="s3223"></td>
+                        </tr>
+                        <tr id="row323">
+                            <td class="square" id="s3231"></td>
+                            <td class="square v" id="s3232"></td>
+                            <td class="square" id="s3233"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td  class="bigSquare">
+                    <table>
+                        <tr id="row331">
+                            <td class="square" id="s3311"></td>
+                            <td class="square v" id="s3312"></td>
+                            <td class="square" id="s3313"></td>
+                        </tr>
+                        <tr id="row332">
+                            <td class="square h" id="s3321"></td>
+                            <td class="square v h" id="s3322"></td>
+                            <td class="square h" id="s3323"></td>
+                        </tr>
+                        <tr id="row333">
+                            <td class="square" id="s3331"></td>
+                            <td class="square v" id="s3332"></td>
+                            <td class="square" id="s3333"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

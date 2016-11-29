@@ -1,0 +1,68 @@
+body {
+    background-color: #eeeeee;
+}
+
+div#createConnect {
+    width:660px;
+    margin:0 auto;
+    text-align: center;
+}
+
+button#connectToGame, button#createGame, button#refreshGame, button#watchRefreshGame {
+    margin: 1em 0.5em 0 0;
+}
+
+input#gameName {
+    margin: 1em;
+}
+
+span#gameNameLabel, span#passwordLabel, span#gameSignLabel {
+    font-size: 2em;
+}
+
+table.center {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+select#gameList {
+    width: 180px;
+    margin: 0 2em 2.2em 2em;
+}
+
+select#wb {
+    font-size: 2em;
+    width: 174px;
+    padding: 0 0 0 10px;
+}
+
+
+div#createConnect {
+    margin-bottom: 1em;
+}
+
+Select#movesList {
+    margin-left: 1em;
+    width: 150px;
+}
+
+div#gameListDiv {
+    margin-top: 1.2em;
+}
+
+table#BigTable {
+    width: 600px;
+    margin: 0 auto;
+}
+
+td#MovesTableCell {
+    text-align: center;
+}
+
+div#movesArrowsFirstRowDiv, div#movesArrowsSecondRowDiv {
+    margin-top: 1em;
+}
+
+td#MovesTableCell button {
+    margin: 0.2em;
+}

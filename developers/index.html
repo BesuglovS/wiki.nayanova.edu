@@ -1,0 +1,470 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Разработчикам - Диспетчерская учебного отдела СГОАН</title>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />    
+<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+<div id="container">
+    <header class="cf">       	
+    	<img src="../upload/images/DVZ-beta.png" id="headerLogo" width="150" height="150">
+        <h1>Разработчикам<br />(API)<h1>        
+    </header>
+    <section id="content" class="cf">
+        <p>
+        	Это страница создана для описания формата запросов и возвращаемых данных скрипта api.php
+        </p>
+        <div class="ui-state-highlight ui-corner-all">
+        	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+            <strong>Внимание!</strong>
+            Всё параметры передаются в параметре "Parameters".
+        </div>
+        <p>
+        	Всё данные передаются в JSON-формате.
+        </p>        
+        <p>
+        	Данные запрашиваются POST запросом на адрес http://wiki.nayanova.edu/api.php            
+        </p>
+		<p>
+        	Параметр action (обязательный).
+        </p>
+        <p>
+        	Параметр action может принимать одно из 2-х значений: "bundle" или "list".
+        </p>
+        <h1>action=bundle</h1>
+        <p>
+        	При выборе action=bundle без дополнительных параметров передаются все данные расписания в формате:
+            <table class="paramTable">
+              <tr>
+                <td>auditoriums</td>
+                <td>action=list&listtype=auditoriums</td>
+              </tr>              
+              <tr>
+                <td>calendars</td>
+                <td>action=list&listtype=calendars</td>
+              </tr>
+              <tr>
+                <td>configOptions</td>
+                <td>action=list&listtype=configOptions</td>
+              </tr>
+              <tr>
+                <td>disciplines</td>
+                <td>action=list&listtype=disciplines</td>
+              </tr>
+              <tr>
+                <td>lessons</td>
+                <td>action=list&listtype=lessons</td>
+              </tr>
+              <tr>
+                <td>rings</td>
+                <td>action=list&listtype=rings</td>
+              </tr>
+              <tr>
+                <td>students</td>
+                <td>action=list&listtype=students</td>
+              </tr>
+              <tr>
+                <td>studentGroups</td>
+                <td>action=list&listtype=studentGroups</td>
+              </tr>
+              <tr>
+                <td>studentsInGroups</td>
+                <td>action=list&listtype=studentsInGroups</td>
+              </tr>
+              <tr>
+                <td>teachers</td>
+                <td>action=list&listtype=teachers</td>
+              </tr>
+              <tr>
+                <td>teacherForDisciplines</td>
+                <td>action=list&listtype=teacherForDisciplines</td>
+              </tr>
+              <tr>
+                <td>lessonLogEvents</td>
+                <td>action=list&listtype=lessonLogEvents</td>
+              </tr>
+            </table>            
+            <p>
+            Дополнительные параметры передаются только в запрос таблицы lessons.
+            </p>
+            <p>            
+            Можно запросить расписание для конкретного человека добавив параметр
+            </p>
+            <table class="paramTable">
+              <tr>
+                <td>studentId</td>
+                <td>id студента</td>
+              </tr>
+            </table>
+            Ограничение данных произойдёт только по таблице занятий.
+            Можно ограничить объём передаваемых данных до расписания конкретной группы (только по таблице уроков) добавив параметр            
+            <table class="paramTable">
+              <tr>
+                <td>groupId</td>
+                <td>id группы</td>
+              </tr>
+            </table>                        
+        </p>
+        <h1>action=list</h1>
+		<p>
+        	При выборе action=list обязателен параметр "listtype".<br />
+            Возможны 12 вариантов:
+            <ul id="listtype">
+            	<li>
+                	<h2>auditoriums</h2>
+                    <p>
+                    Список аудиторий в формате:<br />
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>AuditoriumId</td>
+                        <td>id аудитории</td>
+                      </tr>
+                      <tr>
+                        <td>Name</td>
+                        <td>имя аудитории</td>
+                      </tr>
+                    </table>                    
+                </li>
+                <li>
+                	<h2>calendars</h2>
+                    <p>
+                    Список дней семестра в формате:<br />                    
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>CalendarId</td>
+                        <td>id дня</td>
+                      </tr>
+                      <tr>
+                        <td>Date</td>
+                        <td>дата в формате YYYY-MM-DD</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>configOptions</h2>
+                    <p>
+                    Список опций в формате:                    
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>ConfigOptionId</td>
+                        <td>id опции</td>
+                      </tr>
+                      <tr>
+                        <td>Key</td>
+                        <td>ключ опции</td>
+                      </tr>
+                      <tr>
+                        <td>Value</td>
+                        <td>значение опции</td>
+                      </tr>
+                    </table>
+                    <p>
+                    На данный момент в базе существует только одна опция "Semester&nbsp;Starts"
+                    обозначающая дату начала семестра для определения номеров недель
+                    из дат в календаре.
+                    </p>
+                </li>
+                <li>
+                	<h2>disciplines</h2>
+                    <p>
+                    Список дисциплин в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>DisciplineId</td>
+                        <td>id дисциплины</td>
+                      </tr>
+                      <tr>
+                        <td>Name</td>
+                        <td>название дисциплины</td>
+                      </tr>
+                      <tr>
+                        <td>Attestation</td>
+                        <td>форма отчётности<br />(0 - без отчётности; 1 - зачёт; 2 - экзамен; 3 - зачёт и экзамен)</td>
+                      </tr>
+                      <tr>
+                        <td>AuditoriumHours</td>
+                        <td>аудиторные часы</td>
+                      </tr>
+                      <tr>
+                        <td>LectureHours</td>
+                        <td>лекционные часы</td>
+                      </tr>
+                      <tr>
+                        <td>PracticalHours</td>
+                        <td>практические/семинарские/лабораторные часы</td>
+                      </tr>
+                      <tr>
+                        <td>StudentGroupId</td>
+                        <td>id группы студентов</td>
+                      </tr>                      
+                    </table>
+                    <p>
+                    Можно запросить только дисциплины определённой группы добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>groupId</td>
+                        <td>id группы</td>
+                      </tr>
+                    </table>
+                    Будут выведены дисциплины всех групп куда входят студенты группы с переданным id.<br />
+                    Для того чтобы ограничить вывод дисциплинами только этой группы добавьте параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>LimitToExactGroup = 1</td>
+                      </tr>
+                    </table>
+                    </p>
+                </li>
+                <li>
+                	<h2>lessons</h2>
+                    <p>
+                    Список уроков в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>LessonId</td>
+                        <td>id урока</td>
+                      </tr>
+                      <tr>
+                        <td>IsActive</td>
+                        <td>активый ли урок (в расписании)</td>
+                      </tr>
+                      <tr>
+                        <td>TeacherForDisciplineId</td>
+                        <td>ссылка на строчку в карточке учебных поручений (соответствующей таблице)</td>
+                      </tr>
+                      <tr>
+                        <td>CalendarId</td>
+                        <td>ссылка на дату урока</td>
+                      </tr>
+                      <tr>
+                        <td>RingId</td>
+                        <td>ссылка на таблицу звонков</td>
+                      </tr>
+                      <tr>
+                        <td>AuditoriumId</td>
+                        <td>ссылка на таблицу аудиторий</td>
+                      </tr>
+                    </table>
+                    Можно запросить занития для конкретного человека добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>studentId</td>
+                        <td>id студента</td>
+                      </tr>
+                    </table>
+                    Можно запросить занятия только для студентов определённой группы добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>groupId</td>
+                        <td>id группы</td>
+                      </tr>
+                    </table>
+                    Будут выведены пары групп в которые входят студенты группы чей id передан в параметре groupId.
+                    <br />
+                    Для того чтобы ограничить вывод дисциплинами только этой группы добавьте параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>LimitToExactGroup = 1</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>rings</h2>
+                    <p>
+                    Список звонков (время начала пары) в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>RingId</td>
+                        <td>id звонка</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td>время начала пары</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>students</h2>
+                    <p>
+                    Список студентов в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>StudentId</td>
+                        <td>id студента</td>
+                      </tr>
+                      <tr>
+                        <td>F</td>
+                        <td>фамилия</td>
+                      </tr>
+                      <tr>
+                        <td>I</td>
+                        <td>имя</td>
+                      </tr>
+                      <tr>
+                        <td>O</td>
+                        <td>отчество</td>
+                      </tr>
+                      <tr>
+                        <td>Starosta</td>
+                        <td>староста</td>
+                      </tr>
+                      <tr>
+                        <td>NFactor</td>
+                        <td>наяновец</td>
+                      </tr>
+                      <tr>
+                        <td>Expelled</td>
+                        <td>отчислен</td>
+                      </tr>
+                    </table>
+                    Можно запросить только студентов определённой группы добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>groupId</td>
+                        <td>id группы</td>
+                      </tr>
+                    </table>
+                    Для того чтобы получить в списке отчисленных студентов добавьте параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>ExpelledIncluded = 1</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>studentGroups</h2>
+                    <p>
+                    Список групп студентов в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>StudentGroupId</td>
+                        <td>id группы студентов</td>
+                      </tr>
+                      <tr>
+                        <td>Name</td>
+                        <td>название группы студентов</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>studentsInGroups</h2>
+                    <p>
+                    Список включений студентов в группы в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>StudentsInGroupsId</td>
+                        <td>id включения</td>
+                      </tr>
+                      <tr>
+                        <td>StudentId</td>
+                        <td>id студента</td>
+                      </tr>
+                      <tr>
+                        <td>StudentGroupId</td>
+                        <td>id группы студента</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>teachers</h2>
+                    <p>
+                    Список преподавателей в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>TeacherId</td>
+                        <td>id преподавателя</td>
+                      </tr>
+                      <tr>
+                        <td>FIO</td>
+                        <td>Ф.И.О. преподавателя</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>teacherForDisciplines</h2>
+                    <p>
+                    Список назначений дисциплин преподавателям в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>TeacherForDisciplineId</td>
+                        <td>id назначения</td>
+                      </tr>
+                      <tr>
+                        <td>TeacherId</td>
+                        <td>id преподавателя</td>
+                      </tr>
+                      <tr>
+                        <td>DisciplineId</td>
+                        <td>id дисциплины</td>
+                      </tr>
+                    </table>
+                </li>
+                <li>
+                	<h2>lessonLogEvents</h2>
+                    <p>
+                    Список изменений расписания в формате:
+                    </p>
+                    <table class="paramTable">
+                      <tr>
+                        <td>LessonLogEventId</td>
+                        <td>id изменения</td>
+                      </tr>
+                      <tr>
+                        <td>OldLessonId</td>
+                        <td>id старого урока</td>
+                      </tr>
+                      <tr>
+                        <td>NewLessonId</td>
+                        <td>id нового урока</td>
+                      </tr>
+                      <tr>
+                        <td>DateTime</td>
+                        <td>дата+время изменения расписания</td>
+                      </tr>
+                      <tr>
+                        <td>Comment</td>
+                        <td>комментарий</td>
+                      </tr>
+                    </table>
+                    Можно запросить изменения для конкретного человека добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>studentId</td>
+                        <td>id студента</td>
+                      </tr>
+                    </table>
+                    Можно запросить изменения только для студентов определённой группы добавив параметр
+                    <table class="paramTable">
+                      <tr>
+                        <td>groupId</td>
+                        <td>id группы</td>
+                      </tr>
+                    </table>
+                    Будут выведены изменения для занятий групп в которые входят студенты группы чей id передан в параметре groupId.
+                </li>                
+            </ul>
+        </p>
+        
+    </section>
+    <footer>
+    	<p>
+        	&copy; Диспетчерская учебного отдела СГОАН, 2013
+        </p>
+    </footer>   
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!--
+Create tabs with an icon and label, using the tabs-stable style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-stable">
+
+  <!-- Group Schedule Tab -->
+  <ion-tab title="Расписание группы" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/groupSchedule">
+      <ion-nav-view name="tab-groupSchedule"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Teacher Schedule Tab -->
+  <ion-tab title="Расписание преподавателя" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/teacherSchedule">
+      <ion-nav-view name="tab-teacherSchedule"></ion-nav-view>
+  </ion-tab>  
+</ion-tabs>

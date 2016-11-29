@@ -1,0 +1,29 @@
+.bigSquare{
+    width:170px;
+    height:170px;
+}
+
+.square{
+    width:50px;
+    height:50px;
+    text-align: center;
+    font-size: 2.5em;
+}
+
+.green {
+    color: chartreuse;
+}
+
+.blue {
+    color: cornflowerblue;
+}
+
+.v{
+    border-left:1px solid #000;
+    border-right:1px solid #000;
+}
+
+.h{
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
+}

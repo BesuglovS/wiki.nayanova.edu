@@ -1,0 +1,67 @@
+<ion-view view-title="{{Schedule.FIO}}">
+    <ion-content class="padding">
+
+        <div class="list card">
+            <div class="item item-body">                
+                <div class="row">
+                    <div class="col valign-middle">
+                        Неделя
+                        <select ng-model="data.ScheduleWeek" ng-change="updateSchedule()">
+                            <option selected>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option>15</option>
+                            <option>16</option>
+                            <option>17</option>
+                            <option>18</option>
+                        </select>
+                    </div>
+                    <div class="col valign-middle">
+                        Преподаватель
+                        <select id="teacherListSelect"
+                                ng-model="data.SelectedTeacher"
+                                ng-options="teacher.FIO for teacher in TeacherList"
+                                ng-change="updateSchedule()"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="Schedule.empty" class="item item-divider">
+            На этой неделе занятий нет.
+        </div>
+
+        <div ng-hide="Schedule.empty" ng-repeat="i in getNumber(dowCount) track by $index" >
+            <div ng-show="Schedule[$index+1].Lessons.length" class="list card">
+                <div class="item item-divider">
+                    {{Schedule[$index+1].doww}} ({{Schedule[$index+1].date}})
+                </div>
+                <div class="item item-body">
+                    <ion-list>
+                        <ion-item ng-repeat="lesson in Schedule[$index+1].Lessons" class="item-text-wrap">
+                            <div class="row">
+                                <div class="col col-20"><h2>{{lesson.Time}}</h2></div>
+                                <div class="col">
+                                    {{lesson.disciplineName}}<br />
+                                    {{lesson.groupName}}<br />
+                                    {{lesson.auditoriumName}}
+                                </div>                                
+                            </div>                            
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </div>            
+        </div>
+    </ion-content>
+</ion-view>
