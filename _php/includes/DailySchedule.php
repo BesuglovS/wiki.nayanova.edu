@@ -29,8 +29,8 @@ $sGroup = $database->query($groupNameQuery);
 $groupNameArr = $sGroup->fetch_assoc();
 $groupName = $database->real_escape_string($groupNameArr["Name"]);
 
-$studentId = 0;
-if (isset($_SESSION['NUlogin']))
+$studentId = -1;
+if ((isset($_SESSION['NUlogin'])) && (!isset($_SESSION['AltUserId'])))
 {
     $FIO = explode(' ',trim($_SESSION['NUlogin']));
     $F = $FIO[0];
@@ -45,13 +45,17 @@ if (isset($_SESSION['NUlogin']))
     $studentId = $studentIdArray["StudentId"];
 }
 
+$altUserId = "";
+if (isset($_SESSION['AltUserId']))
+{
+    $altUserId = $_SESSION['AltUserId'];
+}
+
 $todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
 $today = gmdate("y.m.d H:i:s", $todayStamp);
 $statisticQuery  = "INSERT INTO " . $dbPrefix . "DailyScheduleStats( groupId, date, statDate";
-if ($studentId !== 0)
-{
-    $statisticQuery .= ", StudentId ";
-}
+$statisticQuery .= ", StudentId ";
+$statisticQuery .= ", AltUserId ";
 $statisticQuery .= ") ";
 $statisticQuery .= "VALUES ( \"";
 $statisticQuery .= $groupName;
@@ -59,11 +63,11 @@ $statisticQuery .= "\", ";
 $statisticQuery .= $dateString;
 $statisticQuery .= ", \"";
 $statisticQuery .= $today . "\"";
-if ($studentId !== 0)
-{
-    $statisticQuery .= ", ";
-    $statisticQuery .= $studentId;
-}
+$statisticQuery .= ", ";
+$statisticQuery .= $studentId;
+$statisticQuery .= ", \"";
+$statisticQuery .= $altUserId;
+$statisticQuery .= "\" ";
 $statisticQuery .= ")";
 
 /*
@@ -171,6 +175,7 @@ if ($lessonsList->num_rows != 0)
             }
             else
             {
+                $resultLessons[$i]["omitTime"] = 1;
                 $resultLessons[$startRow]["rowspan"] = $i - $startRow + 1;
             }
         }

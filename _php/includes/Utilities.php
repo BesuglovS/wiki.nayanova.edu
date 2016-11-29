@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Europe/Samara');
+
 function weeksCompare($a, $b)
 {
     $dash = "-";
@@ -56,30 +58,34 @@ class Utilities {
         return "<" . $tagname . ">Нету дома никого!</" . $tagname . ">";
     }
 
-    public static function AuditoriumBuilding($AuditoriumId){
-
-
-
-
-
-
-
+    public static function MySQLDateTime() {
+        $todayStamp  = mktime(date("G")+4, date("i"), date("s"), date("m"), date("d"), date("Y"));
+        return gmdate("Y-m-d H:i:s", $todayStamp);
     }
 
 
     public static function WeekFromDate($date, $semesterStarts)
     {
-        //echo $date . " " . $semesterStarts . "<br />";
         $lessonDate = DateTime::createFromFormat('Y-m-d', $date);
         $start = DateTime::createFromFormat('Y-m-d', $semesterStarts);
-        return (int)(floor(($lessonDate->diff($start)->format('%a')) / 7)) + 1;
+		$dowDelta = date("N", $start->getTimestamp()) - 1;
+		$start->modify('-'. $dowDelta .' day');
+                
+        if ($lessonDate >= $start)
+        {
+            return (int)(floor(($lessonDate->diff($start)->format('%a')) / 7)) + 1;
+        }
+        else
+        {
+            return (-1)*((int)(floor(($lessonDate->diff($start)->format('%a') - 1) / 7)) + 1);                        
+        }
     }
 
     public static function GatherWeeksToString($weekArray)
     {
         $result = array();
         $boolWeeks = array();
-        for($i=0; $i<=20;$i++) {
+        for($i=0; $i<=25;$i++) {
             $boolWeeks[$i] = false;
         }
         foreach ($weekArray as $week) {
@@ -87,8 +93,8 @@ class Utilities {
         }
 
         $prev = false;
-        $baseNum = 20;
-        for($i = 0; $i<=19; $i++)
+        $baseNum = 25;
+        for($i = 0; $i<=25; $i++)
         {
             if (($prev == false) && ($boolWeeks[$i] == true))
             {
@@ -106,14 +112,14 @@ class Utilities {
                 }
 
                 if ($boolWeeks[$i] == false)
-                    $baseNum = 20;
+                    $baseNum = 25;
 
                 $prev = $boolWeeks[$i];
         }
 
         $prev = false;
-        $baseNum = 20;
-        for($i = 1; $i<=19; $i = $i + 2)
+        $baseNum = 25;
+        for($i = 1; $i<=25; $i = $i + 2)
         {
             if (($prev == false) && ($boolWeeks[$i] == true))
             {
@@ -131,14 +137,14 @@ class Utilities {
             }
 
             if ($boolWeeks[$i] == false)
-                $baseNum = 20;
+                $baseNum = 25;
 
             $prev = $boolWeeks[$i];
         }
 
         $prev = false;
-        $baseNum = 20;
-        for($i = 2; $i<=20; $i = $i + 2)
+        $baseNum = 25;
+        for($i = 2; $i<=25; $i = $i + 2)
         {
             if (($prev == false) && ($boolWeeks[$i] == true))
             {
@@ -156,14 +162,14 @@ class Utilities {
             }
 
             if ($boolWeeks[$i] == false)
-                $baseNum = 20;
+                $baseNum = 25;
 
             $prev = $boolWeeks[$i];
         }
 
 
 
-        for ($i = 1; $i <= 18; $i++)
+        for ($i = 1; $i <= 25; $i++)
         {
             if ($boolWeeks[$i])
             {
@@ -206,10 +212,6 @@ class Utilities {
         return "#afa"; // Зелёный
     }
 
-    public static function GetCurrentWeekNumber()
-    {
-
-    }
 
     public static function p($param)
     {

@@ -1,2 +1,5 @@
 Options FollowSymLinks
-DirectoryIndex FlatIndex.php index.php index.html
+DirectoryIndex FlatIndex.php index.html Index.php index.php index.html index-under-construction.php
+php_value memory_limit 128M
+Header set Access-Control-Allow-Origin "*"
+AddDefaultCharset UTF-8

@@ -1,0 +1,88 @@
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+#container {
+    width: 900px;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+}
+
+header {
+    background-color: white;
+}
+
+header h1 {
+    font-size:2em;
+    padding-top: 0.5em;
+    padding-left: 1em;
+}
+
+#headerLogo {
+    float: right;
+}
+
+footer {
+    padding: 0.5em 2em;
+    background-color: #CCC49F;
+}
+
+input#filter {
+    width: 450px;
+}
+
+div#filterDiv {
+    margin: 1em;
+    text-align: center;
+}
+
+table {
+    font-family: "Helvetica Neue", Helvetica, sans-serif
+}
+
+caption {
+    text-align: left;
+    color: silver;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+}
+
+th {
+    background: SteelBlue;
+    color: white;
+}
+
+th,
+td {
+    padding: 5px 10px;
+}
+
+tbody tr:nth-child(even) {
+    background: WhiteSmoke;
+}
+
+tbody tr td:nth-child(2) {
+    text-align:center;
+}
+
+tbody tr td:nth-child(3),
+tbody tr td:nth-child(4) {
+    text-align: center;
+    font-family: monospace;
+}
+

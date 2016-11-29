@@ -201,7 +201,6 @@ require_once("_php/includes/Database.php");
             </table>
         </section>
         <section id="vk">
-            <!--
             <div id="vkGroupLink">
                 <p>
                     Диспетчерская в контакте
@@ -209,7 +208,6 @@ require_once("_php/includes/Database.php");
                     <span id="vklinktext">https://vk.com/nayanovadisp</span>
                 </p>
             </div>
-            -->
             <div id="sessiusImageDiv">
                 <img src="upload/images/sessius-sdavamus.jpg" id="sessiussdavamus" width="221" height="215">
             </div>
@@ -227,74 +225,64 @@ require_once("_php/includes/Database.php");
             <table id="SessionScheduleTable">
                 <tbody>
                 <tr>
-                    <td>&nbsp;</td>
                     <td><button id="12Math2">12 А</button></td>
                     <td><button id="13Math2">13 А</button></td>
-                    <td>&nbsp;</td>
+                    <td><button id="14Math2">14 А</button></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
                     <td><button id="12Phil2">12 Б</button></td>
                     <td><button id="13Phil2">13 Б</button></td>
                     <td><button id="14Phil2">14 Б</button></td>
                     <td><button id="15Phil2">15 Б</button></td>
                 </tr>
                 <tr>
-                    <td><button id="12Eco02">12 В0</button></td>
                     <td><button id="12Eco2">12 В</button></td>
                     <td><button id="13Eco2">13 В</button></td>
-                    <td><button id="14Eco2">14 В</button><button id="C2">С</button></td>
+                    <td><button id="14Eco2">14 В</button></td>
                     <td><button id="15Eco2">15 В</button></td>
                 </tr>
                 <tr>
-                    <td rowspan="2">&nbsp;</td>
                     <td><button id="12Econ2">12 Г</button></td>
                     <td><button id="13Econ2">13 Г</button></td>
                     <td><button id="14Econ2">14 Г</button></td>
-                    <td rowspan="2">&nbsp;</td>
+                    <td><button id="15Econ2">15 Г</button></td>
                 </tr>
                 <tr>
                     <td><button id="12EconN2">12 Г(Н)</button></td>
                     <td><button id="13EconN2">13 Г(Н)</button></td>
                     <td><button id="14EconN2">14 Г(Н)</button></td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td rowspan="2">&nbsp;</td>
                     <td><button id="12Law2">12 Д</button></td>
                     <td><button id="13Law2">13 Д</button></td>
                     <td><button id="14Law2">14 Д</button></td>
-                    <td rowspan="2"><button id="15Law2">15 Д</button></td>
-                </tr>
-                <tr>
-                    <td><button id="12LawN2">12 Д(Н)</button></td>
-                    <td><button id="13LawN2"><img src="upload/images/p16.png" width="16" height="16" /></button></td>
-                    <td><button id="14LawN2">14 Д(Н)</button></td>
+                    <td><button id="15Law2">15 Д</button></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
+                    <td><button id="13LawN2">13 Д(Н)</button></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
                     <td><button id="12PR2">12 Е</button></td>
-                    <td rowspan="2"><button id="13PR2">13 Е</button></td>
-                    <td rowspan="2"><button id="14PR2">14 Е</button></td>
-                    <td rowspan="2"><button id="15PR2">15 Е</button></td>
+                    <td><button id="13PR2">13 Е</button></td>
+                    <td><button id="14PR2">14 Е</button></td>
+                    <td><button id="15PR2">15 Е</button></td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
-                    <td><button id="12PRN2">12 Е(Н)</button></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
                     <td><button id="12Upr2">12 У</button></td>
                     <td><button id="13Upr2">13 У</button></td>
                     <td><button id="14Upr2">14 У</button></td>
                     <td><button id="15Upr2">15 У</button></td>
                 </tr>
                 <tr>
-                    <td>&nbsp;</td>
                     <td><button id="12Tur2">12 Т</button></td>
                     <td><button id="13Tur2">13 Т</button></td>
                     <td><button id="14Tur2">14 Т</button></td>
-                    <td>&nbsp;</td>
+                    <td><button id="15Tur2">15 Т</button></td>
                 </tr>
                 </tbody>
             </table>

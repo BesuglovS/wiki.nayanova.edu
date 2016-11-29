@@ -9,7 +9,7 @@ require_once("Utilities.php");
 
 global $database;
 
-$query  = "SELECT statId, groupId, date, statDate, StudentId ";
+$query  = "SELECT statId, groupId, date, statDate, StudentId, AltUserId ";
 $query .= "FROM " . $dbPrefix . "DailyScheduleStats ";
 $query .= "ORDER BY statDate DESC ";
 $query .= "LIMIT " . $startFrom . ", 100";
@@ -38,7 +38,7 @@ if ($events->num_rows != 0)
         echo $event["date"];
         echo "</td>";
         echo "<td>";
-        if ($event["StudentId"] !== "0")
+        if ($event["StudentId"] !== "-1")
         {
             $FIOQuery  = "SELECT F, I, O ";
             $FIOQuery .= "FROM " . $dbPrefix . "students ";
@@ -46,7 +46,11 @@ if ($events->num_rows != 0)
             $FIOResult = $database->query($FIOQuery);
             $FIORArray = $FIOResult->fetch_assoc();
 
-            echo $FIORArray["F"] . " " . mb_substr($FIORArray["I"], 0, 2) . mb_substr($FIORArray["O"], 0, 2);
+            echo $FIORArray["F"] . " " . mb_substr($FIORArray["I"], 0, 1) . mb_substr($FIORArray["O"], 0, 1);
+        }
+        else
+        {
+            echo $event["AltUserId"];
         }
         echo "</td>";
         echo "</tr>";

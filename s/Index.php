@@ -219,6 +219,10 @@ $database->query($statQuery);
     <!-- jquery.switchButton -->
     <script src="../upload/_js/jquery.switchButton.js"></script>
     <link rel="stylesheet" type="text/css" href="../upload/_css/jquery.switchButton.css">
+    <link rel="stylesheet" type="text/css" href="../upload/_css/jquery.countdown.css">
+    <script src="../upload/_js/jquery.plugin.min.js"></script>
+    <script src="../upload/_js/jquery.countdown.min.js"></script>
+    <script src="../upload/_js/jquery.countdown-ru.js"></script>
     <!-- Main -->
     <script src="upload/js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="../upload/_css/main.css">
@@ -237,7 +241,7 @@ $database->query($statQuery);
     </p>
 </header>
 <header class="cf">
-    <img src="../upload/images/DVZ-beta.png" id="headerLogo" width="150" height="150">
+    <img src="../upload/images/DVZ.png" id="headerLogo" width="150" height="150">
     <div id="weekDiv">
         Неделя<br />
         <div id="weekNum">
@@ -308,7 +312,9 @@ $database->query($statQuery);
             <input type="text" id="scheduleDate">
         </p>
         <p>
-            <button id="Mol">Занятость аудиторий</button>
+            <button id="Cha">Корп № 1</button>
+            <button id="Mol">Корп № 2</button>
+            <button id="Jar">Корп № 3</button>
         </p>
     </div>
     <div id="flipWraper">
@@ -325,12 +331,12 @@ $database->query($statQuery);
         <tbody>
         <tr>
             <td rowspan="2"><button id="8Math">8 А</button></td>
-            <td><button id="9Math1">9 А1</button></td>
-            <td rowspan="2"><button id="10Math">10 А</button></td>
-            <td rowspan="2"><button id="11Math">11 А</button></td>
+            <td rowspan="2"><button id="9Math">9 А</button></td>            
+			<td rowspan="2"><button id="10Math">10 А</button></td>            
+            <td><button id="11Math1">11 А1</button></td>            
         </tr>
         <tr>
-            <td><button id="9Math2">9 А2</button></td>
+            <td><button id="11Math2">11 А2</button></td>
         </tr>
         <tr>
             <td><button id="8Hum">8 Б</button></td>
@@ -421,13 +427,72 @@ $database->query($statQuery);
 
         <button id="PDFExport">Расписание в PDF</button>
     </p>
+	
+	<img src="upload/images/snegovik.jpg" style="border-radius: 200px; display:block;
+    margin:auto;" width="200px" >
 
+    <div style="text-align: center">До нового года осталось:</div>
+    <div id="summer" style="height: 50px"></div>
+
+    <table id="dateScheduleTable2">
+        <tbody>
+        <tr>
+            <td><button id="1A">1 А</button></td>
+            <td><button id="2A">2 А</button></td>
+            <td><button id="3A">3 А</button></td>
+            <td><button id="4A">4 А</button></td>
+            <td><button id="5A">5 А</button></td>
+            <td><button id="6A">6 А</button></td>
+            <td><button id="7A">7 А</button></td>
+        </tr>
+        <tr>
+            <td><button id="1B">1 Б</button></td>
+            <td><button id="2B">2 Б</button></td>
+            <td><button id="3B">3 Б</button></td>
+            <td><button id="4B">4 Б</button></td>
+            <td><button id="5B">5 Б</button></td>
+            <td><button id="6B">6 Б</button></td>
+            <td><button id="7B">7 Б</button></td>
+        </tr>
+        <tr>
+            <td><button id="1V">1 В</button></td>
+            <td><button id="2V">2 В</button></td>
+            <td><button id="3V">3 В</button></td>
+            <td><button id="4V">4 В</button></td>
+            <td><button id="5V">5 В</button></td>
+            <td><button id="6V">6 В</button></td>
+            <td><button id="7V">7 В</button></td>
+        </tr>
+        <tr>
+            <td><button id="1G">1 Г</button></td>
+            <td><button id="2G">2 Г</button></td>
+            <td><button id="3G">3 Г</button></td>
+            <td><button id="4G">4 Г</button></td>
+            <td><button id="5G">5 Г</button></td>
+            <td><button id="6G">6 Г</button></td>
+            <td><button id="7G">7 Г</button></td>
+        </tr>
+        <tr>
+            <td><button id="1D">1 Д</button></td>
+            <td><button id="2D">2 Д</button></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><button id="6D">6 Д</button></td>
+            <td><button id="7D">7 Д</button></td>
+        </tr>
+        </tbody>
+    </table>
+	
+    <!--
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
-    <!-- VK Widget -->
+    -->
+    <!-- VK Widget
     <div id="vk_groups"></div>
     <script type="text/javascript">
         VK.Widgets.Group("vk_groups", {mode: 2, width: "300", height: "320"}, 2691142);
     </script>
+    -->
 </section>
 </section>
 <footer>

@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once("Database.php");
 global $database;
 
@@ -7,12 +12,15 @@ $_POST = json_decode($rest_json, true);
 
 $dbPrefix = $_POST["dbPrefix"];
 $tableSelector = $_POST["tableSelector"];
+$append = $_POST["append"];
 $data = json_decode($_POST["data"], true);
 
 switch ($tableSelector) {
     case "auditoriums":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "auditoriums";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "auditoriums";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "auditoriums ( ";
         $query .= "`AuditoriumId` int(11) NOT NULL, ";
@@ -30,8 +38,10 @@ switch ($tableSelector) {
         }
         break;
     case "buildings":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "buildings";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "buildings";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "buildings ( ";
         $query .= "`BuildingId` int(11) NOT NULL, ";
@@ -50,8 +60,10 @@ switch ($tableSelector) {
         }
         break;
     case "calendars":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "calendars";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "calendars";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "calendars ( ";
         $query .= "`CalendarId` int(11) NOT NULL, ";
@@ -68,8 +80,10 @@ switch ($tableSelector) {
         }
         break;
     case "rings":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "rings";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "rings";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "rings ( ";
         $query .= "`RingId` int(11) NOT NULL, ";
@@ -86,9 +100,10 @@ switch ($tableSelector) {
         }
         break;
     case "students":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "students";
-        echo $query . "<br />";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "students";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "students ( ";
         $query .= "`StudentId` int(11) NOT NULL, ";
@@ -124,8 +139,10 @@ switch ($tableSelector) {
         }
         break;
     case "studentGroups":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "studentGroups";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "studentGroups";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "studentGroups ( ";
         $query .= "`StudentGroupId` int(11) NOT NULL, ";
@@ -142,8 +159,10 @@ switch ($tableSelector) {
         }
         break;
     case "teachers":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "teachers";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "teachers";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "teachers ( ";
         $query .= "`TeacherId` int(11) NOT NULL, ";
@@ -161,8 +180,10 @@ switch ($tableSelector) {
         }
         break;
     case "disciplines":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "disciplines";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "disciplines";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "disciplines ( ";
         $query .= "`DisciplineId` int(11) NOT NULL, ";
@@ -189,8 +210,10 @@ switch ($tableSelector) {
         }
         break;
     case "studentsInGroups":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "studentsInGroups";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "studentsInGroups";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "studentsInGroups ( ";
         $query .= "`StudentsInGroupsId` INT NOT NULL, ";
@@ -208,8 +231,10 @@ switch ($tableSelector) {
         }
         break;
     case "teacherForDisciplines":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "teacherForDisciplines";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "teacherForDisciplines";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "teacherForDisciplines ( ";
         $query .= "`TeacherForDisciplineId` INT NOT NULL, ";
@@ -227,8 +252,10 @@ switch ($tableSelector) {
         }
         break;
     case "lessons":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "lessons";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "lessons";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "lessons ( ";
         $query .= "`LessonId` INT NOT NULL, ";
@@ -251,8 +278,10 @@ switch ($tableSelector) {
         }
         break;
     case "configs":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "configs";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "configs";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "configs ( ";
         $query .= "`ConfigOptionId` int(11) NOT NULL, ";
@@ -270,8 +299,10 @@ switch ($tableSelector) {
         }
         break;
     case "lessonLogEvents":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "lessonLogEvents";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "lessonLogEvents";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "lessonLogEvents ( ";
         $query .= "`LessonLogEventId` int(11) NOT NULL, ";
@@ -295,8 +326,10 @@ switch ($tableSelector) {
         }
         break;
     case "auditoriumEvents":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "auditoriumEvents";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "auditoriumEvents";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "auditoriumEvents ( ";
         $query .= "`AuditoriumEventId` INT NOT NULL, ";
@@ -321,8 +354,10 @@ switch ($tableSelector) {
         }
         break;
     case "faculties":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "faculties";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "faculties";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "faculties ( ";
         $query .= "`FacultyId` INT NOT NULL, ";
@@ -343,8 +378,10 @@ switch ($tableSelector) {
         }
         break;
     case "GroupsInFaculties":
-        $query = "DROP TABLE IF EXISTS " . $dbPrefix . "GroupsInFaculties";
-        $database->query($query);
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "GroupsInFaculties";
+            $database->query($query);
+        }
 
         $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "GroupsInFaculties ( ";
         $query .= "`GroupsInFacultyId` INT NOT NULL, ";
@@ -360,6 +397,93 @@ switch ($tableSelector) {
 
         foreach ($data as $gif) {
             $database->bindAndExecute("iii", $gif["GroupsInFacultyId"], $gif["StudentGroupId"], $gif["FacultyId"]);
+        }
+        break;
+    case "exams":
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "exams";
+            $database->query($query);
+        }
+
+        $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "exams ( ";
+        $query .= "`ExamId` int(11) NOT NULL, ";
+        $query .= "`DisciplineId` int(11) NOT NULL, ";
+        $query .= "`IsActive` int(4) NOT NULL, ";
+        $query .= "`ConsultationDateTime` varchar(50) NOT NULL, ";
+        $query .= "`ConsultationAuditoriumId` int(11) NOT NULL, ";
+        $query .= "`ExamDateTime` varchar(50) NOT NULL, ";
+        $query .= "`ExamAuditoriumId` int(11) NOT NULL, ";
+        $query .= "PRIMARY KEY  (`ExamId`)";
+        $query .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+        $database->query($query);
+
+        $query  = "INSERT INTO " . $dbPrefix . "exams(ExamId, DisciplineId, IsActive, ";
+        $query .= "ConsultationDateTime, ConsultationAuditoriumId, ExamDateTime, ExamAuditoriumId) ";
+        $query .= " VALUES ( ? , ? , ? , ? , ? , ? , ? )";
+        $database->prepare($query);
+
+        foreach ($data as $exam) {
+            $database->bindAndExecute("iiisisi",
+                $exam["ExamId"],
+                $exam["DisciplineId"],
+                $exam["IsActive"],
+                $exam["ConsultationDateTime"],
+                $exam["ConsultationAuditoriumId"],
+                $exam["ExamDateTime"],
+                $exam["ExamAuditoriumId"]
+            );
+        }
+        break;
+    case "examsLogEvents":
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "examsLogEvents";
+            $database->query($query);
+        }
+
+        $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "examsLogEvents ( ";
+        $query .= "`LogEventId` int(11) NOT NULL, ";
+        $query .= "`OldExamId` int(11) NOT NULL, ";
+        $query .= "`NewExamId` int(11) NOT NULL, ";
+        $query .= "`DateTime` varchar(50) NOT NULL, ";
+        $query .= "PRIMARY KEY  (`LogEventId`)";
+        $query .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+        $database->query($query);
+
+        $query  = "INSERT INTO " . $dbPrefix . "examsLogEvents(LogEventId, OldExamId, NewExamId, DateTime) ";
+        $query .= " VALUES ( ? , ? , ? , ? )";
+        $database->prepare($query);
+
+        foreach ($data as $examLogEvent) {
+            $database->bindAndExecute("iiis",
+                $examLogEvent["LogEventId"],
+                $examLogEvent["OldExamId"],
+                $examLogEvent["NewExamId"],
+                $examLogEvent["DateTime"]
+            );
+        }
+        break;
+    case "scheduleNotes":
+        if ($append !== "1") {
+            $query = "DROP TABLE IF EXISTS " . $dbPrefix . "scheduleNotes";
+            $database->query($query);
+        }
+
+        $query  = "CREATE TABLE IF NOT EXISTS " . $dbPrefix . "scheduleNotes ( ";
+        $query .= "`ScheduleNoteId` int(11) NOT NULL, ";
+        $query .= "`Text` varchar(100) NOT NULL, ";
+        $query .= "`LessonId` INT NULL, ";
+        $query .= "`LateAmount` INT NOT NULL, ";
+        $query .= "PRIMARY KEY  (`ScheduleNoteId`)";
+        $query .= ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+        $database->query($query);
+
+        $query  = "INSERT INTO " . $dbPrefix . "scheduleNotes(ScheduleNoteId, Text, LessonId, LateAmount) VALUES ( ? , ? , ? , ? )";
+        $database->prepare($query);
+
+        foreach ($data as $note) {
+            $database->bindAndExecute("isii", $note["ScheduleNoteId"], $note["Text"], $note["LessonId"], $note["LateAmount"]);
         }
         break;
 }

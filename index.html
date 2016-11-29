@@ -1,26 +1,35 @@
-<!DOCTYPE html>
+<!doctype>
 <html>
 <head>
+    <base href="/">
     <title>Диспетчерская учебного отдела СГОАН</title>
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="vendor/es6-shim/es6-shim.min.js"></script>
+
+    <script src="vendor/zone.js/dist/zone.js"></script>
+    <script src="vendor/reflect-metadata/Reflect.js"></script>
+    <script src="vendor/systemjs/dist/system.src.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng2-bootstrap/1.0.24/ng2-bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./app/scss/app.css">
+
 </head>
 <body>
-<div style="position: fixed; top: 50%; left: 50%; margin-top: -65px; margin-left: -300px">
-    <div style="width:600px; text-align:center; font-size:1.7em">
-        <span style="font-weight:bold;">Диспетчерская учебного отдела СГОАН</span><br />
-        <a href="FlatIndex.php">Традиционная версия сайта</a><br />
-        <a href="3dIndex.html">beta-версия (WebGL)</a>
+<my-app>
+    <div class="centered">
+        <img src="pics/Loading-Pic.gif">
+        <img src="pics/Loading-Text.gif">
     </div>
+</my-app>
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-53442785-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
-</div>
+<script>
+    System.import('systemjs.config.js').then(function () {
+        System.import('app/main');
+    }).catch(console.error.bind(console));
+</script>
 </body>
 </html>

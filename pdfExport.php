@@ -3,8 +3,9 @@
 $dbPrefix = $_GET["dbPrefix"];
 $faculty_id = $_GET["facultyId"];
 $scheduleDOW = $_GET["dow"];
+$group_id = $_GET["groupId"];
 
-require('fpdf17/fpdf.php');
+require_once('fpdf17/fpdf.php');
 require_once("_php/includes/Database.php");
 require_once("_php/includes/ConfigOptions.php");
 require_once("_php/includes/Utilities.php");
@@ -80,6 +81,310 @@ function timeCompare($a, $b)
 }
 
 $semesterStarts = $options["Semester Starts"];
+
+if(isset($_GET['groupId'])) {
+
+
+    $groupNameQuery = "SELECT Name FROM " . $dbPrefix . "studentGroups WHERE studentGroupId = " . $group_id;
+
+    $groupNameQueryResult = $database->query($groupNameQuery);
+    $groupNameObject = $groupNameQueryResult->fetch_assoc();
+    $groupName = $groupNameObject["Name"];
+
+
+    $groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
+    $groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+    $groupsQuery .= "WHERE StudentId ";
+    $groupsQuery .= "IN ( ";
+    $groupsQuery .= "SELECT " . $dbPrefix . "studentsInGroups.StudentId ";
+    $groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
+    $groupsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+    $groupsQuery .= "ON " . $dbPrefix . "studentsInGroups.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+    $groupsQuery .= "WHERE " . $dbPrefix . "studentGroups.StudentGroupId = ". $group_id ." ";
+    $groupsQuery .= ")";
+
+    $groupIdsResult = $database->query($groupsQuery);
+
+    $groupIdsArray = array();
+    while ($id = $groupIdsResult->fetch_assoc())
+    {
+        $groupIdsArray[] = $id["StudentGroupId"];
+    }
+
+
+    $groupCondition = "WHERE " . $dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " ) ";
+
+    $allLessonsQuery  = "SELECT " . $dbPrefix . "disciplines.Name as discName, " . $dbPrefix . "rings.Time as startTime, ";
+    $allLessonsQuery .= $dbPrefix . "calendars.Date as date, " . $dbPrefix . "teachers.FIO as teacherFIO, " . $dbPrefix . "auditoriums.Name as auditoriumName, ";
+    $allLessonsQuery .= $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as tfdId, " . $dbPrefix . "studentGroups.Name as groupName, ";
+    $allLessonsQuery .= $dbPrefix . "studentGroups.StudentGroupId as groupId ";
+    $allLessonsQuery .= "FROM " . $dbPrefix . "lessons ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "teachers ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "disciplines ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "studentGroups ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "calendars ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.calendarId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "auditoriums ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.auditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+    $allLessonsQuery .= "JOIN " . $dbPrefix . "rings ";
+    $allLessonsQuery .= "ON " . $dbPrefix . "lessons.ringId = " . $dbPrefix . "rings.ringId ";
+    $allLessonsQuery .= $groupCondition;
+    $allLessonsQuery .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
+
+    $allLessonsQueryResult = $database->query($allLessonsQuery);
+
+
+    $lessons = array("1" => array(), "2" => array(), "3" => array(), "4" => array(),
+        "5" => array(), "6" => array(), "7" => array());
+    $timeArray = array();
+
+    while($lesson = $allLessonsQueryResult->fetch_assoc())
+    {
+        $lessonDate = DateTime::createFromFormat('Y-m-d', $lesson["date"]);
+        $dow = Utilities::$DOWEnToRu[date( "w", $lessonDate->getTimestamp())];
+
+        $time = mb_substr($lesson["startTime"], 0, 5);
+        if (!array_key_exists($time, $lessons[$dow]))
+        {
+            if (!in_array($time, $timeArray))
+            {
+                $timeArray[] = $time;
+            }
+            $lessons[$dow][$time] = array();
+        }
+
+
+        $tfd = $lesson["tfdId"];
+        if (!array_key_exists($tfd, $lessons[$dow][$time]))
+        {
+            $lessons[$dow][$time][$tfd] = array();
+        }
+
+        $lessonWeek = Utilities::WeekFromDate($lesson["date"], $semesterStarts);
+        $lessonAud = $lesson["auditoriumName"];
+        if (!array_key_exists("weeksAndAuds", $lessons[$dow][$time][$tfd]))
+        {
+            $lessons[$dow][$time][$tfd]["weeksAndAuds"] = array();
+        }
+        if (!array_key_exists("lessons", $lessons[$dow][$time][$tfd]))
+        {
+            $lessons[$dow][$time][$tfd]["lessons"] = array();
+        }
+        if (!array_key_exists($lessonAud, $lessons[$dow][$time][$tfd]["weeksAndAuds"]))
+        {
+            $lessons[$dow][$time][$tfd]["weeksAndAuds"][$lessonAud] = array();
+        }
+        $lessons[$dow][$time][$tfd]["weeksAndAuds"][$lessonAud][] = $lessonWeek;
+
+        $lessons[$dow][$time][$tfd]["lessons"][] = $lesson;
+    }
+
+    uasort($timeArray, "timeCompare");
+
+//    echo "<pre>";
+//    echo print_r($lessons);
+//    echo "</pre>";
+
+
+    $ScheduleFontSize = 12;
+    $lineHeight = 4;
+
+    $bu = 0;
+
+    do {
+        $pdf = new FPDF('L');
+
+        $pdf->SetMargins(5, 2.5, 0.5);
+        $pdf->AddPage();
+        // ========================================================================================
+        $pdf->AddFont('Calibri', '', 'calibri.php');
+        $pdf->SetFont('Calibri', '', 10);
+
+        $pn = $pdf->PageNo();
+
+        $cellWidth = 42;
+
+        $pdf->Cell(30,7,iconv("UTF-8","cp1251", $groupName),1,0,'C');
+        $pdf->Cell($cellWidth,7,"Понедельник",1,0,'C');
+        $pdf->Cell($cellWidth,7,"Вторник",1,0,'C');
+        $pdf->Cell($cellWidth,7,"Среда",1,0,'C');
+        $pdf->Cell($cellWidth,7,"Четверг",1,0,'C');
+        $pdf->Cell($cellWidth,7,"Пятница",1,0,'C');
+        $pdf->Cell($cellWidth,7,"Суббота",1,0,'C');
+        $pdf->Ln();
+
+        for($ind = 0; $ind < count($timeArray); $ind++) {
+            $RowMaxHeight = 0;
+
+            $values = array_values($timeArray);
+            $time = $values[$ind];
+
+            $row_x = $pdf->GetX();
+            $row_y = $pdf->GetY();
+
+            $current_x = $pdf->GetX();
+            $current_y = $pdf->GetY();
+
+            $hour = intval(mb_substr($time,0,2));
+            $minute = intval(mb_substr($time,3,2));
+            $minute += 80;
+
+            while ($minute >= 60) {
+                $hour++;
+                $minute -= 60;
+            }
+            if ($minute < 10)
+            {
+                $minute = '0' . $minute;
+            }
+
+            $timeString = $time . " - " . $hour . ":" . $minute;
+
+            $pdf->SetXY($current_x + 30, $current_y);
+
+            for($dow = 1; $dow <= 6; $dow++) {
+
+                if (array_key_exists($time, $lessons[$dow]))
+                {
+                    $cellValues = array();
+                    $cellValues[] = "";
+                    $cellValueIndex = 0;
+
+                    $splitCounter = 0;
+
+                    usort($lessons[$dow][$time], "tfdSort");
+
+                    foreach ($lessons[$dow][$time] as $tfdId => $tfdData) {
+                        if (($tfdData["lessons"][0]["groupName"] != str_replace(' (+Н)', "", $groupName)) &&
+                            ($tfdData["lessons"][0]["groupName"] != (str_replace(' (+Н)', "", $groupName) . "(Н)")) &&
+                            ($tfdData["lessons"][0]["groupName"] != (str_replace(' (+Н)', "", $groupName) . " (+Н)")))
+                        {
+                            $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251",$tfdData["lessons"][0]["groupName"]) . "\n";
+                        }
+
+                        $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251",$tfdData["lessons"][0]["discName"]);
+                        if ($tfdData["lessons"][0]["groupName"] == (str_replace(' (+Н)', "", $groupName) . "(Н)"))
+                        {
+                            $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251"," (Н)");
+                        }
+                        if ($tfdData["lessons"][0]["groupName"] == (str_replace(' (+Н)', "", $groupName) . " (+Н)"))
+                        {
+                            $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251"," (+Н)");
+                        }
+                        $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251","\n");
+                        $cellValues[$cellValueIndex] .= iconv("UTF-8","cp1251",$tfdData["lessons"][0]["teacherFIO"] . "\n");
+
+                        $commonWeeks = array();
+                        foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
+                        {
+                            foreach ($weekArray as $weekNum) {
+                                $commonWeeks[] = $weekNum;
+                            }
+                        }
+                        $cellValues[$cellValueIndex] .=  "(" . iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($commonWeeks)) . ")\n";
+
+                        // TODO сортировать недели аудиторий по порядку
+                        if (count($tfdData["weeksAndAuds"]) > 1)
+                        {
+                            foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
+                            {
+                                $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",Utilities::GatherWeeksToString($currentWeekList)) . " - ";
+                                $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",$audName) . "\n";
+                            }
+                        }
+                        else
+                        {
+                            foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
+                            {
+                                $cellValues[$cellValueIndex] .=  iconv("UTF-8","cp1251",$audName) . "\n";
+                            }
+                        }
+
+                        $cnt = count($lessons[$dow][$time]);
+                        if (($cnt != 1) && ($splitCounter != $cnt-1))
+                        {
+                            $cellValues[] = "";
+                            $cellValueIndex++;
+                        }
+
+                        $splitCounter++;
+                    }
+
+                    //$current_x = -7 + $dow*42;
+                    $current_x = $pdf->GetX();
+                    $current_y = $pdf->GetY();
+
+                    $lineCount = 0;
+                    $lineCounts = array();
+                    for ($i = 0; $i < count($cellValues); $i++) {
+                        $cnt = mb_substr_count($cellValues[$i],"\n");
+                        $lineCounts[] = $cnt;
+                        $lineCount += $cnt;
+                    }
+
+                    //$lineHeight = 2;
+                    $pdf->SetFont('Calibri','',$ScheduleFontSize);
+
+                    $cellValueCount = count($cellValues);
+
+                    $MultiHeight = $current_y;
+                    for ($i = 0; $i < $cellValueCount; $i++) {
+                        $pdf->SetXY($current_x, $MultiHeight);
+
+                        $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0, 'L');
+
+                        $MultiHeight = $pdf->GetY();
+
+                        if ($i != $cellValueCount-1)
+                        {
+                            $pdf->Line($current_x, $MultiHeight, $current_x + $cellWidth, $MultiHeight);
+                        }
+                    }
+
+                    if (($MultiHeight - $row_y) > $RowMaxHeight)
+                    {
+                        $RowMaxHeight = $MultiHeight - $row_y;
+                    }
+
+                    $pdf->SetXY($current_x + $cellWidth, $current_y);
+                }
+                else
+                {
+                    // Shift to the right replaced with fixed dow positions
+                    $current_x = $pdf->GetX();
+                    $current_y = $pdf->GetY();
+                    $pdf->SetXY($current_x, $current_y);
+                    $pdf->MultiCell($cellWidth, 2, "", 0);
+                    $pdf->SetXY($current_x + $cellWidth, $current_y);
+                }
+
+            }
+
+            $pdf->Rect($row_x,$row_y,30,$RowMaxHeight);
+            $pdf->SetFont('Calibri','',12);
+            $pdf->SetXY($row_x, $row_y);
+            $pdf->MultiCell(30, $RowMaxHeight, $timeString, 0, 'C');
+
+            for($ii = 0; $ii < 6; $ii++) {
+                $pdf->Rect($row_x + 30 + $ii*$cellWidth, $row_y, $cellWidth, $RowMaxHeight);
+            }
+        }
+
+        $pn = $pdf->PageNo();
+
+        $ScheduleFontSize--;
+        $lineHeight -= 1/3;
+    } while(($pn > 1) && ($ScheduleFontSize > 1));
+
+    $pdf->Output();
+
+    exit;
+}
 
 $facultyGroupsQuery  = "SELECT " . $dbPrefix . "GroupsInFaculties.StudentGroupId, Name ";
 $facultyGroupsQuery .= "FROM " . $dbPrefix . "GroupsInFaculties ";
@@ -445,7 +750,7 @@ do
             for ($i = 0; $i < $cellValueCount; $i++) {
                 $pdf->SetXY($current_x, $MultiHeight);
 
-                $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0);
+                $pdf->MultiCell($cellWidth, $lineHeight, $cellValues[$i], 0, 'L');
 
                 $MultiHeight = $pdf->GetY();
 

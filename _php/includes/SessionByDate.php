@@ -3,7 +3,11 @@ header("Content-type: text/html; charset=utf-8");
 
 $dbPrefix = $_GET["dbPrefix"];
 $date = $_GET["date"];
-$schedulePrefix = "old_";
+//$schedulePrefix = "old_";
+$schedulePrefix = "";
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 require_once("Database.php");
 

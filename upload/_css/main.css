@@ -83,7 +83,8 @@ div#dateScheduleControls p {
     margin: 0.5em 0;
 }
 
-table#SessionScheduleTable tr, table#dateScheduleTable tr {
+table#SessionScheduleTable tr, table#dateScheduleTable tr,
+table#dateScheduleTable2 tr {
     text-align: center;
 }
 
@@ -104,15 +105,16 @@ table#SessionScheduleTable tr, table#dateScheduleTable tr {
     margin-top: 1em;
 }
 
-table#SessionScheduleTable, table#dateScheduleTable {
+table#SessionScheduleTable, table#dateScheduleTable, table#dateScheduleTable2 {
     margin: 0 auto;
 }
 
-table#SessionScheduleTable td, table#dateScheduleTable td {
+table#SessionScheduleTable td, table#dateScheduleTable td, table#dateScheduleTable2 td {
     vertical-align: middle;
 }
 
-table#SessionScheduleTable button, table#dateScheduleTable button {
+table#SessionScheduleTable button, table#dateScheduleTable button,
+table#dateScheduleTable2 button {
     font-size: 0.7em;
 }
 
@@ -520,4 +522,111 @@ p#sessionByDateP {
 div#mySchedule {
     border: 2px solid;
     border-radius: 15px;
+}
+
+div#vk_comments {
+    margin-top: 1em;
+}
+
+div#vkContainer {
+    width: 620px;
+    margin: 0 auto;
+}
+
+table#dateScheduleTable2 {
+    margin-top: 1em;
+}
+
+img#rightSideImage {
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+div#sessiusImageDiv {
+    margin-bottom: 1em;
+}
+
+table#peresdachi td{
+	padding: 0.5em;	
+}
+
+table#peresdachi , table#peresdachi td {
+	border: 1px solid black;
+}
+
+div#peresdachiContainer {
+	text-align: center;
+	width: 225px;
+	margin: 0 auto;
+}
+
+div#sessiusImageDiv {
+	text-align: center;
+}
+
+#Happy table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+
+#Happy {
+    font: normal 12px/150% Arial, Helvetica, sans-serif;
+    background: #fff;
+    overflow: hidden;
+    border: 1px solid #006699;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#Happy table td {
+    border-bottom: solid 1px #00496B;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1.5em;
+}
+
+#Happy table td, #Happy table th {
+    padding: 3px 10px;
+}
+
+#Happy table tbody td {
+    color: #00496B;
+    border-left: 1px solid #E1EEF4;    
+    font-weight: normal;
+}
+
+#Happy table tbody .alt td {
+    background: #E1EEF4;
+    color: #00496B;
+}
+
+#Happy table tbody td:first-child {
+    border-left: none;
+}
+
+#Happy table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+#pageTable select {
+    vertical-align:top;
+    height: 22px;
+    margin-right: 1em;
+}
+#pageTable input, #pageTable select{
+    border:1px solid grey;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+div#Happy span.tooltip {display:none;}
+div#Happy td:hover span.tooltip {  
+  display:inline;
+  position: relative;
+  top: 20px;
+  left: 30px;
 }

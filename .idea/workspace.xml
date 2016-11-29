@@ -1,91 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4f6c273c-6cd0-4ae7-9964-b4dd6ac1b238" name="Default" comment="Raspisaniye vuzov API Fix">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/wiki.nayanova.edu.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/wiki.nayanova.edu.iml___jb_bak___" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/_js/main.js" afterPath="$PROJECT_DIR$/upload/_js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.php" afterPath="$PROJECT_DIR$/test.php" />
+    <list default="true" id="ab0f57d2-0e63-41aa-abb6-4faa1af361c5" name="Default" comment="Pre-Cleanup">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/Compressed/UnityConfig.jsgz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/Compressed/WebGL.datagz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/Compressed/WebGL.html.memgz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/Compressed/WebGL.jsgz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/Compressed/fileloader.jsgz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/default-cover.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/favicon.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/fullbar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/fullscreen.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/loadingbar.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/progresslogo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/O.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/X.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/images/sky-y.JPG" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/wnu.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/UnityProgress.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/TemplateData/style.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3D/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Android/Index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/CIties.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Cities.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Connect.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/CreateGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/DeleteGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Game.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/GameListHtml.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/GetAdvise.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Import.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/Makemove.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/ShowGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/bootstrap-dialog.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/bootstrap-dialog.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/jquery.hotkeys.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Cities/pass.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Eureka.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Happy.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Notes/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Notes/Index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Notes/Notes.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Notes/notes.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Notes/notes.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/Connect.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/CreateGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/DeleteGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/Game.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/GameListHtml.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/GetAdvise.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/Index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/MakeMove.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/ShowGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/ToolBox.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/bootstrap-dialog.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/bootstrap-dialog.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/jquery.hotkeys.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/nums.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/nums.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nums/pass.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WindowsPhone/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WindowsPhone/Index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/.htaccess" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/Connect.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/CreateGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/DeleteGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/Game.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/GameListHtml.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/Index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/MakeMove.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/ShowGame.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/bootstrap-dialog.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/bootstrap-dialog.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/pass.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/xox.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/XOX/xox.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/_php/includes/DailyScheduleData.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/_php/includes/Eureka/CoreApi.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/old.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/_css/jquery.countdown.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/_js/jquery.countdown-ru.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/_js/jquery.countdown.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/_js/jquery.plugin.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/upload/_js/main-old.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/wiki.nayanova.edu.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/wiki.nayanova.edu.iml___jb_bak___" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/wnu2.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tank.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tank2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TankGenerate.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TankGenerate2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/acceptpagebreak.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/addfont.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/addlink.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/addpage.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/aliasnbpages.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/cell.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/close.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/error.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/footer.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/fpdf.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/getstringwidth.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/getx.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/gety.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/header.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/image.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/index.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/line.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/link.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/ln.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/multicell.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/output.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/pageno.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/rect.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setauthor.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setautopagebreak.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setcompression.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setcreator.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setdisplaymode.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setdrawcolor.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setfillcolor.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setfont.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setfontsize.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setkeywords.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setleftmargin.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setlinewidth.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setlink.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setmargins.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setrightmargin.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setsubject.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/settextcolor.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/settitle.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/settopmargin.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setx.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/setxy.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/sety.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/text.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/doc/write.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/20k_c1.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/20k_c2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/calligra.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/calligra.ttf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/calligra.z" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/countries.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/index.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/makefont.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto1.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto2.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto3.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto3.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto4.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto4.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto5.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto5.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto6.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto6.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto7.htm" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fpdf17/tutorial/tuto7.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/index-vk.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/new.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/upload/images/tank.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.htaccess" afterPath="$PROJECT_DIR$/.htaccess" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FlatIndex.php" afterPath="$PROJECT_DIR$/FlatIndex.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Graduate.php" afterPath="$PROJECT_DIR$/Graduate.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/API/apiCore.php" afterPath="$PROJECT_DIR$/_php/includes/API/apiCore.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/Auditoriums.php" afterPath="$PROJECT_DIR$/_php/includes/Auditoriums.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/DailySchedule.php" afterPath="$PROJECT_DIR$/_php/includes/DailySchedule.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/Database.php" afterPath="$PROJECT_DIR$/_php/includes/Database.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/GroupWeekSchedule.php" afterPath="$PROJECT_DIR$/_php/includes/GroupWeekSchedule.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/LogLoad.php" afterPath="$PROJECT_DIR$/_php/includes/LogLoad.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/SessionByDate.php" afterPath="$PROJECT_DIR$/_php/includes/SessionByDate.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/SessionDates.php" afterPath="$PROJECT_DIR$/_php/includes/SessionDates.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/SessionSchedule.php" afterPath="$PROJECT_DIR$/_php/includes/SessionSchedule.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/SessionScheduleChanges.php" afterPath="$PROJECT_DIR$/_php/includes/SessionScheduleChanges.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/Utilities.php" afterPath="$PROJECT_DIR$/_php/includes/Utilities.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/import.php" afterPath="$PROJECT_DIR$/_php/includes/import.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/statsLoad.php" afterPath="$PROJECT_DIR$/_php/includes/statsLoad.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_php/includes/test.php" afterPath="$PROJECT_DIR$/_php/includes/test.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api.php" afterPath="$PROJECT_DIR$/api.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index-session.php" afterPath="$PROJECT_DIR$/index-session.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pdfExport.php" afterPath="$PROJECT_DIR$/pdfExport.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rvAPI/rvAPICore.php" afterPath="$PROJECT_DIR$/rvAPI/rvAPICore.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/s/Index.php" afterPath="$PROJECT_DIR$/s/Index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/s/upload/js/main.js" afterPath="$PROJECT_DIR$/s/upload/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/_css/main.css" afterPath="$PROJECT_DIR$/upload/_css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/_js/main.js" afterPath="$PROJECT_DIR$/upload/_js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/_js/sessionStat.js" afterPath="$PROJECT_DIR$/upload/_js/sessionStat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload/_js/stat.js" afterPath="$PROJECT_DIR$/upload/_js/stat.js" />
     </list>
-    <ignored path="wnu2.iws" />
+    <ignored path="wnu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <ignored path="_php/includes/test.php" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="C:\Users\bs\Desktop" />
-  </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
-  <component name="DatabaseView">
-    <flatten value="false" />
-    <groupTables value="false" />
-    <sortChildren value="false" />
+    <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="wnu2" />
+    <favorites_list name="wnu" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="test.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="20" selection-start="44" selection-end="44" vertical-scroll-proportion="0.083606556" vertical-offset="0" max-vertical-offset="6936">
-              <folding>
-                <marker date="1397644629998" expanded="true" signature="3609:3649" placeholder="..." />
-                <marker date="1397644629998" expanded="true" signature="3706:3728" placeholder="..." />
-                <marker date="1397644629998" expanded="false" signature="3874:3914" placeholder="..." />
-                <marker date="1397644629998" expanded="false" signature="3965:3987" placeholder="..." />
-                <marker date="1397644629998" expanded="true" signature="4197:4208" placeholder="..." />
-                <marker date="1397644629998" expanded="true" signature="4295:4370" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/upload/_js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="513" column="42" selection-start="24683" selection-end="24683" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8908">
-              <folding>
-                <marker date="1397644567884" expanded="false" signature="3236:3254" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="9874:9892" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="10668:10686" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="11629:11647" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="12508:12526" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="13515:13533" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="14022:14040" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="14901:14919" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="15632:15650" placeholder="..." />
-                <marker date="1397644567884" expanded="false" signature="16367:16385" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/upload/_css/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="515" column="20" selection-start="11852" selection-end="11852" vertical-scroll-proportion="0.0" vertical-offset="8238" max-vertical-offset="8874">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
-  <component name="FindManager">
-    <FindUsagesManager>
-      <setting name="OPEN_NEW_TAB" value="false" />
-    </FindUsagesManager>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>summer</find>
+      <find>280</find>
+      <find>countd</find>
+      <find>.js</find>
+      <find>section</find>
+      <find>text-ali</find>
+      <find>text-align</find>
+      <find>snego</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -94,45 +248,33 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
-  </component>
-  <component name="GitLogSettings">
-    <option name="myStructureFilterPaths" />
-    <option name="myDateState">
-      <MyDateState />
-    </option>
   </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_php/includes/Utilities.php" />
-        <option value="$PROJECT_DIR$/rvAPI/get_schedule.php" />
-        <option value="$PROJECT_DIR$/rvAPI/get_schedule2.php" />
-        <option value="$PROJECT_DIR$/Tank.php" />
-        <option value="$PROJECT_DIR$/TankGenerate.php" />
-        <option value="$PROJECT_DIR$/TankGenerate2.php" />
-        <option value="$PROJECT_DIR$/rvAPI/rvAPICore.php" />
-        <option value="$PROJECT_DIR$/_php/includes/test.php" />
-        <option value="$PROJECT_DIR$/Tank2.php" />
-        <option value="$PROJECT_DIR$/secureindex.php" />
-        <option value="$PROJECT_DIR$/index.php" />
-        <option value="$PROJECT_DIR$/_php/includes/DailySchedule.php" />
-        <option value="$PROJECT_DIR$/_php/includes/statsLoad.php" />
-        <option value="$PROJECT_DIR$/upload/_css/main.css" />
+        <option value="$PROJECT_DIR$/FlatIndex.php" />
+        <option value="$PROJECT_DIR$/Test.php" />
+        <option value="$PROJECT_DIR$/Test.html" />
+        <option value="$PROJECT_DIR$/Graduate.php" />
+        <option value="$PROJECT_DIR$/s/upload/js/main.js" />
+        <option value="$PROJECT_DIR$/s/Index.php" />
         <option value="$PROJECT_DIR$/upload/_js/main.js" />
-        <option value="$PROJECT_DIR$/test.php" />
+        <option value="$PROJECT_DIR$/pdfExport.php" />
+        <option value="$PROJECT_DIR$/fpdf17/tutorial/20k_c1.txt" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
   <component name="PhpServers">
-    <option name="servers">
-      <server host="wiki.nayanova.edu" name="remotewnu" />
-      <server host="localhost" name="local" />
-    </option>
+    <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
@@ -141,461 +283,506 @@
     <option name="width" value="1296" />
     <option name="height" value="1000" />
   </component>
-  <component name="ProjectInspectionProfilesVisibleTreeState">
-    <entry key="Project Default">
-      <profile-state>
-        <expanded-state>
-          <State>
-            <id />
-          </State>
-          <State>
-            <id>CSS</id>
-          </State>
-          <State>
-            <id>Code style issuesJavaScript</id>
-          </State>
-          <State>
-            <id>Control flow issuesJavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript function metricsJavaScript</id>
-          </State>
-          <State>
-            <id>JavaScript validity issuesJavaScript</id>
-          </State>
-          <State>
-            <id>PHP</id>
-          </State>
-          <State>
-            <id>PHPDocPHP</id>
-          </State>
-          <State>
-            <id>Portability issues</id>
-          </State>
-          <State>
-            <id>Potentially confusing code constructsJavaScript</id>
-          </State>
-          <State>
-            <id>Probable bugsJavaScript</id>
-          </State>
-          <State>
-            <id>SQL</id>
-          </State>
-          <State>
-            <id>UndefinedPHP</id>
-          </State>
-          <State>
-            <id>XPath</id>
-          </State>
-        </expanded-state>
-      </profile-state>
-    </entry>
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
-  </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
-  </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
-      <showLibraryContents ProjectPane="true" />
+      <showLibraryContents />
       <hideEmptyPackages />
       <abbreviatePackageNames />
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wnu2" />
+              <option name="myItemId" value="wnu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wnu" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wnu2" />
+              <option name="myItemId" value="wnu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="wiki.nayanova.edu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="wnu" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="upload" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wnu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wnu" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="upload" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_js" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="recentsLimit" value="5" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/_php/includes/test.php" />
-    <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
-    <property name="restartRequiresConfirmation" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="SearchEverywhereHistoryKey" value="replace&#9;ACTION&#9;Replace" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
+    <property name="js.eslint.eslintPackage" value="" />
   </component>
-  <component name="PublishConfig" serverName="wiki-nayanova-edu" serverId="df5f7211-8d04-4c55-b90e-6647f41aec9d" uploadOnCheckin="df5f7211-8d04-4c55-b90e-6647f41aec9d">
-    <servers>
-      <server id="df5f7211-8d04-4c55-b90e-6647f41aec9d">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/httpdocs" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </server>
-    </servers>
-    <option name="myUploadOnCheckinName" value="wiki-nayanova-edu" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GitHub\wiki.nayanova.edu" />
-      <recent name="E:\GitHub\wiki.nayanova.edu\_php\includes" />
-      <recent name="E:\GitHub\wiki.nayanova.edu\upload\images" />
-      <recent name="E:\WebSites\wnu2" />
-      <recent name="E:\WebSites\wnu2\upload\_css" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\WebSites\wnu2\upload\images" />
-      <recent name="E:\WebSites\wnu2\rvAPI" />
-      <recent name="E:\WebSites\wnu2" />
-      <recent name="E:\WebSites\wnu2\_php\includes\DBLists" />
-    </key>
-  </component>
-  <component name="RunManager" selected="PHP Web Application.wnu">
+  <component name="RunManager">
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
     </configuration>
-    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="c550f50e-f6f5-427f-b098-c6f5127724cb" server_name="local">
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
-    <configuration default="false" name="wnu" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="FIREFOX" server_name="remotewnu">
-      <RunnerSettings RunnerId="PhpRunner" />
-      <ConfigurationWrapper RunnerId="PhpRunner" />
-      <method>
-        <option name="FtpUpload" enabled="true">
-          <server_id>cfe6019b-e503-4d1c-b221-39909a805954</server_id>
-          <server_name>wiki-nayanova-edu</server_name>
-          <path>E:\WebSites\wnu2</path>
-        </option>
-      </method>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
     </configuration>
-    <configuration default="false" name="local" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="local" start_url="/phpstorm/wnu">
-      <RunnerSettings RunnerId="PhpRunner" />
-      <ConfigurationWrapper RunnerId="PhpRunner" />
-      <method>
-        <option name="FtpUpload" enabled="true">
-          <server_id>d3946947-2782-4595-b00c-88ecac4dad82</server_id>
-          <server_name>localserver</server_name>
-          <path>E:\WebSites\wnu2</path>
-        </option>
-      </method>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="PHP Web Application.wnu" />
-      <item index="1" class="java.lang.String" itemvalue="PHP Web Application.local" />
-    </list>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4f6c273c-6cd0-4ae7-9964-b4dd6ac1b238" name="Default" comment="" />
-      <created>1376583959244</created>
-      <updated>1376583959244</updated>
+      <changelist id="ab0f57d2-0e63-41aa-abb6-4faa1af361c5" name="Default" comment="" />
+      <created>1455562242990</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1455562242990</updated>
+      <workItem from="1462120846480" duration="1564000" />
+      <workItem from="1462122594950" duration="1115000" />
+      <workItem from="1463166618828" duration="637000" />
+      <workItem from="1463335132468" duration="25000" />
+      <workItem from="1463335309278" duration="157000" />
+      <workItem from="1464086507342" duration="769000" />
+      <workItem from="1464195468284" duration="17000" />
+      <workItem from="1464197773492" duration="28000" />
+      <workItem from="1464370409876" duration="147000" />
+      <workItem from="1479746808811" duration="362000" />
+      <workItem from="1480054516685" duration="7954000" />
+      <workItem from="1480073657874" duration="2318000" />
+      <workItem from="1480395338489" duration="821000" />
     </task>
-    <task id="LOCAL-00001" summary="Remote connection">
-      <created>1394269457518</created>
-      <updated>1394269457518</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Adding Font for PDF Export">
-      <created>1394269881650</created>
-      <updated>1394269881650</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Adding Lesson ending TIme&#10;Adding MultiLesson at a Time Support">
-      <created>1394276995107</created>
-      <updated>1394276995107</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Time vertical alignment&#10;+ Sunday is a DAY OFF">
-      <created>1394277780926</created>
-      <updated>1394277780926</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Real Time Alignment">
-      <created>1394278152416</created>
-      <updated>1394278152416</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Fix PDFExport with FontSize correction to fit on a page">
-      <created>1394360429342</created>
-      <updated>1394360429342</updated>
-    </task>
-    <task id="LOCAL-00007" summary="NFactor in PDFExport">
-      <created>1394391208000</created>
-      <updated>1394391208000</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Remove graduates events.&#10;Merge DOW schedule with pdfExport controls.">
-      <created>1394638117670</created>
-      <updated>1394638117670</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Replace hardcoded $facultyGroupsArray for database query&#10;">
-      <created>1394638541246</created>
-      <updated>1394638541246</updated>
-    </task>
-    <task id="LOCAL-00010" summary="+1 &amp; more than enough colors in teacher's disclist">
-      <created>1394789038376</created>
-      <updated>1394789038376</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Minor Fixes + Graduates Fest">
-      <created>1396173567450</created>
-      <updated>1396173567450</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Graduates Fixes">
-      <created>1396183286191</created>
-      <updated>1396183286191</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Raspisaniye vuzov API Fix">
-      <created>1396681234212</created>
-      <updated>1396681234212</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Test php login + add some old stuff">
-      <created>1397641598946</created>
-      <updated>1397641598946</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
-  <component name="TodoView" selected-index="0">
-    <todo-panel id="selected-file">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="false" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="false" />
-    </todo-panel>
-    <todo-panel id="default-changelist">
-      <are-packages-shown value="false" />
-      <are-modules-shown value="false" />
-      <flatten-packages value="false" />
-      <is-autoscroll-to-source value="false" />
-    </todo-panel>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="15914000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20023696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32779098" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.7973301" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2082658" sideWeight="0.799763" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.7973301" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270142" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="301" y="695" width="804" height="176" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270142" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.8016627" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22265625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.558427" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46056783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/node_modules/reflect-metadata/Reflect.js" />
+        <option value="$PROJECT_DIR$/node_modules/reflect-metadata/Reflect.js.map" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-    <MESSAGE value="Right connection" />
-    <MESSAGE value="Remote connection" />
-    <MESSAGE value="Adding Font for PDF Export" />
-    <MESSAGE value="Adding Lesson ending TIme&#10;Adding MultiLesson at a Time Support" />
-    <MESSAGE value="Time vertical alignment&#10;+ Sunday is a DAY OFF" />
-    <MESSAGE value="Real Time Alignment" />
-    <MESSAGE value="Fix PDFExport with FontSize correction to fit on a page" />
-    <MESSAGE value="NFactor in PDFExport" />
-    <MESSAGE value="Remove graduates events.&#10;Merge DOW schedule with pdfExport controls." />
-    <MESSAGE value="Replace hardcoded $facultyGroupsArray for database query&#10;" />
-    <MESSAGE value="+1 &amp; more than enough colors in teacher's disclist" />
-    <MESSAGE value="Minor Fixes + Graduates Fest" />
-    <MESSAGE value="Graduates Fixes" />
-    <MESSAGE value="Raspisaniye vuzov API Fix" />
-    <MESSAGE value="Test php login + add some old stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test php login + add some old stuff" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Pre-Cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pre-Cleanup" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="8" />
-    </breakpoint-manager>
+    <breakpoint-manager />
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Graduates.php">
+    <entry file="file://$PROJECT_DIR$/upload/_js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="30" selection-start="0" selection-end="3904" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1751" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1480076947792" expanded="true" signature="4374:4392" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="5054:5072" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="5677:5695" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="6707:6725" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="7995:8013" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="8909:8927" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="9870:9888" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="10750:10768" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="11825:11843" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="12332:12350" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="13347:13365" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="14214:14232" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="15085:15103" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="15953:15971" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="17030:17048" ph="..." />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/test.php">
+    <entry file="file://$PROJECT_DIR$/XOX/ShowGame.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="201" selection-end="201" vertical-scroll-proportion="0.16372392" vertical-offset="0" max-vertical-offset="623" />
+        <state relative-caret-position="680">
+          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding>
+            <marker date="1427026186867" expanded="true" signature="244:307" ph="SELECT * FRO... xoxGames" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TankGenerate2.php">
+    <entry file="file://$PROJECT_DIR$/XOX/Game.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="578" />
+        <state relative-caret-position="3621">
+          <caret line="213" column="23" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="316" selection-end-column="1" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tank2.php">
+    <entry file="file://$PROJECT_DIR$/Test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1377" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/Auditoriums.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="1137" selection-end="1271" vertical-scroll-proportion="0.38636363" vertical-offset="204" max-vertical-offset="3298" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rvAPI/rvAPICore.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="5" selection-start="3677" selection-end="3970" vertical-scroll-proportion="-15.038462" vertical-offset="1632" max-vertical-offset="5202" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="34" selection-start="40" selection-end="40" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="4573" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/statsCore.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="52" selection-start="1180" selection-end="1199" vertical-scroll-proportion="-33.346153" vertical-offset="0" max-vertical-offset="3043" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stats.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="29" selection-start="1184" selection-end="1184" vertical-scroll-proportion="-19.615385" vertical-offset="0" max-vertical-offset="782" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/upload/_js/stat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/DailySchedule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="20" selection-start="1886" selection-end="1886" vertical-scroll-proportion="1.1376263" vertical-offset="153" max-vertical-offset="3179" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/statsLoad.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="38" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.7209596" vertical-offset="211" max-vertical-offset="1071" />
+        <state relative-caret-position="765">
+          <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Graduate.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="16" selection-start="3268" selection-end="3268" vertical-scroll-proportion="1.5494224" vertical-offset="408" max-vertical-offset="2346" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/upload/_css/main.css">
+    <entry file="file://$PROJECT_DIR$/Test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="515" column="20" selection-start="11852" selection-end="11852" vertical-scroll-proportion="0.0" vertical-offset="8238" max-vertical-offset="8874">
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" column="34" lean-forward="false" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FlatIndex.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FlatIndex.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FlatIndex.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FlatIndex.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Happy.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Graduate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="65" column="56" lean-forward="false" selection-start-line="65" selection-start-column="56" selection-end-line="65" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="45" column="49" lean-forward="false" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XOX/Game.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="173" column="8" lean-forward="true" selection-start-line="173" selection-start-column="8" selection-end-line="173" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XOX/ShowGame.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding>
+            <marker date="1427026186867" expanded="true" signature="244:307" ph="SELECT * FRO... xoxGames" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FlatIndex.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="277" column="59" lean-forward="true" selection-start-line="276" selection-start-column="4" selection-end-line="277" selection-end-column="59" />
+          <folding>
+            <marker date="1479984094000" expanded="true" signature="4431:4471" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="4528:4550" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="4696:4736" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="4787:4809" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="5019:5030" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="5117:5192" ph="..." />
+            <marker date="1479984094000" expanded="true" signature="7890:7910" ph="INSERT INTO LoginLog... " />
+            <marker date="1479984094000" expanded="true" signature="10852:10876" ph="SELECT * FRO... teachers" />
+            <marker date="1479984094000" expanded="true" signature="17510:17535" ph="SELECT * FRO... faculties" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/s/upload/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="496" column="42" lean-forward="false" selection-start-line="496" selection-start-column="42" selection-end-line="496" selection-end-column="42" />
+          <folding>
+            <marker date="1480069745162" expanded="true" signature="3803:3821" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="10067:10085" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="10893:10911" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="11915:11933" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="12799:12817" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="13809:13827" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="14348:14366" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="15288:15306" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="16080:16098" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="16868:16886" ph="..." />
+            <marker date="1480069745162" expanded="true" signature="17656:17674" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/s/Index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="430" column="85" lean-forward="true" selection-start-line="430" selection-start-column="85" selection-end-line="430" selection-end-column="85" />
+          <folding>
+            <marker date="1480073835687" expanded="true" signature="4172:4212" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="4269:4291" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="4437:4477" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="4528:4550" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="4760:4771" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="4858:4933" ph="..." />
+            <marker date="1480073835687" expanded="true" signature="6555:6591" ph="INSERT INTO ${$dbPrefix}LoginLog... " />
+            <marker date="1480073835687" expanded="true" signature="9385:9424" ph="SELECT * FRO... ${$dbPrefix}" />
+            <marker date="1480073835687" expanded="true" signature="13438:13478" ph="SELECT * FRO... ${$dbPrefix}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/upload/_js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="513" column="42" selection-start="24683" selection-end="24683" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8908">
+        <state relative-caret-position="374">
+          <caret line="70" column="26" lean-forward="false" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
           <folding>
-            <marker date="1397644567884" expanded="false" signature="3236:3254" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="9874:9892" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="10668:10686" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="11629:11647" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="12508:12526" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="13515:13533" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="14022:14040" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="14901:14919" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="15632:15650" placeholder="..." />
-            <marker date="1397644567884" expanded="false" signature="16367:16385" placeholder="..." />
+            <marker date="1480076947792" expanded="true" signature="4374:4392" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="5054:5072" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="5677:5695" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="6707:6725" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="7995:8013" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="8909:8927" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="9870:9888" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="10750:10768" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="11825:11843" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="12332:12350" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="13347:13365" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="14214:14232" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="15085:15103" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="15953:15971" ph="..." />
+            <marker date="1480076947792" expanded="true" signature="17030:17048" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.php">
+    <entry file="file://$PROJECT_DIR$/fpdf17/tutorial/20k_c1.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="20" selection-start="44" selection-end="44" vertical-scroll-proportion="0.083606556" vertical-offset="0" max-vertical-offset="6936">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pdfExport.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2346">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1397644629998" expanded="true" signature="3609:3649" placeholder="..." />
-            <marker date="1397644629998" expanded="true" signature="3706:3728" placeholder="..." />
-            <marker date="1397644629998" expanded="false" signature="3874:3914" placeholder="..." />
-            <marker date="1397644629998" expanded="false" signature="3965:3987" placeholder="..." />
-            <marker date="1397644629998" expanded="true" signature="4197:4208" placeholder="..." />
-            <marker date="1397644629998" expanded="true" signature="4295:4370" placeholder="..." />
+            <marker date="1423595841707" expanded="true" signature="1909:1980" ph="SELECT Name ${$dbPrefix}" />
           </folding>
         </state>
       </provider>
     </entry>
   </component>
 </project>
-

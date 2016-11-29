@@ -3,7 +3,8 @@ header("Content-type: text/html; charset=utf-8");
 
 $dbPrefix = $_GET["dbPrefix"];
 $groupId = $_GET["groupId"];
-$schedulePrefix = "old_";
+//$schedulePrefix = "old_";
+$schedulePrefix = "";
 
 require_once("Database.php");
 require_once("Utilities.php");
@@ -34,6 +35,7 @@ $groupsQuery .= "ON " . $schedulePrefix . $dbPrefix . "studentsInGroups.StudentI
 $groupsQuery .= "WHERE " . $schedulePrefix . $dbPrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
 $groupsQuery .= "AND " . $schedulePrefix . $dbPrefix . "students.Expelled = 0 ";
 $groupsQuery .= ")";
+
 $groupIdsResult = $database->query($groupsQuery);
 
 $groupIdsArray = array();
@@ -141,6 +143,11 @@ for ($i = 0; $i < count($exams); $i++) {
         $exams[$i]["ExamDateTime"] = "";
     }
 }
+
+//echo "<pre>";
+//echo print_r($exams);
+//echo "</pre>";
+//exit;
 
 if (count($exams) != 0)
 {

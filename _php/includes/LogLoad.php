@@ -9,10 +9,10 @@ require_once("Utilities.php");
 
 global $database;
 
-$query  = "SELECT DateTime, F, I, O, RemoteAddr ";
+$query  = "SELECT DateTime, F, I, O, RemoteAddr, UserAgent, AltUserId ";
 $query .= "FROM " . $dbPrefix . "LoginLog ";
-$query .= "JOIN " . $dbPrefix . "students ";
-$query .= "ON " . $dbPrefix . "LoginLog.StudentId = " . $dbPrefix . "students.StudentId ";
+$query .= "LEFT JOIN " . $dbPrefix . "students ";
+$query .= "ON " . $dbPrefix . "LoginLog.UserId = " . $dbPrefix . "students.StudentId ";
 $query .= "ORDER BY DateTime DESC ";
 $query .= "LIMIT " . $startFrom . ", 100";
 
@@ -23,8 +23,9 @@ if ($events->num_rows != 0)
     echo "<table class=\"redHeadWhiteBodyTable\">";
     echo "<tr>";
     echo "<td>Дата и время логина</td>";
-    echo "<td>ID студента</td>";
-    echo "<td>\$_SERVER['REMOTE_ADDR']</td>";
+    echo "<td>USER ID</td>";
+    echo "<td>\$_SERVER<br />['REMOTE_ADDR']</td>";
+    echo "<td>\$_SERVER<br />['HTTP_USER_AGENT']</td>";
     echo "</tr>";
     while($event = $events->fetch_assoc())
     {
@@ -34,10 +35,23 @@ if ($events->num_rows != 0)
         echo "</td>";
 
         echo "<td>";
-        echo $event["F"] . " " . mb_substr($event["I"], 0, 2) . mb_substr($event["O"], 0, 2);
+        $FIO = $event["F"] . " " . mb_substr($event["I"], 0, 2) . mb_substr($event["O"], 0, 2);
+        echo $FIO;
+        if ($event["AltUserId"] != "")
+        {
+            if ($FIO != "")
+            {
+                echo "<br />";
+            }
+            echo $event["AltUserId"];
+        }
+
         echo "</td>";
         echo "<td>";
         echo $event["RemoteAddr"];
+        echo "</td>";
+        echo "<td>";
+        echo $event["UserAgent"];
         echo "</td>";
         echo "</tr>";
     }

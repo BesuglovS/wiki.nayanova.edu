@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$login_tables_prefix = "";
+
 if($_POST['logout'] == "1")
 {
     session_destroy();
@@ -31,7 +33,7 @@ function ReformatDate($semesterStarts)
 }
 
 $studentsQuery  = "SELECT F, I, O, BirthDate ";
-$studentsQuery .= "FROM students ";
+$studentsQuery .= "FROM " . $login_tables_prefix . "students ";
 $studentsQuery .= "WHERE Expelled = 0 ";
 
 $students = $database->query($studentsQuery);
@@ -40,14 +42,23 @@ while ($student = $students->fetch_assoc())
 {
     $account = array();
 
-    $I = (mb_strlen($student["I"]) > 0) ? mb_substr($student["I"], 0, 2): "";
-    $O = (mb_strlen($student["O"]) > 0) ? mb_substr($student["O"], 0, 2): "";
+    $I = (mb_strlen($student["I"]) > 0) ? mb_substr($student["I"], 0, 1): "";
+    $O = (mb_strlen($student["O"]) > 0) ? mb_substr($student["O"], 0, 1): "";
 
     $accounts[$student["F"] . " " . $I . $O] = ReformatDate($student["BirthDate"]);
 }
 
+$isStudent = 0;
+
+if (array_key_exists($_SESSION['NUlogin'], $accounts))
+{
+    $isStudent = 1;
+}
+
+
 $extraAccountsQuery  = "SELECT Login, Password ";
-$extraAccountsQuery .= "FROM `LoginAccounts` ";
+$extraAccountsQuery .= "FROM LoginAccounts ";
+
 $extraAccounts = $database->query($extraAccountsQuery);
 
 while($extAccount = $extraAccounts->fetch_assoc())
@@ -58,8 +69,10 @@ while($extAccount = $extraAccounts->fetch_assoc())
 $FromNU = False;
 if (($_SERVER['REMOTE_ADDR'] == "95.167.125.206") || ($_SERVER['REMOTE_ADDR'] == "85.236.163.58"))
 {
-    $FromNU = True;
+    $FromNU = True;    
 }
+
+
 
 if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
    (!(array_key_exists($_SESSION['NUlogin'], $accounts) &&
@@ -82,13 +95,19 @@ if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "<!-- Site's --> ";
     echo "<!-- jquery.switchButton --> ";
     echo "<script src=\"upload/_js/jquery.switchButton.js\"></script> ";
+	//echo "<script src=\"upload/_js/EvoCanvas.js\"></script> ";
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"upload/_css/jquery.switchButton.css\"> ";
     echo "<!-- Main --> ";
     echo "<script src=\"upload/_js/main.js\"></script> ";
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"upload/_css/main.css\"> ";
+    echo "<!-- vk.com --> ";
+    echo "<script type=\"text/javascript\" src=\"//vk.com/js/api/openapi.js?115\"></script>";
+    echo "<script type=\"text/javascript\"> ";
+    echo "VK.init({apiId: 4638017, onlyWidgets: true}); ";
+    echo "</script> ";
 
     echo "</head> ";
-    echo "<body> ";
+    echo "<body> ";    
     echo "<div id=\"container\"> ";
     echo "<header class=\"cf\"> ";
         echo "<img src=\"upload/images/DVZ.png\" id=\"headerLogo\" width=\"150\" height=\"150\"> ";
@@ -97,19 +116,10 @@ if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
             echo "<div id=\"weekNum\"> ";
 
                 require_once("_php/includes/ConfigOptions.php");
+				include $_SERVER["DOCUMENT_ROOT"] . "/php/Utilities.php";
                 $now = date('Y-m-d');
-                $today = DateTime::createFromFormat('Y-m-d', $now);
-                $semesterStarts = $options["Semester Starts"];
-                $start = DateTime::createFromFormat('Y-m-d', $semesterStarts);
-                if ($today >= $start)
-                {
-                    $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
-                }
-                else
-                {
-                    $weekNum = (int)floor(($today->diff($start)->format('%a') - 1) / 7) + 1;
-                    echo "-";
-                }
+                $semesterStarts = $options["Semester Starts"];                
+				$weekNum = Utilities::WeekFromDate($now, $semesterStarts);
                 echo $weekNum;
 
             echo "</div> ";
@@ -144,11 +154,38 @@ if((((!isset($_SESSION['NUlogin']) || !isset($_SESSION['NUpassword']))) ||
     echo "Имя пользователя в формате: Фамилия, пробел, Заглавная первая буква имени, Заглавная первая буква отчества";
     echo "<br /> Например: Иванов ИИ";
     echo "<br />";
-    echo "В поле пароля введите дату рожения в формате: День (2 цифры), точка, месяц (2 цифры), точка, год (4 цифры)";
+    echo "В поле пароля введите дату рождения в формате: День (2 цифры), точка, месяц (2 цифры), точка, год (4 цифры)";
     echo "<br /> Например: 04.04.1985</div>";
+	/*
+	echo "login:" . $_SESSION['NUlogin'] . "<br />";
+	echo "pass:" . $_SESSION['NUpassword'] . "<br />";
+	echo "accounts";
+	echo "<pre>";
+	echo print_r($accounts);
+	echo "</pre>";
+	*/
     echo "</form> ";
     echo "</div>";
     echo "</section> ";
+    /*
+    echo "<table>";
+    echo "<tr>";
+    echo "<td>";
+    echo "<div id=\"vk_comments\"></div> ";
+    echo "<script type=\"text/javascript\"> ";
+    echo "VK.Widgets.Comments(\"vk_comments\", {limit: 5, width: \"310\", attach: \"*\"}); ";
+    echo "</script> ";
+    echo "</td>";
+    echo "<td>";
+    echo "<!-- VK Widget --> ";
+    echo "<div id=\"vk_groups\"></div> ";
+    echo "<script type=\"text/javascript\"> ";
+    echo "VK.Widgets.Group(\"vk_groups\", {mode: 1, width: \"310\", height: \"148\", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 2691142); ";
+    echo "</script> ";
+    echo "</td>";
+    echo "</tr>";
+    echo "</table>";
+    */
     echo "<footer> ";
         echo "<p> ";
             echo "&copy; Диспетчерская учебного отдела СГОАН, " . date("Y");
@@ -181,20 +218,39 @@ $studentIdQuery  = "SELECT StudentId ";
 $studentIdQuery .= "FROM students ";
 $studentIdQuery .= "WHERE F = '" . $F . "' ";
 $studentIdQuery .= "AND BirthDate = '" . $MySQLDate . "' ";
+$studentIdQuery .= "AND Expelled = 0 ";
 
 $studentResult = $database->query($studentIdQuery);
 $studentIdArray = $studentResult->fetch_assoc();
-$studentId = $studentIdArray["StudentId"];
+$userId = $studentIdArray["StudentId"];
 
-if ($studentId != "")
+if ($userId != "")
 {
-    $_SESSION['studentId'] = $studentId;
+    $_SESSION['studentId'] = $userId;
+}
+
+if ($isStudent == 0)
+{
+    $altUserId = $_SESSION['NUlogin'];
+    $_SESSION['AltUserId'] = $altUserId;
+}
+
+if ($FromNU)
+{
+    $altUserId = "FROM NU";
+    $_SESSION['AltUserId'] = $altUserId;
 }
 
 
+
 $statQuery  = "INSERT INTO LoginLog ";
-$statQuery .= "(StudentId, DateTime, RemoteAddr) ";
-$statQuery .= "VALUES (" . $studentId . ", \"" . $today . "\", \"" . $_SERVER['REMOTE_ADDR'] . "\")";
+$statQuery .= "(UserId, DateTime, RemoteAddr, UserAgent, AltUserId) ";
+$statQuery .= "VALUES (\"" . $userId . "\", \"" .
+    $today . "\", \"" .
+    $_SERVER['REMOTE_ADDR'] . "\" , \"" .
+    $_SERVER['HTTP_USER_AGENT'] . "\" , \"" .
+    $altUserId  ."\")";
+
 
 $database->query($statQuery);
 
@@ -203,6 +259,7 @@ $database->query($statQuery);
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico" />
     <title>Диспетчерская учебного отдела СГОАН</title>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -215,9 +272,21 @@ $database->query($statQuery);
     <!-- jquery.switchButton -->
     <script src="upload/_js/jquery.switchButton.js"></script>
     <link rel="stylesheet" type="text/css" href="upload/_css/jquery.switchButton.css">
+
+    <!--Countdown -->
+    <link rel="stylesheet" type="text/css" href="upload/_css/jquery.countdown.css">
+    <script src="upload/_js/jquery.plugin.min.js"></script>
+    <script src="upload/_js/jquery.countdown.min.js"></script>
+    <script src="upload/_js/jquery.countdown-ru.js"></script>
+	<!--<script src="upload/_js/EvoCanvas.js"></script> -->
+
+    <!-- Bootstrap
+    <link rel="stylesheet" type="text/css" href="upload/bootstrap/css/bootstrap.min.css">
+    <script src="upload/bootstrap/js/bootstrap.min.js"></script>-->
     <!-- Main -->
     <script src="upload/_js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="upload/_css/main.css">
+    <!-- vk.com -->
 
 </head>
 <body>
@@ -238,21 +307,14 @@ $database->query($statQuery);
         Неделя<br />
         <div id="weekNum">
             <?php
-            require_once("_php/includes/ConfigOptions.php");
-            $now = date('Y-m-d');
-            $today = DateTime::createFromFormat('Y-m-d', $now);
-            $semesterStarts = $options["Semester Starts"];
-            $start = DateTime::createFromFormat('Y-m-d', $semesterStarts);
-            if ($today >= $start)
-            {
-                $weekNum = (int)(floor(($today->diff($start)->format('%a')) / 7)) + 1;
-            }
-            else
-            {
-                $weekNum = (int)floor(($today->diff($start)->format('%a') - 1) / 7) + 1;
-                echo "-";
-            }
-            echo $weekNum;
+            
+            	require_once("_php/includes/ConfigOptions.php");
+				include $_SERVER["DOCUMENT_ROOT"] . "/php/Utilities.php";
+                $now = date('Y-m-d');
+                $semesterStarts = $options["Semester Starts"];                
+				$weekNum = Utilities::WeekFromDate($now, $semesterStarts);
+                echo $weekNum;
+				
             ?>
         </div>
     </div>
@@ -284,15 +346,18 @@ $database->query($statQuery);
             }
             ?>
         </select>
+        <p>
+            <button id="showTeachersSchedule" type="button">Показать</button>
+        </p>
         <h2 id="groupsScheduleHeader">Расписание по группам</h2>
         <p>
-            <button id="studentGroups">Списки групп</button>
+            <button id="studentGroups" type="button">Списки групп</button>
         </p>
         <p>
-            <button id="planGroups">Дисциплины по группам</button>
+            <button id="planGroups" type="button">Дисциплины по группам</button>
         </p>
         <p>
-            <button id="planByTeacher">Дисциплины по преподавателям</button>
+            <button id="planByTeacher" type="button">Дисциплины по преподавателям</button>
         </p>
         <?
             if (array_key_exists("studentId", $_SESSION))
@@ -316,12 +381,12 @@ $database->query($statQuery);
         </p>
         <p>
             <button id="Mol">Корп № 2</button>
-            <button id="Jar">Корп № 3</button>
-            <button id="SSU">СГУ</button>
+            <button id="Jar">Корп № 3</button>            
             <button id="Other">Прочие</button>
         </p>
         <p>
-            <button id="MolPlus">Корп № 2 + ШКОЛА</button>
+            <button id="MolPlus">Корп № 2+</button>
+            <button id="JarPlus">Корп № 3+</button>
         </p>
     </div>
     <div id="flipWraper">
@@ -337,58 +402,50 @@ $database->query($statQuery);
     <table id="dateScheduleTable">
         <tbody>
         <tr>
-            <td><button id="12Math">12 А</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Math">13 А</button></td>
             <td><button id="14Math">14 А</button></td>
-            <td>&nbsp;</td>
+            <td><button id="15Math">15 А</button></td>
         </tr>
         <tr>
             <td><button id="12Phil">12 Б</button></td>
             <td><button id="13Phil">13 Б</button></td>
             <td><button id="14Phil">14 Б</button></td>
             <td><button id="15Phil">15 Б</button></td>
-            <td><button id="16Phil">16 Б</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Phil">17 Б</button></td>
         </tr>
         <tr>
-            <td><button id="12Eco">12 В</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Eco">13 В</button></td>
             <td><button id="14Eco">14 В</button></td>
             <td><button id="15Eco">15 В</button></td>
-            <td><button id="16Eco">16 В</button></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td><button id="12Econ">12 Г</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Econ">13 Г</button></td>
             <td><button id="14Econ">14 Г</button></td>
-            <td rowspan="2"><button id="15Econ">15 Г</button></td>
-            <td rowspan="2"><button id="16Econ">16 Г</button></td>
+            <td><button id="15Econ">15 Г</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Econ">17 Г</button></td>
         </tr>
         <tr>
-            <td><button id="12EconN">12 Г(Н)</button></td>
-            <td><button id="13EconN">13 Г(Н)</button></td>
-            <td><button id="14EconN">14 Г(Н)</button></td>
-        </tr>
-        <tr>
-            <td rowspan="2"><button id="12Law">12 Д</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Law">13 Д</button></td>
-            <td rowspan="2"><button id="14Law">14 Д</button></td>
-            <td rowspan="2"><button id="15Law">15 Д</button></td>
-            <td rowspan="2"><button id="16Law">16 Д</button></td>
+            <td><button id="14Law">14 Д</button></td>
+            <td><button id="15Law">15 Д</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Law">17 Д</button></td>
         </tr>
         <tr>
-            <td><button id="13LawN">13 Д(Н)</button></td>
-        </tr>
+            <td>&nbsp;</td>
+            <td><button id="13PR">13 Е</button></td>
+            <td><button id="14PR">14 Е</button></td>
+            <td><button id="15PR">15 Е</button></td>
+        </tr>        
         <tr>
-            <td><button id="12PR">12 Е</button></td>
-            <td rowspan="2"><button id="13PR">13 Е</button></td>
-            <td rowspan="2"><button id="14PR">14 Е</button></td>
-            <td rowspan="2"><button id="15PR">15 Е</button></td>
-        </tr>
-        <tr>
-            <td><button id="12PRN">12 Е(Н)</button></td>
-        </tr>
-        <tr>
-            <td><button id="12Upr">12 У</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Upr">13 У</button></td>
             <td><button id="14Upr">14 У</button></td>
             <td><button id="15Upr">15 У</button></td>
@@ -398,37 +455,37 @@ $database->query($statQuery);
             <td><button id="13Tur">13 Т</button></td>
             <td><button id="14Tur">14 Т</button></td>
             <td><button id="15Tur">15 Т</button></td>
-            <td>&nbsp;</td>
-        </tr>
+        </tr>        
         <tr>
             <td>&nbsp;</td>
             <td><button id="2AMath">2 АА</button></td>
-            <td><button id="3AMath">3 АА</button></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
+            <td><button id="1APhil">1 АБ</button></td>
             <td><button id="2APhil">2 АБ</button></td>
-            <td>&nbsp;</td>
+            <td><button id="3APhil">3 АБ</button></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td><button id="2AEco">2 АВ</button></td>
-            <td>&nbsp;</td>
+            <td><button id="3AEco">3 АВ</button></td>
         </tr>
         <tr>
-            <td><button id="1AEcon">1 АГ</button></td>
+            <td>&nbsp;</td>
             <td><button id="2AEcon">2 АГ</button></td>
-            <td>&nbsp;</td>
+            <td><button id="3AEcon">3 АГ</button></td>
         </tr>
         <tr>
-            <td><button id="1ALaw">1 АД</button></td>
+            <td>&nbsp;</td>
             <td><button id="2ALaw">2 АД</button></td>
             <td><button id="3ALaw">3 АД</button></td>
-        </tr>
+        </tr>        
         </tbody>
     </table>
 </section>
 <section id="vk">
+	<?php require_once("_php/API/Happy.php");?>
     <table style="width: 267px; margin:0 auto; margin-bottom: 0.5em">
         <tr>
             <td>
@@ -497,12 +554,142 @@ $database->query($statQuery);
         <button id="PDFExport">Расписание в PDF</button>
     </p>
 
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
-    <!-- VK Widget -->
-    <div id="vk_groups"></div>
-    <script type="text/javascript">
-        VK.Widgets.Group("vk_groups", {mode: 2, width: "300", height: "500"}, 2691142);
-    </script>
+    <section id="vk">
+        <div id="sessiusImageDiv">
+            <!--<img src="upload/images/sessius-sdavamus.jpg" id="sessiussdavamus" width="221" height="215"> -->
+            <img src="upload/images/ColdHeart.jpg" style="border-radius: 200px" width="280px" > 			
+			<!--<canvas style="display: inline" id="evoCanvas" width="220" height="220"></canvas>-->
+            <div style="text-align: center">До нового года осталось:</div>
+            <div id="summer" style="height: 50px"></div>
+            <!--<img id="rightSideImage" src="upload/images/maslenitza.jpg" width="183" height="300">-->
+        </div>
+
+		<!--
+        <div id="peresdachiContainer">
+        	Расписание пересдач <br />
+        	<table border="1" id="peresdachi">
+        		<tr>
+        			<td><a href="upload/Peresdachi/1Math.docx">А</a></td>        			
+        			<td><a href="upload/Peresdachi/2Phil.docx">Б</a></td>
+        			<td><a href="upload/Peresdachi/3Bio.docx">В</a></td>
+        			<td><a href="upload/Peresdachi/4Econ.docx">Г</a></td>
+        			<td><a href="upload/Peresdachi/5Law.docx">Д</a></td>
+        			<td><a href="upload/Peresdachi/6PR.docx">Е</a></td>
+        			<td><a href="upload/Peresdachi/7Upr.docx">У</a></td>
+        			<td><a href="upload/Peresdachi/8Tur.docx">Т</a></td>
+        		</tr>        	
+        	</table>
+        </div>
+		-->
+        
+        <!-- <script type="text/javascript" src="//vk.com/js/api/openapi.js?98"></script> -->
+        <!-- VK Widget -->
+        <!--
+        <div id="vk_groups" style="text-align:center"></div>
+        <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 2, width: "285", height: "300"}, 2691142);
+        </script>
+        -->
+
+		
+        <!--
+		<h2 id="sessionScheduleHeader">Расписание сессии</h2>
+
+        <div id="scheduleOrChangesSessionDiv">
+            <input type="checkbox" name="scheduleOrChangesSession" id="scheduleOrChangesSession">
+        </div>
+
+        <p id="sessionByDateP">
+            <button id="sessionByDate">Сессия по датам</button>
+        </p>
+
+        <table id="SessionScheduleTable">
+            <tbody>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13Math2">13 А</button></td>
+            <td><button id="14Math2">14 А</button></td>
+            <td><button id="15Math2">15 А</button></td>
+        </tr>
+        <tr>
+            <td><button id="12Phil2">12 Б</button></td>
+            <td><button id="13Phil2">13 Б</button></td>
+            <td><button id="14Phil2">14 Б</button></td>
+            <td><button id="15Phil2">15 Б</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Phil2">17 Б</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13Eco2">13 В</button></td>
+            <td><button id="14Eco2">14 В</button></td>
+            <td><button id="15Eco2">15 В</button></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13Econ2">13 Г</button></td>
+            <td><button id="14Econ2">14 Г</button></td>
+            <td><button id="15Econ2">15 Г</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Econ2">17 Г</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13Law2">13 Д</button></td>
+            <td><button id="14Law2">14 Д</button></td>
+            <td><button id="15Law2">15 Д</button></td>
+            <td>&nbsp;</td>
+            <td><button id="17Law2">17 Д</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13PR2">13 Е</button></td>
+            <td><button id="14PR2">14 Е</button></td>
+            <td><button id="15PR2">15 Е</button></td>
+        </tr>        
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="13Upr2">13 У</button></td>
+            <td><button id="14Upr2">14 У</button></td>
+            <td><button id="15Upr2">15 У</button></td>
+        </tr>
+        <tr>
+            <td><button id="12Tur2">12 Т</button></td>
+            <td><button id="13Tur2">13 Т</button></td>
+            <td><button id="14Tur2">14 Т</button></td>
+            <td><button id="15Tur2">15 Т</button></td>
+        </tr>        
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2AMath2">2 АА</button></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><button id="1APhil2">1 АБ</button></td>
+            <td><button id="2APhil2">2 АБ</button></td>
+            <td><button id="3APhil2">3 АБ</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2AEco2">2 АВ</button></td>
+            <td><button id="3AEco2">3 АВ</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2AEcon2">2 АГ</button></td>
+            <td><button id="3AEcon2">3 АГ</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><button id="2ALaw2">2 АД</button></td>
+            <td><button id="3ALaw2">3 АД</button></td>
+        </tr>        
+        </tbody>
+        </table>
+		-->
+       
+    </section>
 </section>
 </section>
 <footer>

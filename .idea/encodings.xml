@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="true">
-    <file url="file://$PROJECT_DIR$/_php/includes/FacultyDOWSchedule.php" charset="UTF-8" />
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/fpdf17/tutorial/20k_c1.txt" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/pdfExport.php" charset="windows-1251" />
-    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
-

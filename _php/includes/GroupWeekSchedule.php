@@ -126,7 +126,6 @@ $allLessonsQuery .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
 
 $allLessonsQueryResult = $database->query($allLessonsQuery);
 
-
 $lessons = array("1" => array(), "2" => array(), "3" => array(), "4" => array(),
                  "5" => array(), "6" => array(), "7" => array());
 $timeArray = array();
@@ -174,6 +173,7 @@ while($lesson = $allLessonsQueryResult->fetch_assoc())
 
 uasort($timeArray, "timeCompare");
 
+
 echo "<table id=\"FacultyDOWSchedule\" class=\"DOWSchedule\">";
 echo "<tr>";
 echo "  <td>Время</td>";
@@ -199,53 +199,59 @@ foreach ($timeArray as $time) {
 
         $splitCounter = 0;
 
-        usort($lessons[$dayOW][$time], "tfdSort");
-
-        foreach ($lessons[$dayOW][$time] as $tfdId => $tfdData)
+        if ((array_key_exists($dayOW, $lessons)) && (array_key_exists($time, $lessons[$dayOW])))
         {
-            if ($tfdData["lessons"][0]["groupId"] != $group_id)
+            if ($lessons[$dayOW][$time] !== null)
             {
-                echo $tfdData["lessons"][0]["groupName"] . "<br />";
-            }
+                usort($lessons[$dayOW][$time], "tfdSort");
 
-            echo $tfdData["lessons"][0]["discName"] . "<br />";
-            echo $tfdData["lessons"][0]["teacherFIO"] . "<br />";
-
-
-
-            $commonWeeks = array();
-            foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
-            {
-                foreach ($weekArray as $weekNum) {
-                    $commonWeeks[] = $weekNum;
-                }
-            }
-
-            echo "    ( " . Utilities::GatherWeeksToString($commonWeeks) . " )<br />";
-
-            if (count($tfdData["weeksAndAuds"]) > 1)
-            {
-                foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
+                foreach ($lessons[$dayOW][$time] as $tfdId => $tfdData)
                 {
-                    echo Utilities::GatherWeeksToString($currentWeekList) . " - ";
-                    echo $audName . "<br />";
+                    if ($tfdData["lessons"][0]["groupId"] != $group_id)
+                    {
+                        echo $tfdData["lessons"][0]["groupName"] . "<br />";
+                    }
+
+                    echo $tfdData["lessons"][0]["discName"] . "<br />";
+                    echo $tfdData["lessons"][0]["teacherFIO"] . "<br />";
+
+
+
+                    $commonWeeks = array();
+                    foreach ($tfdData["weeksAndAuds"] as $curAud => $weekArray)
+                    {
+                        foreach ($weekArray as $weekNum) {
+                            $commonWeeks[] = $weekNum;
+                        }
+                    }
+
+                    echo "    ( " . Utilities::GatherWeeksToString($commonWeeks) . " )<br />";
+
+                    if (count($tfdData["weeksAndAuds"]) > 1)
+                    {
+                        foreach ($tfdData["weeksAndAuds"] as $audName => $currentWeekList)
+                        {
+                            echo Utilities::GatherWeeksToString($currentWeekList) . " - ";
+                            echo $audName . "<br />";
+                        }
+                    }
+                    else
+                    {
+                        foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
+                        {
+                            echo $audName . "<br />";
+                        }
+                    }
+
+                    $cnt = count($lessons[$dayOW][$time]);
+                    if (($cnt != 1) && ($splitCounter != $cnt-1))
+                    {
+                        echo "<hr />";
+                    }
+
+                    $splitCounter++;
                 }
             }
-            else
-            {
-                foreach ($tfdData["weeksAndAuds"] as $audName => $weekList)
-                {
-                    echo $audName . "<br />";
-                }
-            }
-
-            $cnt = count($lessons[$dayOW][$time]);
-            if (($cnt != 1) && ($splitCounter != $cnt-1))
-            {
-                echo "<hr />";
-            }
-
-            $splitCounter++;
         }
 
         echo "</td>";

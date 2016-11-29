@@ -1,0 +1,100 @@
+body {
+    background-color: #eeeeee;
+}
+
+div#createConnect {
+    width:660px;
+    margin:0 auto;
+    text-align: center;
+}
+
+button#connectToGame, button#createGame, button#refreshGame, button#watchRefreshGame {
+    margin: 1em 0.5em 0 0;
+}
+
+input#gameName {
+    margin: 1em;
+}
+
+span#gameNameLabel, span#passwordLabel, span#gameSignLabel {
+    font-size: 2em;
+}
+
+span#autoFlipLabel {
+    font-size: 1em;
+}
+
+table#positionTable {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+select#gameList {
+    width: 180px;
+    margin: 0 2em 2.2em 2em;
+}
+
+select#Side {
+    font-size: 2em;
+    width: 174px;
+    padding: 0 0 0 30px;
+}
+
+select#autoFlip {
+    font-size: 2em;
+    width: 174px;
+    padding: 0 0 0 55px;
+}
+
+div#createConnect {
+    margin-bottom: 1em;
+}
+
+
+div#position {
+    width:660px;
+    margin:0 auto;
+    text-align: center;
+}
+
+table#positionTable {
+    width: 650px;
+}
+
+table#positionTable td {
+    width: 320px;
+}
+
+table#positionTable td select {
+    width: 300px;
+}
+
+input#move {
+    width: 450px;
+    font-size: 2em;
+    margin: 1em 1em 1em 0.7em;
+}
+
+button#makeMove {
+    margin: -0.8em 1em 0 0;
+    height: 50px;
+}
+
+Select#movesList {
+    margin-left: 1em;
+    width: 150px;
+}
+
+td#movesTableCell {
+    text-align: center;
+}
+
+div#movesArrowsFirstRowDiv, div#movesArrowsSecondRowDiv {
+    margin-top: 1em;
+}
+
+div#moveDiv {
+    width: 650px;
+    margin-left:auto;
+    margin-right:auto;
+}
