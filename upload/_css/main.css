@@ -457,8 +457,7 @@ div#scheduleOrChangesSessionDiv {
 }
 
 div#sessiusImageDiv img {
-    display:block;
-    margin:auto;
+    
 }
 
 div#vkGroupLink{
@@ -629,4 +628,34 @@ div#Happy td:hover span.tooltip {
   position: relative;
   top: 20px;
   left: 30px;
+}
+
+div#ZachList {
+    font-size: 0.5em;
+}
+
+div#ZachList table td {
+    white-space: pre;
+}
+
+div#ZachList table td {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+tr.tooLate td {
+    color: #bbbbbb;
+}
+
+tr.todayGreatDay td {
+    background-color: #ffaa00;
+}
+
+tr.tomorrow td {
+    background-color: #ffff00;
+}
+
+tr.notYet td {
+    /*color: #dddddd;*/
+    /*background-color: #ffff00;*/
 }

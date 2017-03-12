@@ -3,8 +3,8 @@ header("Content-type: text/html; charset=utf-8");
 
 $dbPrefix = $_GET["dbPrefix"];
 $groupId = $_GET["groupId"];
-//$schedulePrefix = "old_";
-$schedulePrefix = "";
+$schedulePrefix = "old_";
+//$schedulePrefix = "";
 
 require_once("Database.php");
 require_once("Utilities.php");

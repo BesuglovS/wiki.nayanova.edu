@@ -35,7 +35,7 @@ if ($events->num_rows != 0)
         echo "</td>";
 
         echo "<td>";
-        $FIO = $event["F"] . " " . mb_substr($event["I"], 0, 2) . mb_substr($event["O"], 0, 2);
+        $FIO = $event["F"] . " " . mb_substr($event["I"], 0, 1) . mb_substr($event["O"], 0, 1);
         echo $FIO;
         if ($event["AltUserId"] != "")
         {

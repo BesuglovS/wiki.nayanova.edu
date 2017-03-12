@@ -428,10 +428,8 @@ $database->query($statQuery);
         <button id="PDFExport">Расписание в PDF</button>
     </p>
 	
-	<img src="upload/images/snegovik.jpg" style="border-radius: 200px; display:block;
-    margin:auto;" width="200px" >
-
-    <div style="text-align: center">До нового года осталось:</div>
+	<img src="upload/images/summer1.jpg" style="display:block; margin:auto; border-radius: 10px; " width="300px" >	
+    <div style="text-align: center">До лета осталось:</div>
     <div id="summer" style="height: 50px"></div>
 
     <table id="dateScheduleTable2">

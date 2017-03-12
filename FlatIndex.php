@@ -1,4 +1,8 @@
 <?php
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+
 session_start();
 
 $login_tables_prefix = "";
@@ -22,6 +26,8 @@ if (isset($_POST['NUpassword']))
 }
 
 require_once("_php/includes/Database.php");
+
+require_once("_php/includes/ZachDates.php");
 
 function ReformatDate($semesterStarts)
 {
@@ -223,10 +229,12 @@ $studentIdQuery .= "AND Expelled = 0 ";
 $studentResult = $database->query($studentIdQuery);
 $studentIdArray = $studentResult->fetch_assoc();
 $userId = $studentIdArray["StudentId"];
+$sessionStudentId = "";
 
 if ($userId != "")
 {
     $_SESSION['studentId'] = $userId;
+    $sessionStudentId = $userId;
 }
 
 if ($isStudent == 0)
@@ -286,6 +294,11 @@ $database->query($statQuery);
     <!-- Main -->
     <script src="upload/_js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="upload/_css/main.css">
+    <?php
+    if ($FromNU) {
+        echo "<script type=\"text/javascript\"> var FromNU = 1; </script>";
+    }
+    ?>
     <!-- vk.com -->
 
 </head>
@@ -557,10 +570,19 @@ $database->query($statQuery);
     <section id="vk">
         <div id="sessiusImageDiv">
             <!--<img src="upload/images/sessius-sdavamus.jpg" id="sessiussdavamus" width="221" height="215"> -->
-            <img src="upload/images/ColdHeart.jpg" style="border-radius: 200px" width="280px" > 			
+            <!--<img src="upload/images/ColdHeart.jpg" style="border-radius: 200px" width="280px" >-->
 			<!--<canvas style="display: inline" id="evoCanvas" width="220" height="220"></canvas>-->
-            <div style="text-align: center">До нового года осталось:</div>
-            <div id="summer" style="height: 50px"></div>
+            <?php
+
+            if ($sessionStudentId != "")
+            {
+                $dates = new ZachDates();
+                echo $dates->GetNearestZach("", $sessionStudentId);
+            }
+            ?>            
+            <img src="s/upload/images/summer1.jpg" style="margin:auto; border-radius: 10px; border: solid 3px black;" width="300px" >
+            <div style="text-align: center">До лета осталось:</div>
+            <div id="summer" style="height: 50px"></div>                        
             <!--<img id="rightSideImage" src="upload/images/maslenitza.jpg" width="183" height="300">-->
         </div>
 
@@ -592,7 +614,7 @@ $database->query($statQuery);
         -->
 
 		
-        <!--
+		<!--
 		<h2 id="sessionScheduleHeader">Расписание сессии</h2>
 
         <div id="scheduleOrChangesSessionDiv">
@@ -687,8 +709,7 @@ $database->query($statQuery);
         </tr>        
         </tbody>
         </table>
-		-->
-       
+       -->
     </section>
 </section>
 </section>

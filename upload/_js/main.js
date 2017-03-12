@@ -106,8 +106,8 @@ $(function() {
         dateFormat: 'dd mm yy', firstDay: 1,
         initStatus: '', isRTL: false};
 
-    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2016, 9 - 1, 1));
-    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2016, 12 - 1, 31));
+    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2017, 2 - 1, 1));
+    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2017, 6 - 1, 4));
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     /* Datepicker #scheduleDate */
@@ -527,7 +527,7 @@ $(function() {
 
     $.countdown.setDefaults($.countdown.regionalOptions['ru']);
 
-    var summer = new Date(2017, 1 - 1, 1);
+    var summer = new Date(2017, 6 - 1, 1);
     $('#summer').countdown({until: summer});
 	
 	$( document ).tooltip();

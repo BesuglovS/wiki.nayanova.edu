@@ -601,9 +601,10 @@ class api {
                 (strpos($dbGroup["Name"],'-Н-') == false) &&
                 (strpos($dbGroup["Name"],'-Ф-') == false) &&
                 (strpos($dbGroup["Name"],'I') == false) &&
-				(0 !== strpos($dbGroup["Name"], '1 А')) && // not strting with
-				(0 !== strpos($dbGroup["Name"], '2 А')) && // not strting with
-				(0 !== strpos($dbGroup["Name"], '3 А')) && // not strting with
+				// (0 !== strpos($dbGroup["Name"], '2 А')) && // not strting with
+				($dbGroup["Name"] !== '1 А') && 
+				($dbGroup["Name"] !== '2 А') && 
+				($dbGroup["Name"] !== '3 А') && 
                 (!in_array($dbGroup["Name"], $banList)))
             {
                 $group = array();

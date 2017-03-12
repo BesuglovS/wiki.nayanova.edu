@@ -20,7 +20,7 @@ var groupIds = [
     "2", "7", "18", "28", "36", "46", "53",
     "3", "8", "19", "29", "39", "47", "54",
     "4", "11","22", "32", "42", "48", "55",
-    "5", "51", "58"
+    "5", "14", "51", "58"
 ];
 
 var buttonSelectors = [
@@ -35,12 +35,12 @@ var buttonSelectors = [
     "#1D", "#2D", "#6D", "#7D"
 ];
 
-var buildingsIndexes = new Array();
+var buildingsIndexes = [];
 buildingsIndexes["Mol"] = 1;
 buildingsIndexes["Cha"] = 2;
 buildingsIndexes["Jar"] = 3;
 
-var dowRU = new Array("","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье");
+var dowRU = ["","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
 function IfDatePickerIsEmptySetToday(dateString)
 {
@@ -74,8 +74,8 @@ $(function() {
         dateFormat: 'dd mm yy', firstDay: 1,
         initStatus: '', isRTL: false};
 
-    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2016,  9 - 1,  1));
-    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2016, 12 - 1, 31));
+    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2017, 1 - 1,  9));
+    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2017, 6 - 1, 4));
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     /* Datepicker #scheduleDate */
@@ -494,7 +494,7 @@ $(function() {
         });
     });
 
-    var summer = new Date(2017, 1 - 1, 1);
+    var summer = new Date(2017, 6 - 1, 1);
     $('#summer').countdown({until: summer});
 
     $( document ).tooltip();
