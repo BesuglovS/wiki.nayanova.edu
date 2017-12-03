@@ -100,6 +100,7 @@ $groups[$key]["groupListForGroup"] = $groupIdsArray;
 
 $groups[$key]["Schedule"] = array();
 
+
 $groupCondition = "WHERE " . $dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " ) ";
 
 $allLessonsQuery  = "SELECT " . $dbPrefix . "disciplines.Name as discName, " . $dbPrefix . "rings.Time as startTime, ";
@@ -172,7 +173,6 @@ while($lesson = $allLessonsQueryResult->fetch_assoc())
 }
 
 uasort($timeArray, "timeCompare");
-
 
 echo "<table id=\"FacultyDOWSchedule\" class=\"DOWSchedule\">";
 echo "<tr>";

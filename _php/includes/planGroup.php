@@ -9,6 +9,22 @@ require_once("Utilities.php");
 
 global $database;
 
+$schoolGroup = false;
+$smallLessons = false;
+
+$groupNameQuery = "SELECT `Name` FROM " . $dbPrefix ."studentGroups WHERE StudentGroupId = " . $groupId;
+$groupNameQueryResult = $database->query($groupNameQuery);
+$groupNameQueryResultAssoc = $groupNameQueryResult->fetch_assoc();
+$groupName = $groupNameQueryResultAssoc["Name"];
+$groupNamePieces = explode(" ", $groupName);
+$groupNameNumber = $groupNamePieces[0];
+if (is_numeric($groupNameNumber) && intval($groupNameNumber) < 12) {
+    $schoolGroup = true;
+}
+if (is_numeric($groupNameNumber) && intval($groupNameNumber) < 8) {
+    $smallLessons = true;
+}
+
 $groupsQuery  = "SELECT DISTINCT " . $dbPrefix . "studentsInGroups.StudentGroupId ";
 $groupsQuery .= "FROM " . $dbPrefix . "studentsInGroups ";
 $groupsQuery .= "WHERE StudentId ";
@@ -30,6 +46,7 @@ $groupCondition = "WHERE " . $dbPrefix . "studentGroups.StudentGroupId IN ( " . 
 
 $query  = "SELECT DISTINCT " . $dbPrefix . "disciplines.Name, " . $dbPrefix . "disciplines.Attestation, " . $dbPrefix . "disciplines.AuditoriumHours, ";
 $query .= $dbPrefix . "studentGroups.Name  AS GroupName, " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
+$query .= $dbPrefix . "disciplines.AuditoriumHoursPerWeek, ";
 $query .= $dbPrefix . "teachers.FIO ";
 $query .= "FROM " . $dbPrefix . "disciplines ";
 $query .= "LEFT JOIN " . $dbPrefix . "studentGroups ";
@@ -56,7 +73,8 @@ while($disc = $discList->fetch_assoc())
 
     $result[$disc["TFDID"]] = array();
     $result[$disc["TFDID"]]["Name"] = $disc["Name"];
-    $result[$disc["TFDID"]]["AuditoriumHours"] = $disc["AuditoriumHours"];
+    $result[$disc["TFDID"]]["AuditoriumHours"] = $schoolGroup ?
+        $disc["AuditoriumHoursPerWeek"] : $disc["AuditoriumHours"];
     $result[$disc["TFDID"]]["Attestation"] = $disc["Attestation"];
     $result[$disc["TFDID"]]["GroupName"] = $disc["GroupName"];
     $result[$disc["TFDID"]]["teacherFIO"] = $disc["FIO"];
@@ -76,7 +94,7 @@ foreach ($result as $tfdId => $discData)
     $queryData = $database->query($hoursQuery);
     $row = $queryData->fetch_assoc();
 
-    $result[$tfdId]["hoursCount"] = $row["lesCount"]*2;
+    $result[$tfdId]["hoursCount"] = $smallLessons ? $row["lesCount"] : $row["lesCount"]*2;
 }
 
 function discNameCompare($a, $b) {
@@ -91,7 +109,11 @@ if ($discList->num_rows != 0)
     echo "<tr>";
     echo "<td>Дисциплина</td>";
     echo "<td>Группа</td>";
-    echo "<td>Часов по плану</td>";
+    echo "<td>Часов по плану";
+    if ($schoolGroup) {
+        echo " в неделю";
+    }
+    echo "</td>";
     echo "<td>Часов в расписании</td>";
     echo "<td>Отчётность</td>";
     echo "</tr>";

@@ -10,7 +10,8 @@ require_once("Utilities.php");
 global $database;
 
 $query  = "SELECT " . $dbPrefix . "disciplines.Name, " . $dbPrefix . "disciplines.Attestation, " . $dbPrefix . "disciplines.AuditoriumHours, ";
-$query .= $dbPrefix . "studentGroups.Name  AS GroupName, " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID ";
+$query .= $dbPrefix . "studentGroups.Name  AS GroupName, " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
+$query .= $dbPrefix . "disciplines.AuditoriumHoursPerWeek ";
 $query .= "FROM " . $dbPrefix . "teacherForDisciplines ";
 $query .= "JOIN " . $dbPrefix . "disciplines ";
 $query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
@@ -28,6 +29,7 @@ while($disc = $discList->fetch_assoc())
     $result[$disc["TFDID"]] = array();
     $result[$disc["TFDID"]]["Name"] = $disc["Name"];
     $result[$disc["TFDID"]]["AuditoriumHours"] = $disc["AuditoriumHours"];
+    $result[$disc["TFDID"]]["AuditoriumHoursPerWeek"] = $disc["AuditoriumHoursPerWeek"];
     $result[$disc["TFDID"]]["Attestation"] = $disc["Attestation"];
     $result[$disc["TFDID"]]["GroupName"] = $disc["GroupName"];
 }
@@ -85,6 +87,14 @@ if ($discList->num_rows != 0)
     echo "</tr>";
     foreach ($result as $tfdId => $discData)
     {
+        $schoolGroup = false;
+        $groupName = $discData["GroupName"];
+        $groupNamePieces = explode(" ", $groupName);
+        $groupNameNumber = $groupNamePieces[0];
+        if (is_numeric($groupNameNumber) && intval($groupNameNumber) < 12) {
+            $schoolGroup = true;
+        }
+
         echo "<tr>";
         echo "<td title=\"";
         echo $discData["teacherFIO"];
@@ -95,7 +105,7 @@ if ($discList->num_rows != 0)
         echo $discData["GroupName"];
         echo "</td>";
         echo "<td>";
-        echo $discData["AuditoriumHours"];
+        echo $schoolGroup ? $discData["AuditoriumHoursPerWeek"] : $discData["AuditoriumHours"];
         echo "</td>";
         echo "<td style=\"background: " . Utilities::GetPercentColorString($discData["AuditoriumHours"],$discData["hoursCount"]*2 ) ."\">";
         echo $discData["hoursCount"]*2;

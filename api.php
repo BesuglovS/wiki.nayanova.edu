@@ -29,4 +29,3 @@ if(!isset($POST['action']) )
 }
 
 echo $api->ExecuteAction($POST);
-?>
