@@ -22,7 +22,7 @@ class api {
 
         $allowedActions = array("list", "groupsBundle", "bundle", "update",
             "dailySchedule", "groupExams", "weekSchedule", "weeksSchedule",
-            "groupSchedule", "TeacherWeekSchedule", "TeacherSchedule", "LastLessons");
+            "groupSchedule", "TeacherWeekSchedule", "teacherWeeksSchedule", "TeacherSchedule", "LastLessons");
 
         if (!in_array($action, $allowedActions))
         {
@@ -176,6 +176,10 @@ class api {
             case "TeacherWeekSchedule":
                 $teacherWeekSchedule = $this->GetTeacherWeekSchedule($POST);
                 return (json_encode($teacherWeekSchedule));
+                break;
+            case "teacherWeeksSchedule":
+                $teacherWeeksSchedule = $this->GetTeacherWeeksSchedule($POST);
+                return (json_encode($teacherWeeksSchedule));
                 break;
             case "TeacherSchedule":
                 $teacherSchedule = $this->GetTeacherSchedule($POST);
@@ -1625,9 +1629,6 @@ class api {
 
     private function GetWeeksSchedule($POST)
     {
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
-
         if ((!isset($POST['groupId'])) || (!isset($POST['weeks'])))
         {
             echo $this->APIError("Необходимые параметры запроса weeks и groupId");
@@ -1955,7 +1956,7 @@ class api {
             $dow = Utilities::$DOWEnToRu[date( "w", $lessonDate->getTimestamp())];
 
             $lesson["dow"] = $dow;
-            $lesson["Time"] = $lesson["Time"];
+            // $lesson["Time"] = $lesson["Time"];
 
             $primaryResult[] = $lesson;
         }
@@ -1988,6 +1989,207 @@ class api {
 
 
         return $primaryResult;
+    }
+
+    private function GetTeacherWeeksSchedule($POST)
+    {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+
+        if ((!isset($POST['teacherId'])) || (!isset($POST['weeks'])))
+        {
+            echo $this->APIError("Необходимые параметры запроса teacherId и weeks");
+            exit;
+        }
+        else {
+            $weeks = explode('|', $POST["weeks"]);
+            sort($weeks);
+            $teacherId = $POST["teacherId"];
+            $dbPrefix = "";
+            if (isset($POST["dbPrefix"])) {
+                $dbPrefix = $POST["dbPrefix"];
+            }
+        }
+
+        $semesterStartsQuery  = "SELECT `Value` ";
+        $semesterStartsQuery .= "FROM " . $this->dbPrefix . "configs ";
+        $semesterStartsQuery .= "WHERE `Key` = 'Semester Starts' ";
+
+        $semesterStartsResult = $this->database->query($semesterStartsQuery);
+
+        $dateObject = $semesterStartsResult->fetch_assoc();
+        $dateString = $dateObject["Value"];
+
+        $semesterStarts = strtotime("Monday this week + 4 hours",strtotime($dateString));
+        $dt = new DateTime("@$semesterStarts");
+        $semesterStarts = $dt->format("Y-m-d");
+
+        global $database;
+        global $options;
+
+        $result = array();
+
+        if (!isset($POST['compactResult'])) {
+
+            $weeksCount = count($weeks);
+            for ($i = 0; $i < $weeksCount; $i++) {
+                $week = $weeks[$i];
+
+                $query = "SELECT " . $dbPrefix . "calendars.Date, " . $dbPrefix . "rings.Time, " . $dbPrefix . "studentGroups.Name as groupName, ";
+                $query .= $dbPrefix . "disciplines.Name as disciplineName, " . $dbPrefix . "auditoriums.Name as auditoriumName, ";
+                $query .= $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+                $query .= "FROM " . $dbPrefix . "lessons ";
+                $query .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+                $query .= "ON " . $dbPrefix . "lessons.TeacherForDisciplineId = " . $dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+                $query .= "JOIN " . $dbPrefix . "teachers ";
+                $query .= "ON " . $dbPrefix . "teacherForDisciplines.TeacherId = " . $dbPrefix . "teachers.TeacherId ";
+                $query .= "JOIN " . $dbPrefix . "calendars ";
+                $query .= "ON " . $dbPrefix . "lessons.CalendarId = " . $dbPrefix . "calendars.CalendarId ";
+                $query .= "JOIN " . $dbPrefix . "rings ";
+                $query .= "ON " . $dbPrefix . "lessons.RingId = " . $dbPrefix . "rings.RingId ";
+                $query .= "JOIN " . $dbPrefix . "disciplines ";
+                $query .= "ON " . $dbPrefix . "teacherForDisciplines.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+                $query .= "JOIN " . $dbPrefix . "studentGroups ";
+                $query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+                $query .= "JOIN " . $dbPrefix . "auditoriums ";
+                $query .= "ON " . $dbPrefix . "lessons.AuditoriumId = " . $dbPrefix . "auditoriums.AuditoriumId ";
+                $query .= "WHERE " . $dbPrefix . "teachers.TeacherId=" . $teacherId . " ";
+                $query .= "AND " . $dbPrefix . "lessons.isActive = 1 ";
+
+                $queryResult = $database->query($query);
+
+                $lessonsArray = array();
+                while ($lesson = $queryResult->fetch_assoc()) {
+                    $lessonsArray[] = $lesson;
+                }
+
+                $semesterStarts = $options["Semester Starts"];
+
+                $weekResult = array();
+
+                foreach ($lessonsArray as $lesson) {
+
+                    $lessonWeek = Utilities::WeekFromDate($lesson["Date"], $semesterStarts);
+
+
+                    if ($lessonWeek != $week) {
+                        continue;
+                    }
+
+                    $lessonDate = DateTime::createFromFormat('Y-m-d', $lesson["Date"]);
+                    $dow = Utilities::$DOWEnToRu[date("w", $lessonDate->getTimestamp())];
+
+                    $lesson["dow"] = $dow;
+                    $lesson["Time"] = $lesson["Time"];
+
+                    $weekResult[] = $lesson;
+                }
+
+                usort($weekResult, function ($a, $b) {
+                    if ($a["dow"] < $b["dow"]) {
+                        return -1;
+                    }
+
+                    if ($a["dow"] > $b["dow"]) {
+                        return 1;
+                    }
+
+                    if ($a["Time"] < $b["Time"]) {
+                        return -1;
+                    }
+
+                    if ($a["Time"] > $b["Time"]) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+
+                $result[$week] = $weekResult;
+            }
+
+            return $result;
+        } else {
+
+            $allLessonsQuery  = "SELECT " . $this->dbPrefix . "disciplines.Name as discName, " . $this->dbPrefix . "rings.Time as startTime, ";
+            $allLessonsQuery .= $this->dbPrefix . "calendars.Date as date, " . $this->dbPrefix . "teachers.FIO as teacherFIO, " . $this->dbPrefix . "auditoriums.Name as auditoriumName, ";
+            $allLessonsQuery .= $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as tfdId, " . $this->dbPrefix . "studentGroups.Name as groupName, ";
+            $allLessonsQuery .= $this->dbPrefix . "studentGroups.StudentGroupId as groupId ";
+            $allLessonsQuery .= "FROM " . $this->dbPrefix . "lessons ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "teacherForDisciplines ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "teachers ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "disciplines ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "teacherForDisciplines.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "studentGroups ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "calendars ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "lessons.CalendarId = " . $this->dbPrefix . "calendars.calendarId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "auditoriums ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "lessons.auditoriumId = " . $this->dbPrefix . "auditoriums.AuditoriumId ";
+            $allLessonsQuery .= "JOIN " . $this->dbPrefix . "rings ";
+            $allLessonsQuery .= "ON " . $this->dbPrefix . "lessons.ringId = " . $this->dbPrefix . "rings.ringId ";
+            $allLessonsQuery .= "WHERE " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $teacherId . " ";
+            $allLessonsQuery .= "AND " . $this->dbPrefix . "lessons.isActive = 1 ";
+
+            $allLessonsQueryResult = $this->database->query($allLessonsQuery);
+
+            $lessons = array("1" => array(), "2" => array(), "3" => array(), "4" => array(),
+                "5" => array(), "6" => array(), "7" => array());
+            $timeArray = array();
+
+            while($lesson = $allLessonsQueryResult->fetch_assoc())
+            {
+                $lessonWeek = Utilities::WeekFromDate($lesson["date"], $semesterStarts);
+
+                if (!in_array($lessonWeek, $weeks)) {
+                    continue;
+                }
+
+                $lessonDate = DateTime::createFromFormat('Y-m-d', $lesson["date"]);
+                $dow = Utilities::$DOWEnToRu[date( "w", $lessonDate->getTimestamp())];
+
+                $time = mb_substr($lesson["startTime"], 0, 5);
+                if (!array_key_exists($time, $lessons[$dow]))
+                {
+                    if (!in_array($time, $timeArray))
+                    {
+                        $timeArray[] = $time;
+                    }
+                    $lessons[$dow][$time] = array();
+                }
+
+
+                $tfd = $lesson["tfdId"];
+                if (!array_key_exists($tfd, $lessons[$dow][$time]))
+                {
+                    $lessons[$dow][$time][$tfd] = array();
+                }
+
+
+                $lessonAud = $lesson["auditoriumName"];
+                if (!array_key_exists("weeksAndAuds", $lessons[$dow][$time][$tfd]))
+                {
+                    $lessons[$dow][$time][$tfd]["weeksAndAuds"] = array();
+                }
+                if (!array_key_exists("lessons", $lessons[$dow][$time][$tfd]))
+                {
+                    $lessons[$dow][$time][$tfd]["lessons"] = array();
+                }
+                if (!array_key_exists($lessonAud, $lessons[$dow][$time][$tfd]["weeksAndAuds"]))
+                {
+                    $lessons[$dow][$time][$tfd]["weeksAndAuds"][$lessonAud] = array();
+                }
+                $lessons[$dow][$time][$tfd]["weeksAndAuds"][$lessonAud][] = $lessonWeek;
+
+                $lessons[$dow][$time][$tfd]["lessons"][] = $lesson;
+            }
+
+            $result = $lessons;
+
+            return $result;
+        }
     }
 
     private function GetTeacherSchedule($POST)
