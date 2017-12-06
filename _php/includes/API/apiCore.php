@@ -20,9 +20,14 @@ class api {
 
         $action = $POST["action"];
 
-        $allowedActions = array("list", "groupsBundle", "bundle", "update",
-            "dailySchedule", "groupExams", "weekSchedule", "weeksSchedule",
-            "groupSchedule", "TeacherWeekSchedule", "teacherWeeksSchedule", "TeacherSchedule", "LastLessons");
+        $allowedActions = array(
+            "list", "groupsBundle", "bundle", "update",
+            "dailySchedule",
+            "groupExams",
+            "weekSchedule", "weeksSchedule", "groupSchedule",
+            "TeacherWeekSchedule", "teacherWeeksSchedule", "TeacherSchedule",
+            "LastLessons"
+        );
 
         if (!in_array($action, $allowedActions))
         {
@@ -788,6 +793,77 @@ class api {
      */
     private function GetDisciplinesList($POST)
     {
+        if (isset($POST['teacherId'])) {
+
+            $teacherId = $POST["teacherId"];
+
+            $query  = "SELECT " . $this->dbPrefix . "disciplines.Name, " . $this->dbPrefix . "disciplines.Attestation, " . $this->dbPrefix . "disciplines.AuditoriumHours, ";
+            $query .= $this->dbPrefix . "studentGroups.Name  AS GroupName, " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
+            $query .= $this->dbPrefix . "disciplines.LectureHours, ";
+            $query .= $this->dbPrefix . "disciplines.PracticalHours, ";
+            $query .= $this->dbPrefix . "disciplines.AuditoriumHoursPerWeek ";
+            $query .= "FROM " . $this->dbPrefix . "teacherForDisciplines ";
+            $query .= "JOIN " . $this->dbPrefix . "disciplines ";
+            $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
+            $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
+            $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+            $query .= "JOIN " . $this->dbPrefix . "teachers ";
+            $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
+            $query .= "WHERE " . $this->dbPrefix . "teachers.TeacherId = " . $teacherId;
+
+            $discList = $this->database->query($query);
+
+            $result = array();
+            while($disc = $discList->fetch_assoc())
+            {
+                $result[$disc["TFDID"]] = array();
+                $result[$disc["TFDID"]]["Name"] = $disc["Name"];
+                $result[$disc["TFDID"]]["AuditoriumHours"] = $disc["AuditoriumHours"];
+                $result[$disc["TFDID"]]["AuditoriumHoursPerWeek"] = $disc["AuditoriumHoursPerWeek"];
+                $result[$disc["TFDID"]]["Attestation"] = $disc["Attestation"];
+                $result[$disc["TFDID"]]["LectureHours"] = $disc["LectureHours"];
+                $result[$disc["TFDID"]]["PracticalHours"] = $disc["PracticalHours"];
+                $result[$disc["TFDID"]]["GroupName"] = $disc["GroupName"];
+            }
+
+            $monthsArray = array();
+
+            foreach ($result as $tfdId => $discData)
+            {
+                $tfdLessonsDates  = "SELECT " . $this->dbPrefix . "calendars.Date ";
+                $tfdLessonsDates .= "FROM " . $this->dbPrefix . "lessons ";
+                $tfdLessonsDates .= "JOIN " . $this->dbPrefix . "calendars ";
+                $tfdLessonsDates .= "ON " . $this->dbPrefix . "lessons.CalendarId = " . $this->dbPrefix . "calendars.CalendarId ";
+                $tfdLessonsDates .= "WHERE " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $tfdId . " ";
+                $tfdLessonsDates .= "AND " . $this->dbPrefix . "lessons.isActive = 1 ";
+
+                $tfdLessonsDatesResult = $this->database->query($tfdLessonsDates);
+
+                $lessonsByMonth = array();
+                while($lesson = $tfdLessonsDatesResult->fetch_assoc()) {
+                    $month = mb_substr($lesson["Date"], 5, 2, "UTF-8");
+                    if (!in_array($month, $monthsArray))
+                    {
+                        $monthsArray[] =  $month;
+                    }
+                    if (!array_key_exists($month, $lessonsByMonth))
+                    {
+                        $lessonsByMonth[$month] = 0;
+                    }
+                    $lessonsByMonth[$month]++;
+                }
+
+                $result[$tfdId]["hoursCount"] = array_sum($lessonsByMonth)*2;
+                $result[$tfdId]["byMonth"] = array();
+                foreach ($lessonsByMonth as $month => $hours) {
+                    $result[$tfdId]["byMonth"][$month] = $hours*2;
+                }
+            }
+            asort($monthsArray);
+
+            return array_values($result);
+        }
+
         $disciplines = array();
 
         $query = "SELECT " . $this->dbPrefix . "disciplines.DisciplineId, " . $this->dbPrefix . "disciplines.Name, ";
@@ -842,56 +918,113 @@ class api {
      */
     private function GetGroupDisciplinesList($POST)
     {
-        $disciplines = array();
+        $groupId = -1;
+        if(!isset($POST['groupId']))
+        {
+            echo $this->APIError("groupId - обязательный параметр");
+            exit;
+        }
 
-        $query = "SELECT " . $this->dbPrefix . "disciplines.DisciplineId, " . $this->dbPrefix . "disciplines.Name, ";
-        $query .= $this->dbPrefix . "disciplines.Attestation,  ";
-        $query .= $this->dbPrefix . "disciplines.AuditoriumHours, " . $this->dbPrefix . "disciplines.LectureHours, ";
-        $query .= $this->dbPrefix . "disciplines.PracticalHours, " . $this->dbPrefix . "disciplines.StudentGroupId, ";
-        $query .= $this->dbPrefix . "studentGroups.Name AS studentGroupName " ;
+        $groupId = $POST['groupId'];
+
+        $schoolGroup = false;
+        $smallLessons = false;
+
+        $groupNameQuery = "SELECT `Name` FROM " . $this->dbPrefix ."studentGroups WHERE StudentGroupId = " . $groupId;
+        $groupNameQueryResult = $this->database->query($groupNameQuery);
+        $groupNameQueryResultAssoc = $groupNameQueryResult->fetch_assoc();
+        $groupName = $groupNameQueryResultAssoc["Name"];
+        $groupNamePieces = explode(" ", $groupName);
+        $groupNameNumber = $groupNamePieces[0];
+        if (is_numeric($groupNameNumber) && intval($groupNameNumber) < 12) {
+            $schoolGroup = true;
+        }
+        if (is_numeric($groupNameNumber) && intval($groupNameNumber) < 8) {
+            $smallLessons = true;
+        }
+
+        $groupsQuery  = "SELECT DISTINCT " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
+        $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+        $groupsQuery .= "WHERE StudentId ";
+        $groupsQuery .= "IN ( ";
+        $groupsQuery .= "SELECT " . $this->dbPrefix . "studentsInGroups.StudentId ";
+        $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+        $groupsQuery .= "JOIN " . $this->dbPrefix . "studentGroups ";
+        $groupsQuery .= "ON " . $this->dbPrefix . "studentsInGroups.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+        $groupsQuery .= "WHERE " . $this->dbPrefix . "studentGroups.StudentGroupId = ". $groupId ." ";
+        $groupsQuery .= ")";
+        $groupIdsResult = $this->database->query($groupsQuery);
+
+        $groupIdsArray = array();
+        while ($id = $groupIdsResult->fetch_assoc())
+        {
+            $groupIdsArray[] = $id["StudentGroupId"];
+        }
+        $groupCondition = "WHERE " . $this->dbPrefix . "studentGroups.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
+
+        $query  = "SELECT DISTINCT " . $this->dbPrefix . "disciplines.Name, ";
+        $query .= $this->dbPrefix . "disciplines.Attestation, " . $this->dbPrefix . "disciplines.AuditoriumHours, ";
+        $query .= $this->dbPrefix . "studentGroups.Name  AS GroupName, ";
+        $query .= $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId as TFDID, ";
+        $query .= $this->dbPrefix . "disciplines.LectureHours, ";
+        $query .= $this->dbPrefix . "disciplines.PracticalHours, ";
+        $query .= $this->dbPrefix . "disciplines.AuditoriumHoursPerWeek, ";
+        $query .= $this->dbPrefix . "teachers.FIO ";
         $query .= "FROM " . $this->dbPrefix . "disciplines ";
-        $query .= "JOIN ". $this->dbPrefix . "studentGroups ";
-        $query .= "ON ". $this->dbPrefix . "disciplines.StudentGroupId = ". $this->dbPrefix . "studentGroups.StudentGroupId ";
+        $query .= "LEFT JOIN " . $this->dbPrefix . "studentGroups ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+        $query .= "LEFT JOIN " . $this->dbPrefix . "teacherForDisciplines ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.DisciplineId = " . $this->dbPrefix . "teacherForDisciplines.DisciplineId ";
+        $query .= "LEFT JOIN " . $this->dbPrefix . "teachers ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId =  " . $this->dbPrefix . "teachers.TeacherId ";
 
-        if (isset($POST['groupId'])) {
-            if (isset($POST['LimitToExactGroup']) && ($POST['LimitToExactGroup'] == 1)) {
-                $query .= "WHERE " . $this->dbPrefix . "disciplines.StudentGroupId = " . $POST['groupId'];
-            } else {
-                $groupsQuery = "SELECT DISTINCT " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
-                $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
-                $groupsQuery .= "WHERE StudentId ";
-                $groupsQuery .= "IN ( ";
-                $groupsQuery .= "SELECT " . $this->dbPrefix . "studentsInGroups.StudentId ";
-                $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
-                $groupsQuery .= "WHERE " . $this->dbPrefix . "studentsInGroups.StudentGroupId = " . $POST['groupId'] . " ";
-                $groupsQuery .= ")";
+        $query .= $groupCondition;
 
-                $groupIdsResult = $this->database->query($groupsQuery);
-                $groupIdsArray = array();
-                while ($id = $groupIdsResult->fetch_assoc()) {
-                    $groupIdsArray[] = $id["StudentGroupId"];
-                }
+        $discList = $this->database->query($query);
 
-                $query .= "WHERE " . $this->dbPrefix . "disciplines.StudentGroupId IN ( " . implode(" , ", $groupIdsArray) . " )";
+        $FakeTFD = -2;
+
+        $result = array();
+        while($disc = $discList->fetch_assoc())
+        {
+            if ($disc["TFDID"] == "")
+            {
+                $disc["TFDID"] = $FakeTFD;
+                $FakeTFD--;
             }
+
+            $result[$disc["TFDID"]] = array();
+            $result[$disc["TFDID"]]["Name"] = $disc["Name"];
+            $result[$disc["TFDID"]]["AuditoriumHours"] = $schoolGroup ?
+                $disc["AuditoriumHoursPerWeek"] : $disc["AuditoriumHours"];
+            $result[$disc["TFDID"]]["Attestation"] = $disc["Attestation"];
+            $result[$disc["TFDID"]]["LectureHours"] = $disc["LectureHours"];
+            $result[$disc["TFDID"]]["PracticalHours"] = $disc["PracticalHours"];
+            $result[$disc["TFDID"]]["GroupName"] = $disc["GroupName"];
+            $result[$disc["TFDID"]]["teacherFIO"] = $disc["FIO"];
         }
 
-        $disciplineList = $this->database->query($query);
 
-        while ($discipline = $disciplineList->fetch_assoc()) {
-            $d = array();
-            $d["DisciplineId"] = $discipline["DisciplineId"];
-            $d["Name"] = $discipline["Name"];
-            $d["Attestation"] = $discipline["Attestation"];
-            $d["AuditoriumHours"] = $discipline["AuditoriumHours"];
-            $d["LectureHours"] = $discipline["LectureHours"];
-            $d["PracticalHours"] = $discipline["PracticalHours"];
-            $d["StudentGroupId"] = $discipline["StudentGroupId"];
-            $d["StudentGroupName"] = $discipline["studentGroupName"];
+        foreach ($result as $tfdId => $discData)
+        {
+            $hoursQuery  = "SELECT COUNT(*) AS lesCount ";
+            $hoursQuery .= "FROM " . $this->dbPrefix . "lessons ";
+            $hoursQuery .= "WHERE " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $tfdId . " ";
+            $hoursQuery .= "AND " . $this->dbPrefix . "lessons.isActive = 1 ";
 
-            $disciplines[] = $d;
+            $queryData = $this->database->query($hoursQuery);
+            $row = $queryData->fetch_assoc();
+
+            $result[$tfdId]["hoursCount"] = $smallLessons ? $row["lesCount"] : $row["lesCount"]*2;
         }
-        return $disciplines;
+
+        uasort($result, array("api", 'GetGroupDisciplinesListDiscNameCompare'));
+
+        return array_values($result);
+    }
+
+    function GetGroupDisciplinesListDiscNameCompare($a, $b) {
+        return strcmp($a["Name"], $b["Name"]);
     }
 
     /**
