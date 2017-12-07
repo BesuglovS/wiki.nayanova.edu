@@ -157,6 +157,10 @@ class api {
                         $buildings = $this->GetBuildingsList();
                         return (json_encode($buildings));                        
                         break;
+                    case "tfdListExpanded":
+                        $tfdListExpanded = $this->GetTfdListExpanded();
+                        return (json_encode($tfdListExpanded));
+                        break;
                 }
                 break;
             case "dailySchedule":
@@ -2573,6 +2577,30 @@ class api {
         $lessonsList = $this->database->query($query);
 
         while ($lesson = $lessonsList->fetch_assoc()) {
+            $result[] = $lesson;
+        }
+        return $result;
+    }
+
+    private function GetTfdListExpanded()
+    {
+        $result = array();
+
+        $query = "SELECT " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId, ";
+        $query .= $this->dbPrefix . "disciplines.Name AS disciplineName, ";
+        $query .= $this->dbPrefix . "teachers.FIO AS teacherFIO, ";
+        $query .= $this->dbPrefix . "studentGroups.Name AS studentGroupName ";
+        $query .= "FROM " . $this->dbPrefix . "teacherForDisciplines ";
+        $query .= "JOIN " . $this->dbPrefix . "disciplines ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
+        $query .= "JOIN " . $this->dbPrefix . "teachers ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
+        $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+
+        $tfdList = $this->database->query($query);
+
+        while ($lesson = $tfdList->fetch_assoc()) {
             $result[] = $lesson;
         }
         return $result;
