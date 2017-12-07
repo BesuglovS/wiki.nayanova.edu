@@ -26,6 +26,7 @@ class api {
             "groupExams",
             "weekSchedule", "weeksSchedule", "groupSchedule",
             "TeacherWeekSchedule", "teacherWeeksSchedule", "TeacherSchedule",
+            "disciplineLessons",
             "LastLessons"
         );
 
@@ -192,6 +193,10 @@ class api {
                 break;
             case "LastLessons":
                 $data = $this->LastLessons($POST);
+                return (json_encode($data));
+                break;
+            case "disciplineLessons":
+                $data = $this->DisciplineLessons($POST);
                 return (json_encode($data));
                 break;
         }
@@ -2536,6 +2541,40 @@ class api {
             }
         }
 
+        return $result;
+    }
+
+    private function DisciplineLessons($POST)
+    {
+        if(!isset($POST['tfdId']))
+        {
+            echo $this->APIError("tfdId - обязательный параметр");
+            exit;
+        }
+
+        $tfdId = $POST['tfdId'];
+
+        $result = array();
+
+        $query = "SELECT " . $this->dbPrefix . "lessons.LessonId, ";
+        $query .= $this->dbPrefix . "calendars.Date, ";
+        $query .= $this->dbPrefix . "rings.Time, ";
+        $query .= $this->dbPrefix . "auditoriums.Name ";
+        $query .= "FROM " . $this->dbPrefix . "lessons ";
+        $query .= "JOIN " . $this->dbPrefix . "calendars ";
+        $query .= "ON " . $this->dbPrefix . "lessons.CalendarId = " . $this->dbPrefix . "calendars.CalendarId ";
+        $query .= "JOIN " . $this->dbPrefix . "rings ";
+        $query .= "ON " . $this->dbPrefix . "lessons.RingId = " . $this->dbPrefix . "rings.RingId ";
+        $query .= "JOIN " . $this->dbPrefix . "auditoriums ";
+        $query .= "ON " . $this->dbPrefix . "lessons.AuditoriumId = " . $this->dbPrefix . "auditoriums.AuditoriumId ";
+        $query .= "WHERE ". $this->dbPrefix . "lessons.isActive = 1 ";
+        $query .= "AND " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $tfdId;
+
+        $lessonsList = $this->database->query($query);
+
+        while ($lesson = $lessonsList->fetch_assoc()) {
+            $result[] = $lesson;
+        }
         return $result;
     }
 }
