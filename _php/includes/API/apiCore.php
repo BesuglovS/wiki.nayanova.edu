@@ -23,7 +23,7 @@ class api {
         $allowedActions = array(
             "list", "groupsBundle", "bundle", "update",
             "dailySchedule",
-            "groupExams",
+            "groupExams", "teacherExams",
             "weekSchedule", "weeksSchedule", "groupSchedule",
             "TeacherWeekSchedule", "teacherWeeksSchedule", "TeacherSchedule",
             "disciplineLessons",
@@ -181,6 +181,10 @@ class api {
                 break;
             case "groupExams":
                 $exams = $this->GetGroupExams($POST);
+                return (json_encode($exams));
+                break;
+            case "teacherExams":
+                $exams = $this->GetTeacherExams($POST);
                 return (json_encode($exams));
                 break;
             case "TeacherWeekSchedule":
@@ -376,6 +380,49 @@ class api {
         }
 
         return $result;
+    }
+
+    private function GetTeacherExams($POST) {
+        if(!isset($POST['teacherId']))
+        {
+            echo $this->APIError("teacherId - обязательный параметр");
+            exit;
+        }
+
+        $teacherId = $POST['teacherId'];
+
+        $query  = "SELECT " . $this->dbPrefix . "exams.ExamId,  ";
+        $query .= $this->dbPrefix . "disciplines.Name, ";
+        $query .= $this->dbPrefix . "studentGroups.Name AS groupName, ";
+        $query .= $this->dbPrefix . "teachers.FIO, ";
+        $query .= $this->dbPrefix . "exams.ConsultationDateTime, ";
+        $query .= $this->dbPrefix . "exams.ExamDateTime, ";
+        $query .= "consAud.Name as " . $this->dbPrefix . "consultationAud, ";
+        $query .= "examAud.Name as " . $this->dbPrefix . "examinationAud ";
+        $query .= "FROM " . $this->dbPrefix . "exams ";
+        $query .= "JOIN " . $this->dbPrefix . "disciplines ";
+        $query .= "ON " . $this->dbPrefix . "exams.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
+        $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+        $query .= "JOIN " . $this->dbPrefix . "teacherForDisciplines ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.DisciplineId = " . $this->dbPrefix . "teacherForDisciplines.DisciplineId ";
+        $query .= "JOIN " . $this->dbPrefix . "teachers ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.teacherId = " . $this->dbPrefix . "teachers.TeacherId ";
+        $query .= "JOIN " . $this->dbPrefix . "auditoriums consAud ";
+        $query .= "ON consAud.AuditoriumId = " . $this->dbPrefix . "exams.ConsultationAuditoriumId ";
+        $query .= "JOIN " . $this->dbPrefix . "auditoriums examAud ";
+        $query .= "ON examAud.AuditoriumId = " . $this->dbPrefix . "exams.ExamAuditoriumId ";
+        $query .= "WHERE " . $this->dbPrefix . "teachers.TeacherId = " . $teacherId . " AND " . $this->dbPrefix . "exams.IsActive = 1";
+
+        $examsList = $this->database->query($query);
+
+        $exams = array();
+
+        while ($exam = $examsList->fetch_assoc()) {
+            $exams[] = $exam;
+        }
+
+        return $exams;
     }
 
     /**
