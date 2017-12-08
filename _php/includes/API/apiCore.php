@@ -419,6 +419,13 @@ class api {
         $exams = array();
 
         while ($exam = $examsList->fetch_assoc()) {
+            if ($exam["ConsultationDateTime"] == "01.01.2020 0:00") {
+                $exam["ConsultationDateTime"] = "";
+            }
+
+            if ($exam["ExamDateTime"] == "01.01.2020 0:00") {
+                $exam["ExamDateTime"] = "";
+            }
             $exams[] = $exam;
         }
 
