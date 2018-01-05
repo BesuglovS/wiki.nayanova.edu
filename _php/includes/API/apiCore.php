@@ -158,7 +158,7 @@ class api {
                         return (json_encode($buildings));                        
                         break;
                     case "tfdListExpanded":
-                        $tfdListExpanded = $this->GetTfdListExpanded();
+                        $tfdListExpanded = $this->GetTfdListExpanded($POST);
                         return (json_encode($tfdListExpanded));
                         break;
                 }
@@ -2636,8 +2636,13 @@ class api {
         return $result;
     }
 
-    private function GetTfdListExpanded()
+    private function GetTfdListExpanded($POST)
     {
+        $teacherId = "";
+        if (isset($POST['teacherId'])) {
+            $teacherId = $POST["teacherId"];
+        }
+
         $result = array();
 
         $query = "SELECT " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId, ";
@@ -2651,6 +2656,9 @@ class api {
         $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
         $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
         $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+        if ($teacherId != "") {
+            $query .= "WHERE " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $teacherId;
+        }
 
         $tfdList = $this->database->query($query);
 
