@@ -14,6 +14,7 @@ class api {
     public function __construct($db, $dbPrefix){
         $this->database = $db;
         $this->dbPrefix = $dbPrefix;
+        $this->examsPrefix = "old_";
     }
 
     public function ExecuteAction($POST){
@@ -52,7 +53,7 @@ class api {
                 $bundle["students"] = $this->GetStudentsList($expelledIncluded);
                 $bundle["studentGroups"] = $this->GetStudentGroupsList();
                 $bundle["studentsInGroups"] = $this->GetStudentInGroupsList();
-                $bundle["teachers"] = $this->GetTechersList();
+                $bundle["teachers"] = $this->GetTeachersList($POST);
                 $bundle["teacherForDisciplines"] = $this->GetTFDList();
 
                 $bundle["configOptions"] = $this->GetConfigOptionsList();
@@ -120,7 +121,7 @@ class api {
                         return (json_encode($groupList));
                         break;
                     case "mainStudentGroups":
-                        $groupList = $this->GetMainStudentGroupsList();
+                        $groupList = $this->GetMainStudentGroupsList($POST);
                         return (json_encode($groupList, JSON_UNESCAPED_UNICODE));
                         break;
                     case "studentsInGroups":
@@ -128,7 +129,7 @@ class api {
                         return (json_encode($studentsInGroups));
                         break;
                     case "teachers":
-                        $teachers = $this->GetTechersList();
+                        $teachers = $this->GetTeachersList($POST);
                         return (json_encode($teachers));
                         break;
                     case "teacherForDisciplines":
@@ -212,13 +213,16 @@ class api {
 
     private function GetGroupExams($POST)
     {
-        $dbPrefix = "";
         if (isset($POST['dbPrefix'])) {
             $dbPrefix = $POST["dbPrefix"];
         }
         $schedulePrefix = "";
         if (isset($POST['schedulePrefix'])) {
             $schedulePrefix = $POST["schedulePrefix"];
+        }
+
+        if ($this->examsPrefix != "") {
+            $schedulePrefix = $this->examsPrefix;
         }
 
         $groupIds = "";
@@ -383,6 +387,8 @@ class api {
     }
 
     private function GetTeacherExams($POST) {
+        $dbPrefix = $this->examsPrefix;
+
         if(!isset($POST['teacherId']))
         {
             echo $this->APIError("teacherId - обязательный параметр");
@@ -391,28 +397,28 @@ class api {
 
         $teacherId = $POST['teacherId'];
 
-        $query  = "SELECT " . $this->dbPrefix . "exams.ExamId,  ";
-        $query .= $this->dbPrefix . "disciplines.Name, ";
-        $query .= $this->dbPrefix . "studentGroups.Name AS groupName, ";
-        $query .= $this->dbPrefix . "teachers.FIO, ";
-        $query .= $this->dbPrefix . "exams.ConsultationDateTime, ";
-        $query .= $this->dbPrefix . "exams.ExamDateTime, ";
-        $query .= "consAud.Name as " . $this->dbPrefix . "consultationAud, ";
-        $query .= "examAud.Name as " . $this->dbPrefix . "examinationAud ";
-        $query .= "FROM " . $this->dbPrefix . "exams ";
-        $query .= "JOIN " . $this->dbPrefix . "disciplines ";
-        $query .= "ON " . $this->dbPrefix . "exams.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
-        $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
-        $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
-        $query .= "JOIN " . $this->dbPrefix . "teacherForDisciplines ";
-        $query .= "ON " . $this->dbPrefix . "disciplines.DisciplineId = " . $this->dbPrefix . "teacherForDisciplines.DisciplineId ";
-        $query .= "JOIN " . $this->dbPrefix . "teachers ";
-        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.teacherId = " . $this->dbPrefix . "teachers.TeacherId ";
-        $query .= "JOIN " . $this->dbPrefix . "auditoriums consAud ";
-        $query .= "ON consAud.AuditoriumId = " . $this->dbPrefix . "exams.ConsultationAuditoriumId ";
-        $query .= "JOIN " . $this->dbPrefix . "auditoriums examAud ";
-        $query .= "ON examAud.AuditoriumId = " . $this->dbPrefix . "exams.ExamAuditoriumId ";
-        $query .= "WHERE " . $this->dbPrefix . "teachers.TeacherId = " . $teacherId . " AND " . $this->dbPrefix . "exams.IsActive = 1";
+        $query  = "SELECT " . $dbPrefix . "exams.ExamId,  ";
+        $query .= $dbPrefix . "disciplines.Name, ";
+        $query .= $dbPrefix . "studentGroups.Name AS groupName, ";
+        $query .= $dbPrefix . "teachers.FIO, ";
+        $query .= $dbPrefix . "exams.ConsultationDateTime, ";
+        $query .= $dbPrefix . "exams.ExamDateTime, ";
+        $query .= "consAud.Name as " . $dbPrefix . "consultationAud, ";
+        $query .= "examAud.Name as " . $dbPrefix . "examinationAud ";
+        $query .= "FROM " . $dbPrefix . "exams ";
+        $query .= "JOIN " . $dbPrefix . "disciplines ";
+        $query .= "ON " . $dbPrefix . "exams.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
+        $query .= "JOIN " . $dbPrefix . "studentGroups ";
+        $query .= "ON " . $dbPrefix . "disciplines.StudentGroupId = " . $dbPrefix . "studentGroups.StudentGroupId ";
+        $query .= "JOIN " . $dbPrefix . "teacherForDisciplines ";
+        $query .= "ON " . $dbPrefix . "disciplines.DisciplineId = " . $dbPrefix . "teacherForDisciplines.DisciplineId ";
+        $query .= "JOIN " . $dbPrefix . "teachers ";
+        $query .= "ON " . $dbPrefix . "teacherForDisciplines.teacherId = " . $dbPrefix . "teachers.TeacherId ";
+        $query .= "JOIN " . $dbPrefix . "auditoriums consAud ";
+        $query .= "ON consAud.AuditoriumId = " . $dbPrefix . "exams.ConsultationAuditoriumId ";
+        $query .= "JOIN " . $dbPrefix . "auditoriums examAud ";
+        $query .= "ON examAud.AuditoriumId = " . $dbPrefix . "exams.ExamAuditoriumId ";
+        $query .= "WHERE " . $dbPrefix . "teachers.TeacherId = " . $teacherId . " AND " . $dbPrefix . "exams.IsActive = 1";
 
         $examsList = $this->database->query($query);
 
@@ -577,12 +583,19 @@ class api {
         return strcmp($a["FIO"], $b["FIO"]);
     }
 
-    private function GetTechersList()
+    private function GetTeachersList($POST)
     {
+        $dbPrefix = $this->dbPrefix;
+
+        if(isset($POST['sessionList']))
+        {
+            $dbPrefix = $this->examsPrefix;
+        }
+
         $teachers = array();
 
-        $query = "SELECT " . $this->dbPrefix . "teachers.TeacherId, " . $this->dbPrefix . "teachers.FIO ";
-        $query .= "FROM " . $this->dbPrefix . "teachers";
+        $query = "SELECT " . $dbPrefix . "teachers.TeacherId, " . $dbPrefix . "teachers.FIO ";
+        $query .= "FROM " . $dbPrefix . "teachers";
 
         $teacherList = $this->database->query($query);
 
@@ -655,12 +668,19 @@ class api {
         return strcmp($a["Name"], $b["Name"]);
     }
 
-    private function GetMainStudentGroupsList()
+    private function GetMainStudentGroupsList($POST)
     {
+        $dbPrefix = $this->dbPrefix;
+
+        if(isset($POST['sessionList']))
+        {
+            $dbPrefix = $this->examsPrefix;
+        }
+
         $studentGroups = array();
 
-        $query = "SELECT " . $this->dbPrefix . "studentGroups.StudentGroupId, " . $this->dbPrefix . "studentGroups.Name ";
-        $query .= "FROM " . $this->dbPrefix . "studentGroups";
+        $query = "SELECT " . $dbPrefix . "studentGroups.StudentGroupId, " . $dbPrefix . "studentGroups.Name ";
+        $query .= "FROM " . $dbPrefix . "studentGroups";
 
         $groupList = $this->database->query($query);
 
