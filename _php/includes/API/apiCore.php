@@ -403,8 +403,8 @@ class api {
         $query .= $dbPrefix . "teachers.FIO, ";
         $query .= $dbPrefix . "exams.ConsultationDateTime, ";
         $query .= $dbPrefix . "exams.ExamDateTime, ";
-        $query .= "consAud.Name as " . $dbPrefix . "consultationAud, ";
-        $query .= "examAud.Name as " . $dbPrefix . "examinationAud ";
+        $query .= "consAud.Name as consultationAud, ";
+        $query .= "examAud.Name as examinationAud ";
         $query .= "FROM " . $dbPrefix . "exams ";
         $query .= "JOIN " . $dbPrefix . "disciplines ";
         $query .= "ON " . $dbPrefix . "exams.DisciplineId = " . $dbPrefix . "disciplines.DisciplineId ";
