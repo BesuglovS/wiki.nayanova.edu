@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab0f57d2-0e63-41aa-abb6-4faa1af361c5" name="Default" comment="new API list type tfdListExpanded&#10;Returns tfd list with id, discipline name, teacher">
+    <list default="true" id="ab0f57d2-0e63-41aa-abb6-4faa1af361c5" name="Default" comment="GetTfdListExpanded in listtype tfdListExpanded &#10;accepts and respects teacherId parameter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/_php/includes/API/apiCore.php" afterPath="$PROJECT_DIR$/_php/includes/API/apiCore.php" />
+      <change beforePath="$PROJECT_DIR$/_php/includes/SessionByDate.php" afterPath="$PROJECT_DIR$/_php/includes/SessionByDate.php" />
+      <change beforePath="$PROJECT_DIR$/_php/includes/SessionSchedule.php" afterPath="$PROJECT_DIR$/_php/includes/SessionSchedule.php" />
     </list>
     <ignored path="wnu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -15,6 +17,9 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/w/composer.json</pharConfigPath>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -22,41 +27,59 @@
     <favorites_list name="wnu" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="apiCore.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_php/includes/API/apiCore.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="74">
+              <caret line="2712" column="20" lean-forward="false" selection-start-line="2712" selection-start-column="20" selection-end-line="2712" selection-end-column="20" />
+              <folding>
+                <marker date="1518441572209" expanded="true" signature="45470:45548" ph="SELECT `Name... ${$this-&gt;dbPrefix}" />
+                <marker date="1518441572209" expanded="true" signature="127669:127765" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>log</find>
-      <find>$tfdData</find>
-      <find>options</find>
-      <find>weekFormat</find>
-      <find>monday</find>
-      <find>weekfo</find>
-      <find>$key</find>
-      <find>$semesterStarts</find>
-      <find>utili</find>
-      <find>$groups</find>
-      <find>WeekFromDate</find>
-      <find>teacherWeeks</find>
-      <find>teacherWeeksSchedule</find>
-      <find>GetTeacherWeeksSchedule</find>
-      <find>eacherweeks</find>
-      <find>TeacherSchedule</find>
-      <find>groupDis</find>
-      <find>error</find>
-      <find>Error</find>
-      <find>list</find>
-      <find>$row</find>
-      <find>обязатель</find>
-      <find>hoursCou</find>
-      <find>teacherdis</find>
-      <find>get</find>
-      <find>lessons</find>
-      <find>teacherForDisciplines</find>
+      <find>GetTfdListExpanded</find>
+      <find>old_</find>
+      <find>exam</find>
+      <find>GetTeacherExams</find>
+      <find>groupex</find>
+      <find>teacherex</find>
+      <find>teacherExams</find>
+      <find>mainStu</find>
+      <find>GetMainStudentGroupsList</find>
       <find>isset</find>
-      <find>teacherfo</find>
-      <find>teacherfor</find>
+      <find>teachers</find>
+      <find>GetTeac</find>
+      <find>GetTechersList</find>
+      <find>tech</find>
+      <find>GetTeachersList</find>
+      <find>getTea</find>
+      <find>exams</find>
+      <find>GetGroupExams</find>
+      <find>consultationAud</find>
+      <find>GetTeacherLe</find>
+      <find>Join</find>
+      <find>Lessons</find>
+      <find>lessons</find>
+      <find>studentGroups</find>
+      <find>calendars</find>
+      <find>Rings</find>
+      <find>auditoriums</find>
+      <find>teacherId</find>
+      <find>if(!isset($POST['teacherId']))</find>
+      <find>query</find>
     </findStrings>
+    <dirStrings>
+      <dir>G:\WebSites\wnu\w</dir>
+      <dir>G:\WebSites\wnu</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -74,8 +97,6 @@
         <option value="$PROJECT_DIR$/Graduate.php" />
         <option value="$PROJECT_DIR$/pdfExport.php" />
         <option value="$PROJECT_DIR$/fpdf17/tutorial/20k_c1.txt" />
-        <option value="$PROJECT_DIR$/_php/includes/SessionSchedule.php" />
-        <option value="$PROJECT_DIR$/_php/includes/SessionByDate.php" />
         <option value="$PROJECT_DIR$/_php/includes/SessionScheduleChanges.php" />
         <option value="$PROJECT_DIR$/upload/_js/main.js" />
         <option value="$PROJECT_DIR$/FlatIndex.php" />
@@ -87,6 +108,8 @@
         <option value="$PROJECT_DIR$/_php/includes/GroupWeekSchedule.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/_php/includes/planGroup.php" />
+        <option value="$PROJECT_DIR$/_php/includes/SessionByDate.php" />
+        <option value="$PROJECT_DIR$/_php/includes/SessionSchedule.php" />
         <option value="$PROJECT_DIR$/_php/includes/API/apiCore.php" />
       </list>
     </option>
@@ -124,8 +147,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -133,28 +154,12 @@
               <item name="wnu" type="b2602c69:ProjectViewProjectNode" />
               <item name="wnu" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="wnu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wnu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="_php" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="wnu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wnu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="_php" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="includes" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="wnu" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wnu" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="_php" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="includes" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="API" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -162,13 +167,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="SearchEverywhereHistoryKey" value="Zach&#9;FILE&#9;file://G:/WebSites/wnu/_php/includes/ZachDates.php&#10;main.css&#9;FILE&#9;file://D:/WebSites/wnu/upload/_css/main.css&#10;main.&#9;FILE&#9;file://D:/WebSites/wnu/upload/_js/main.js&#10;keymap&#9;ACTION&#9;ChangeKeymap&#10;replace&#9;ACTION&#9;Replace" />
+    <property name="SearchEverywhereHistoryKey" value="session&#9;FILE&#9;file://G:/WebSites/wnu/_php/includes/SessionSchedule.php&#10;Zach&#9;FILE&#9;file://G:/WebSites/wnu/_php/includes/ZachDates.php&#10;main.css&#9;FILE&#9;file://D:/WebSites/wnu/upload/_css/main.css&#10;main.&#9;FILE&#9;file://D:/WebSites/wnu/upload/_js/main.js&#10;keymap&#9;ACTION&#9;ChangeKeymap&#10;replace&#9;ACTION&#9;Replace" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="node.js.path.for.package.jscs" value="project" />
     <property name="node.js.selected.package.jscs" value="" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -309,7 +315,18 @@
       <workItem from="1512496328928" duration="681000" />
       <workItem from="1512536901069" duration="7475000" />
       <workItem from="1512619752505" duration="2041000" />
-      <workItem from="1512628162559" duration="1030000" />
+      <workItem from="1512628162559" duration="1092000" />
+      <workItem from="1512714729331" duration="43000" />
+      <workItem from="1512714877759" duration="2909000" />
+      <workItem from="1512721293581" duration="317000" />
+      <workItem from="1513261006442" duration="43000" />
+      <workItem from="1513261126289" duration="613000" />
+      <workItem from="1515174457853" duration="610000" />
+      <workItem from="1515219547802" duration="2216000" />
+      <workItem from="1515224678567" duration="1366000" />
+      <workItem from="1515233603395" duration="363000" />
+      <workItem from="1515560879608" duration="114000" />
+      <workItem from="1518438250222" duration="2899000" />
     </task>
     <task id="LOCAL-00001" summary="Pre-Cleanup">
       <created>1480396207799</created>
@@ -367,21 +384,63 @@
       <option name="project" value="LOCAL" />
       <updated>1512621776584</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="new API list type tfdListExpanded&#10;Returns tfd list with&#10;tfd id, discipline name, teacher FIO and studentgroup name">
+      <created>1512629242761</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1512629242761</updated>
+    </task>
+    <task id="LOCAL-00010" summary="new API action teacherExams">
+      <created>1512717772822</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1512717772822</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Empty Consultation and Exam date on magic empty value 01.01.2020 0:00">
+      <created>1512721596410</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1512721596410</updated>
+    </task>
+    <task id="LOCAL-00012" summary="GetTfdListExpanded in listtype tfdListExpanded &#10;accepts and respects teacherId parameter">
+      <created>1515175040240</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1515175040240</updated>
+    </task>
+    <task id="LOCAL-00013" summary="sessionList param&#10;in teacher list and mainGroupList&#10;to fetch old schedule lists">
+      <created>1515233243196</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1515233243196</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Fix unnecessary dbPrefix in aud fields of teacherExams API call">
+      <created>1515233878921</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1515233878921</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80746000" />
+    <option name="totallyTimeSpent" value="92301000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18527508" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20078126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32949308" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2789352" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27752292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -394,7 +453,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5806832" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -409,6 +468,9 @@
         <option value="$PROJECT_DIR$/vendor/reflect-metadata/Reflect.js.map" />
       </list>
     </option>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.php" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -431,7 +493,13 @@
     <MESSAGE value="new API action teacherWeeksSchedule&#10;Simple and compact format" />
     <MESSAGE value="API enhancements for group disciplines &amp; teacher disciplines" />
     <MESSAGE value="new API action disciplineLessons&#10;Returns array [lessonId, Date, Time and Auditorium]" />
-    <option name="LAST_COMMIT_MESSAGE" value="new API action disciplineLessons&#10;Returns array [lessonId, Date, Time and Auditorium]" />
+    <MESSAGE value="new API list type tfdListExpanded&#10;Returns tfd list with&#10;tfd id, discipline name, teacher FIO and studentgroup name" />
+    <MESSAGE value="new API action teacherExams" />
+    <MESSAGE value="Empty Consultation and Exam date on magic empty value 01.01.2020 0:00" />
+    <MESSAGE value="GetTfdListExpanded in listtype tfdListExpanded &#10;accepts and respects teacherId parameter" />
+    <MESSAGE value="sessionList param&#10;in teacher list and mainGroupList&#10;to fetch old schedule lists" />
+    <MESSAGE value="Fix unnecessary dbPrefix in aud fields of teacherExams API call" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix unnecessary dbPrefix in aud fields of teacherExams API call" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -650,31 +718,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/SessionScheduleChanges.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_php/includes/SessionDates.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/SessionByDate.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_php/includes/SessionSchedule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -788,12 +835,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_php/includes/SessionByDate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_php/includes/SessionScheduleChanges.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_php/includes/SessionSchedule.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_php/includes/API/apiCore.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="2581" column="20" lean-forward="false" selection-start-line="2581" selection-start-column="20" selection-end-line="2581" selection-end-column="20" />
+        <state relative-caret-position="74">
+          <caret line="2712" column="20" lean-forward="false" selection-start-line="2712" selection-start-column="20" selection-end-line="2712" selection-end-column="20" />
           <folding>
-            <marker date="1512629174259" expanded="true" signature="42335:42413" ph="SELECT `Name... ${$this-&gt;dbPrefix}" />
+            <marker date="1518441572209" expanded="true" signature="45470:45548" ph="SELECT `Name... ${$this-&gt;dbPrefix}" />
+            <marker date="1518441572209" expanded="true" signature="127669:127765" ph="..." />
           </folding>
         </state>
       </provider>
