@@ -2702,28 +2702,31 @@ class api {
 
         $teacherId = $POST['teacherId'];
 
-        $query  ="SELECT " . $this->dbPrefix . "disciplines.Name as disciplineName, ";
-        $query .="" . $this->dbPrefix . "studentGroups.Name as studentGroupname, ";
-        $query .="" . $this->dbPrefix . "calendars.Date, ";
-        $query .="" . $this->dbPrefix . "rings.Time, ";
-        $query .="" . $this->dbPrefix . "auditoriums.Name as auditoriumName ";
-        $query .="FROM " . $this->dbPrefix . "lessons ";
-        $query .="JOIN " . $this->dbPrefix . "teacherForDisciplines ";
-        $query .="ON " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
-        $query .="JOIN " . $this->dbPrefix . "teachers ";
-        $query .="ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
-        $query .="JOIN " . $this->dbPrefix . "disciplines ";
-        $query .="ON " . $this->dbPrefix . "teacherForDisciplines.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
-        $query .="JOIN " . $this->dbPrefix . "studentGroups ";
-        $query .="ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
-        $query .="JOIN " . $this->dbPrefix . "calendars ";
-        $query .="ON " . $this->dbPrefix . "lessons.CalendarId = " . $this->dbPrefix . "calendars.CalendarId ";
-        $query .="JOIN " . $this->dbPrefix . "rings ";
-        $query .="ON " . $this->dbPrefix . "lessons.RingId = " . $this->dbPrefix . "rings.RingId ";
-        $query .="JOIN " . $this->dbPrefix . "auditoriums ";
-        $query .="ON " . $this->dbPrefix . "lessons.AuditoriumId = " . $this->dbPrefix . "auditoriums.AuditoriumID ";
-        $query .="WHERE " . $this->dbPrefix . "teachers.TeacherId = " . $teacherId . " ";
-        $query .="ORDER BY " . $this->dbPrefix . "calendars.Date, " . $this->dbPrefix . "rings.Time ";
+        $query  ="SELECT ";
+        $query .= $this->dbPrefix . "lessons.LessonId, ";
+        $query .= $this->dbPrefix . "disciplines.Name as disciplineName, ";
+        $query .= $this->dbPrefix . "studentGroups.Name as studentGroupname, ";
+        $query .= $this->dbPrefix . "calendars.Date, ";
+        $query .= $this->dbPrefix . "rings.Time, ";
+        $query .= $this->dbPrefix . "auditoriums.Name as auditoriumName ";
+        $query .= "FROM " . $this->dbPrefix . "lessons ";
+        $query .= "JOIN " . $this->dbPrefix . "teacherForDisciplines ";
+        $query .= "ON " . $this->dbPrefix . "lessons.TeacherForDisciplineId = " . $this->dbPrefix . "teacherForDisciplines.TeacherForDisciplineId ";
+        $query .= "JOIN " . $this->dbPrefix . "teachers ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.TeacherId = " . $this->dbPrefix . "teachers.TeacherId ";
+        $query .= "JOIN " . $this->dbPrefix . "disciplines ";
+        $query .= "ON " . $this->dbPrefix . "teacherForDisciplines.DisciplineId = " . $this->dbPrefix . "disciplines.DisciplineId ";
+        $query .= "JOIN " . $this->dbPrefix . "studentGroups ";
+        $query .= "ON " . $this->dbPrefix . "disciplines.StudentGroupId = " . $this->dbPrefix . "studentGroups.StudentGroupId ";
+        $query .= "JOIN " . $this->dbPrefix . "calendars ";
+        $query .= "ON " . $this->dbPrefix . "lessons.CalendarId = " . $this->dbPrefix . "calendars.CalendarId ";
+        $query .= "JOIN " . $this->dbPrefix . "rings ";
+        $query .= "ON " . $this->dbPrefix . "lessons.RingId = " . $this->dbPrefix . "rings.RingId ";
+        $query .= "JOIN " . $this->dbPrefix . "auditoriums ";
+        $query .= "ON " . $this->dbPrefix . "lessons.AuditoriumId = " . $this->dbPrefix . "auditoriums.AuditoriumID ";
+        $query .= "WHERE " . $this->dbPrefix . "teachers.TeacherId = " . $teacherId . " ";
+        $query .= "AND " . $this->dbPrefix . "lessons.IsActive = 1 ";
+        $query .= "ORDER BY " . $this->dbPrefix . "calendars.Date, " . $this->dbPrefix . "rings.Time ";
 
         $queryResult = $this->database->query($query);
 
