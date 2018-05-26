@@ -2528,21 +2528,46 @@ class api {
         $groupId = "-1";
         if (isset($POST['groupId'])) {
             $groupId = $POST["groupId"];
+
+            $groupsQuery = "SELECT DISTINCT " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
+            $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+            $groupsQuery .= "WHERE StudentId ";
+            $groupsQuery .= "IN ( ";
+            $groupsQuery .= "SELECT " . $this->dbPrefix . "studentsInGroups.StudentId ";
+            $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+            $groupsQuery .= "WHERE " . $this->dbPrefix . "studentsInGroups.StudentGroupId = " . $groupId . " ";
+            $groupsQuery .= ")";
+
+            $groupIdsResult = $this->database->query($groupsQuery);
+            $groupIdsArray = array();
+            while ($id = $groupIdsResult->fetch_assoc()) {
+                $groupIdsArray[] = $id["StudentGroupId"];
+            }
         }
 
-        $groupsQuery = "SELECT DISTINCT " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
-        $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
-        $groupsQuery .= "WHERE StudentId ";
-        $groupsQuery .= "IN ( ";
-        $groupsQuery .= "SELECT " . $this->dbPrefix . "studentsInGroups.StudentId ";
-        $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
-        $groupsQuery .= "WHERE " . $this->dbPrefix . "studentsInGroups.StudentGroupId = " . $groupId . " ";
-        $groupsQuery .= ")";
+        $facultyId = "-1";
+        if (isset($POST['facultyId'])) {
+            $facultyId = $POST["facultyId"];
 
-        $groupIdsResult = $this->database->query($groupsQuery);
-        $groupIdsArray = array();
-        while ($id = $groupIdsResult->fetch_assoc()) {
-            $groupIdsArray[] = $id["StudentGroupId"];
+            $groupsQuery = "SELECT DISTINCT " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
+            $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+            $groupsQuery .= "WHERE StudentId ";
+            $groupsQuery .= "IN ( ";
+            $groupsQuery .= "SELECT " . $this->dbPrefix . "studentsInGroups.StudentId ";
+            $groupsQuery .= "FROM " . $this->dbPrefix . "studentsInGroups ";
+            $groupsQuery .= "WHERE " . $this->dbPrefix . "studentsInGroups.StudentGroupId ";
+            $groupsQuery .= "IN ( ";
+            $groupsQuery .= "SELECT " . $this->dbPrefix . "GroupsInFaculties.StudentGroupId ";
+            $groupsQuery .= "FROM " . $this->dbPrefix . "GroupsInFaculties ";
+            $groupsQuery .= "WHERE " . $this->dbPrefix . "GroupsInFaculties.FacultyId = " . $facultyId;
+            $groupsQuery .= ")";
+            $groupsQuery .= ")";
+
+            $groupIdsResult = $this->database->query($groupsQuery);
+            $groupIdsArray = array();
+            while ($id = $groupIdsResult->fetch_assoc()) {
+                $groupIdsArray[] = $id["StudentGroupId"];
+            }
         }
 
 
@@ -2619,7 +2644,7 @@ class api {
             if ($aDate < $bDate) {
                 $result = -1;
             } else {
-                $result = 0;
+                $result = ($a["GroupName"] > $b["GroupName"]) ? 1 : (($a["GroupName"] < $b["GroupName"]) ? -1 : 0);
             }
         }
 

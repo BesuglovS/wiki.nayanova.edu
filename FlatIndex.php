@@ -301,10 +301,23 @@ $database->query($statQuery);
     ?>
     <!-- vk.com -->
 
+    <script type="text/javascript">
+        var quotes;
+        $.get("upload/quotes.txt", function(data) {
+            quotes = data.split('\n');
+
+            var quote = quotes[Math.floor(Math.random()*quotes.length)];
+            $(function() {
+                $("#leftHeader").text(quote);
+            });
+        });
+    </script>
+
 </head>
 <body>
 <div id="container">
 <header id="loginHeader">
+    <p style="float:left; font-size: 10px" id="leftHeader"></p>
     <p>
         <?php
             if (!$FromNU)
@@ -372,7 +385,7 @@ $database->query($statQuery);
         <p>
             <button id="planByTeacher" type="button">Дисциплины по преподавателям</button>
         </p>
-        <?
+        <?php
             if (array_key_exists("studentId", $_SESSION))
             {
                 echo "<p>";
@@ -416,50 +429,50 @@ $database->query($statQuery);
         <tbody>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="13Math">13 А</button></td>
+            <td>&nbsp;</td>
             <td><button id="14Math">14 А</button></td>
             <td><button id="15Math">15 А</button></td>
         </tr>
         <tr>
-            <td><button id="12Phil">12 Б</button></td>
+            <td>&nbsp;</td>
             <td><button id="13Phil">13 Б</button></td>
             <td><button id="14Phil">14 Б</button></td>
             <td><button id="15Phil">15 Б</button></td>
+            <td><button id="16Phil">16 Б</button></td>
             <td>&nbsp;</td>
-            <td><button id="17Phil">17 Б</button></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="13Eco">13 В</button></td>
+            <td>&nbsp;</td>
             <td><button id="14Eco">14 В</button></td>
             <td><button id="15Eco">15 В</button></td>
             <td>&nbsp;</td>
         </tr>
         <tr>
+            <td><button id="12Econ">12 Г</button></td>
             <td>&nbsp;</td>
-            <td><button id="13Econ">13 Г</button></td>
             <td><button id="14Econ">14 Г</button></td>
             <td><button id="15Econ">15 Г</button></td>
             <td>&nbsp;</td>
-            <td><button id="17Econ">17 Г</button></td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
+            <td><button id="12Law">12 Д</button></td>
             <td>&nbsp;</td>
-            <td><button id="13Law">13 Д</button></td>
             <td><button id="14Law">14 Д</button></td>
             <td><button id="15Law">15 Д</button></td>
+            <td><button id="16Law">16 Д</button></td>
             <td>&nbsp;</td>
-            <td><button id="17Law">17 Д</button></td>
         </tr>
         <tr>
+            <td><button id="12PR">12 Е</button></td>
             <td>&nbsp;</td>
-            <td><button id="13PR">13 Е</button></td>
             <td><button id="14PR">14 Е</button></td>
             <td><button id="15PR">15 Е</button></td>
         </tr>        
         <tr>
             <td>&nbsp;</td>
-            <td><button id="13Upr">13 У</button></td>
+            <td>&nbsp;</td>
             <td><button id="14Upr">14 У</button></td>
             <td><button id="15Upr">15 У</button></td>
         </tr>
@@ -472,26 +485,26 @@ $database->query($statQuery);
         <tr>
             <td>&nbsp;</td>
             <td><button id="2AMath">2 АА</button></td>
-            <td>&nbsp;</td>
+            <td><button id="3AMath">3 АА</button></td>
         </tr>
         <tr>
-            <td><button id="1APhil">1 АБ</button></td>
+            <td>&nbsp;</td>
             <td><button id="2APhil">2 АБ</button></td>
             <td><button id="3APhil">3 АБ</button></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="2AEco">2 АВ</button></td>
+            <td>&nbsp;</td>
             <td><button id="3AEco">3 АВ</button></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="2AEcon">2 АГ</button></td>
-            <td><button id="3AEcon">3 АГ</button></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="2ALaw">2 АД</button></td>
+            <td>&nbsp;</td>
             <td><button id="3ALaw">3 АД</button></td>
         </tr>        
         </tbody>
@@ -570,7 +583,7 @@ $database->query($statQuery);
     <section id="vk">
         <div id="sessiusImageDiv">
             <!--<img src="upload/images/sessius-sdavamus.jpg" id="sessiussdavamus" width="221" height="215"> -->
-            <!--<img src="upload/images/ColdHeart.jpg" style="border-radius: 200px" width="280px" >-->
+            <img src="upload/images/rocket.gif" style="border-radius: 150px" width="150px" >
 			<!--<canvas style="display: inline" id="evoCanvas" width="220" height="220"></canvas>-->
             <?php
 
@@ -580,9 +593,9 @@ $database->query($statQuery);
                 echo $dates->GetNearestZach("", $sessionStudentId);
             }
             ?>            
-            <img src="s/upload/images/summer1.jpg" style="margin:auto; border-radius: 10px; border: solid 3px black;" width="300px" >
-            <div style="text-align: center">До лета осталось:</div>
-            <div id="summer" style="height: 50px"></div>                        
+            <!--<img src="upload/images/fail.jpg" style="margin:auto; border-radius: 10px; border: solid 3px black;" width="290px" >-->
+            <!--<div style="text-align: center">До лета осталось:</div>-->
+            <!--<div id="summer" style="height: 50px"></div>-->          
             <!--<img id="rightSideImage" src="upload/images/maslenitza.jpg" width="183" height="300">-->
         </div>
 
@@ -614,7 +627,7 @@ $database->query($statQuery);
         -->
 
 		
-		<!--
+		
 		<h2 id="sessionScheduleHeader">Расписание сессии</h2>
 
         <div id="scheduleOrChangesSessionDiv">
@@ -627,89 +640,89 @@ $database->query($statQuery);
 
         <table id="SessionScheduleTable">
             <tbody>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13Math2">13 А</button></td>
-            <td><button id="14Math2">14 А</button></td>
-            <td><button id="15Math2">15 А</button></td>
-        </tr>
-        <tr>
-            <td><button id="12Phil2">12 Б</button></td>
-            <td><button id="13Phil2">13 Б</button></td>
-            <td><button id="14Phil2">14 Б</button></td>
-            <td><button id="15Phil2">15 Б</button></td>
-            <td>&nbsp;</td>
-            <td><button id="17Phil2">17 Б</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13Eco2">13 В</button></td>
-            <td><button id="14Eco2">14 В</button></td>
-            <td><button id="15Eco2">15 В</button></td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13Econ2">13 Г</button></td>
-            <td><button id="14Econ2">14 Г</button></td>
-            <td><button id="15Econ2">15 Г</button></td>
-            <td>&nbsp;</td>
-            <td><button id="17Econ2">17 Г</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13Law2">13 Д</button></td>
-            <td><button id="14Law2">14 Д</button></td>
-            <td><button id="15Law2">15 Д</button></td>
-            <td>&nbsp;</td>
-            <td><button id="17Law2">17 Д</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13PR2">13 Е</button></td>
-            <td><button id="14PR2">14 Е</button></td>
-            <td><button id="15PR2">15 Е</button></td>
-        </tr>        
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="13Upr2">13 У</button></td>
-            <td><button id="14Upr2">14 У</button></td>
-            <td><button id="15Upr2">15 У</button></td>
-        </tr>
-        <tr>
-            <td><button id="12Tur2">12 Т</button></td>
-            <td><button id="13Tur2">13 Т</button></td>
-            <td><button id="14Tur2">14 Т</button></td>
-            <td><button id="15Tur2">15 Т</button></td>
-        </tr>        
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="2AMath2">2 АА</button></td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td><button id="1APhil2">1 АБ</button></td>
-            <td><button id="2APhil2">2 АБ</button></td>
-            <td><button id="3APhil2">3 АБ</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="2AEco2">2 АВ</button></td>
-            <td><button id="3AEco2">3 АВ</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="2AEcon2">2 АГ</button></td>
-            <td><button id="3AEcon2">3 АГ</button></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td><button id="2ALaw2">2 АД</button></td>
-            <td><button id="3ALaw2">3 АД</button></td>
-        </tr>        
-        </tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><button id="14Math2">14 А</button></td>
+                <td><button id="15Math2">15 А</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button id="13Phil2">13 Б</button></td>
+                <td><button id="14Phil2">14 Б</button></td>
+                <td><button id="15Phil2">15 Б</button></td>
+                <td><button id="16Phil2">16 Б</button></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><button id="14Eco2">14 В</button></td>
+                <td><button id="15Eco2">15 В</button></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button id="12Econ2">12 Г</button></td>
+                <td>&nbsp;</td>
+                <td><button id="14Econ2">14 Г</button></td>
+                <td><button id="15Econ2">15 Г</button></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button id="12Law2">12 Д</button></td>
+                <td>&nbsp;</td>
+                <td><button id="14Law2">14 Д</button></td>
+                <td><button id="15Law2">15 Д</button></td>
+                <td><button id="16Law2">16 Д</button></td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td><button id="12PR2">12 Е</button></td>
+                <td>&nbsp;</td>
+                <td><button id="14PR2">14 Е</button></td>
+                <td><button id="15PR2">15 Е</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><button id="14Upr2">14 У</button></td>
+                <td><button id="15Upr2">15 У</button></td>
+            </tr>
+            <tr>
+                <td><button id="12Tur2">12 Т</button></td>
+                <td><button id="13Tur2">13 Т</button></td>
+                <td><button id="14Tur2">14 Т</button></td>
+                <td><button id="15Tur2">15 Т</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button id="2AMath2">2 АА</button></td>
+                <td><button id="3AMath2">3 АА</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button id="2APhil2">2 АБ</button></td>
+                <td><button id="3APhil2">3 АБ</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><button id="3AEco2">3 АВ</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><button id="3ALaw2">3 АД</button></td>
+            </tr>
+            </tbody>
         </table>
-       -->
+       
     </section>
 </section>
 </section>
