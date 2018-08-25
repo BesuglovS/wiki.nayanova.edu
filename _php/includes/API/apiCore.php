@@ -14,7 +14,7 @@ class api {
     public function __construct($db, $dbPrefix){
         $this->database = $db;
         $this->dbPrefix = $dbPrefix;
-        $this->examsPrefix = "old_";
+        $this->examsPrefix = "";
     }
 
     public function ExecuteAction($POST){

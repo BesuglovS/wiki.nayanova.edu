@@ -327,7 +327,7 @@
         <tr>
             <td><button id="8Hum">8 Б</button></td>
             <td><button id="9Hum">9 Б</button></td>
-            <td><button id="10Hum">10 Б</button></td>
+            <td> </td>
             <td><button id="11Hum">11 Б</button></td>
         </tr>
         <tr>
@@ -337,10 +337,16 @@
             <td><button id="11Eco">11 В</button></td>
         </tr>
         <tr>
-            <td><button id="8Econ">8 Г</button></td>
+            <td><button id="8Econ1">8 Г1</button></td>
             <td><button id="9Econ">9 Г</button></td>
-            <td>&nbsp;</td>
-            <td><button id="11Econ">11 Г</button></td>
+            <td><button id="10Econ">10 Г</button></td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td><button id="8Econ2">8 Г2</button></td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
         </tr>
         </tbody>
     </table>
@@ -458,12 +464,12 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><button id="2D">2 Д</button></td>
+            <td> </td>
             <td><button id="3D">3 Д</button></td>
+            <td><button id="4D">4 Д</button></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td><button id="7D">7 Д</button></td>
+            <td> </td>
         </tr>
         </tbody>
     </table>

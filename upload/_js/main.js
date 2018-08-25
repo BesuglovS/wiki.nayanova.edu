@@ -1,76 +1,60 @@
 var groupNames = [
-    "13 А", "14 А", "15 А",
-    "12 Б", "13 Б", "14 Б", "15 Б", "17 Б",
-    "13 В", "14 В", "15 В",
-    "13 Г", "14 Г", "15 Г", "17 Г",
-    "13 Д", "14 Д", "15 Д", "17 Д",
-    "13 Е", "14 Е", "15 Е",
-    "13 У", "14 У", "15 У",
+    "15 А",
+    "12 Б", "14 Б", "15 Б", "16 Б", "17 Б",
+    "12 В", "15 В",
+    "12 Г", "13 Г", "15 Г", "16 Г",
+    "12 Д", "13 Д", "15 Д", "16 Д", "17 Д",
+    "12 Е", "13 Е", "15 Е",
+    "12 У1", "12 У2", "15 У",
     "12 Т", "13 Т", "14 Т", "15 Т",
-    "2 АА", 
-    "1 АБ", "2 АБ", "3 АБ",
-    "2 АВ", "3 АВ",
-    "2 АГ", "3 АГ",
-    "2 АД", "3 АД"];
+    "1 АА", "3 АА", "4 АА",
+    "1 АБ", "3 АБ",
+    "1 АВ", "4 АВ",
+    "1 АГ",
+    "1 АД"];
 var groupIds = [
-    "1", "2", "3",
-    "4", "5", "6", "7", "28",
-    "8", "9", "10", 
-    "11", "12", "13", "29",
-    "14", "15", "16", "30",
-    "17", "18", "19",
-    "20", "21", "22",
-    "23", "24", "25", "26",
-    "83",
-    "81", "77", "82",
-    "84", "73", 
-    "85", "74", 
-    "78", "79"];
+    "1",
+    "5", "6", "7", "8", "9",
+    "12", "13",
+    "16", "17", "18", "19",
+    "21", "22", "23", "24", "25",
+    "27", "28", "29",
+    "30", "31", "32",
+    "33", "34", "35", "36",
+    "2", "3", "4",
+    "10", "11",
+    "14", "15",
+    "20",
+    "26"];
 
 var sessionGroupIds = groupIds;
 
 /*
 var sessionGroupIds = [
-    "1", "2", "3", "4",
-    "5", "6", "7", "8", "48", "49",
-    "9", "10", "11", "12",
-    "13", "16", "17", "19", "20", "22", "44", "45",
-    "23", "26", "27", "28", "30", "46", "47",
-    "31", "32", "33", "34",
-    "35", "36", "37", "38",
-    "39", "40", "41", "42",
-    "179", "180", "181",
-    "182", "183", "184",
-    "185", "186", "187",
-    "188", "189", "190",
-    "191", "192"];
-    */
+*/
     
 var buttonSelectors = [
-    "#13Math", "#14Math", "#15Math",
-    "#12Phil", "#13Phil", "#14Phil", "#15Phil", "#17Phil",
-    "#13Eco", "#14Eco", "#15Eco",
-    "#13Econ", "#14Econ", "#15Econ", "#17Econ",
-    "#13Law", "#14Law", "#15Law", "#17Law",
-    "#13PR", "#14PR", "#15PR",
-    "#13Upr", "#14Upr", "#15Upr",
+    "#15Math",
+    "#12Phil", "#14Phil", "#15Phil", "#16Phil", "#17Phil",
+    "#12Eco", "#15Eco",
+    "#12Econ", "#13Econ", "#15Econ", "#16Econ",
+    "#12Law", "#13Law", "#15Law", "#16Law", "#17Law",
+    "#12PR", "#13PR", "#15PR",
+    "#12Upr1", "#12Upr2", "#15Upr",
     "#12Tur", "#13Tur", "#14Tur", "#15Tur",
-    "#2AMath",
-    "#1APhil", "#2APhil", "#3APhil",
-    "#2AEco", "#3AEco",
-    "#2AEcon", "#3AEcon",
-    "#2ALaw", "#3ALaw"];
+    "#1AMath", "#3AMath", "#4AMath",
+    "#1APhil", "#3APhil",
+    "#1AEco", "#4AEco",
+    "#1AEcon",
+    "#1ALaw"];
 
 var buildingsIndexes = [];
 buildingsIndexes["Mol"] = 1;
 buildingsIndexes["Jar"] = 2;
 buildingsIndexes["Other"] = 3;
-buildingsIndexes["SSU"] = -1;
+buildingsIndexes["Cha"] = 4;
 
-var schoolBuildings = [];
-schoolBuildings["Cha"] = 2;
-schoolBuildings["Mol"] = 1;
-schoolBuildings["Jar"] = 3;
+var schoolBuildings = buildingsIndexes;
 
 var dowRU = ["","Понедельник","Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
 
@@ -106,8 +90,8 @@ $(function() {
         dateFormat: 'dd mm yy', firstDay: 1,
         initStatus: '', isRTL: false};
 
-    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2017, 2 - 1, 1));
-    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2017, 6 - 1, 4));
+    $( "#scheduleDate" ).datepicker( "option", "minDate", new Date(2018, 9 - 1, 3));
+    $( "#scheduleDate" ).datepicker( "option", "maxDate", new Date(2018, 12 - 1, 31));
 
     $.datepicker.setDefaults($.datepicker.regional['ru']);
     /* Datepicker #scheduleDate */
