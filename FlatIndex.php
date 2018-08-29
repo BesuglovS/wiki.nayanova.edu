@@ -453,8 +453,8 @@ $database->query($statQuery);
         </tr>
         <tr>
             <td><button id="12Econ">12 Г</button></td>
-            <td>&nbsp;</td>
-            <td><button id="14Econ">14 Г</button></td>
+            <td><button id="13Econ">13 Г</button></td>
+            <td> </td>
             <td><button id="15Econ">15 Г</button></td>
             <td><button id="16Econ">16 Г</button></td>
             <td>&nbsp;</td>
@@ -677,8 +677,8 @@ $database->query($statQuery);
             </tr>
             <tr>
                 <td><button id="12Econ2">12 Г</button></td>
-                <td>&nbsp;</td>
-                <td><button id="14Econ2">14 Г</button></td>
+                <td><button id="13Econ">13 Г</button></td>
+                <td> </td>
                 <td><button id="15Econ2">15 Г</button></td>
                 <td><button id="16Econ2">16 Г</button></td>
                 <td>&nbsp;</td>
